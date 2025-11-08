@@ -1,0 +1,10 @@
+# Fichiers de build et IDE
+target/
+bin/
+*.class
+*.log
+
+# Fichiers Maven/Gradle
+*.jar
+*.war
+*.iml
