@@ -16,23 +16,27 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 	@Override
 	public void createCitoyen(Citoyen citoyen) {
 
-		String sql = "INSERT INTO CITOYEN (NOM, PRENOM, CIN, LIEU_NAISSANCE, TELEPHONE,"
-				+ "EMAIL, DATE_NAISSANCE, MOT_DE_PASSE, DATE_CREATION, ID_REGION) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO CITOYEN (NOM, PRENOM, NOM_UTILISATEUR, CIN, LIEU_NAISSANCE, TELEPHONE,"
+				+ "EMAIL, EMAIL_AUTH, DATE_NAISSANCE, MOT_DE_PASSE, DATE_CREATION, ID_REGION) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,? ,?)";
 		try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, citoyen.getNom());
 			ps.setString(2, citoyen.getPrenom());
-			ps.setString(3, citoyen.getCin());
-			ps.setString(4, citoyen.getLieuNaissance());
-			ps.setString(5, citoyen.getTelephone());
-			ps.setString(6, citoyen.getEmail());
-			ps.setDate(7, new java.sql.Date(citoyen.getDateNaissance().getTime()));
-			ps.setString(8, citoyen.getMotDePasse());
-			ps.setDate(9, new java.sql.Date(citoyen.getDateCreation().getTime()));
+			citoyen.setNomUtilisateur(citoyen.getNom() + "." + citoyen.getPrenom());
+			ps.setString(3, citoyen.getNomUtilisateur());
+			ps.setString(4, citoyen.getCin());
+			ps.setString(5, citoyen.getLieuNaissance());
+			ps.setString(6, citoyen.getTelephone());
+			ps.setString(7, citoyen.getEmail());
+			citoyen.setEmailAuth(citoyen.getCin() + "@municipal.ma");
+			ps.setString(8, citoyen.getEmailAuth());
+			ps.setDate(9, new java.sql.Date(citoyen.getDateNaissance().getTime()));
+			ps.setString(10, citoyen.getMotDePasse());
+			ps.setDate(11, new java.sql.Date(citoyen.getDateCreation().getTime()));
 			if (citoyen.getIdRegion() != null) {
-				ps.setLong(10, citoyen.getIdRegion());
+				ps.setLong(12, citoyen.getIdRegion());
 			} else {
-				ps.setNull(10, Types.BIGINT);
+				ps.setNull(12, Types.BIGINT);
 			}
 
 			ps.executeUpdate();
@@ -69,8 +73,8 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 	public Citoyen updateCitoyen(Citoyen citoyen) {
 			
      String sql = "UPDATE CITOYEN SET NOM = ?, PRENOM = ?, CIN = ?, LIEU_NAISSANCE = ?, "
-        		+ "TELEPHONE = ?, EMAIL = ?, DATE_NAISSANCE = ?, MOT_DE_PASSE = ?, DATE_CREATION = ?,"
-        		+ " ID_REGION = ? WHERE ID_CITOYEN = ?";
+        		+ "TELEPHONE = ?, EMAIL = ?, EMAIL_AUTH = ?, NOM_UTILISATEUR= ?, DATE_NAISSANCE = ?,"
+        		+ " MOT_DE_PASSE = ?, DATE_CREATION = ?, ID_REGION = ? WHERE ID_CITOYEN = ?";
         
      try (PreparedStatement ps = connection.prepareStatement(sql)) {
     	 	ps.setString(1, citoyen.getNom());
@@ -79,15 +83,17 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 			ps.setString(4, citoyen.getLieuNaissance());
 			ps.setString(5, citoyen.getTelephone());
 			ps.setString(6, citoyen.getEmail());
-			ps.setDate(7, new java.sql.Date(citoyen.getDateNaissance().getTime()));
-			ps.setString(8, citoyen.getMotDePasse());
-			ps.setDate(9, new java.sql.Date(citoyen.getDateCreation().getTime()));
+			ps.setString(7, citoyen.getEmailAuth());
+			ps.setString(8, citoyen.getNomUtilisateur());
+			ps.setDate(9, new java.sql.Date(citoyen.getDateNaissance().getTime()));
+			ps.setString(10, citoyen.getMotDePasse());
+			ps.setDate(11, new java.sql.Date(citoyen.getDateCreation().getTime()));
          if (citoyen.getIdRegion() != null) {
-             ps.setLong(10, citoyen.getIdRegion());
+             ps.setLong(12, citoyen.getIdRegion());
          } else {
-             ps.setNull(10, Types.BIGINT);
+             ps.setNull(12, Types.BIGINT);
          }
-         ps.setLong(11, citoyen.getIdCitoyen());
+         ps.setLong(13, citoyen.getIdCitoyen());
 
          ps.executeUpdate();
          return citoyen;
@@ -114,6 +120,8 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 					c.setLieuNaissance(rs.getString("LIEU_NAISSANCE"));
 					c.setTelephone(rs.getString("TELEPHONE"));
 					c.setEmail(rs.getString("EMAIL"));
+					c.setEmailAuth(rs.getString("EMAIL_AUTH"));
+					c.setNomUtilisateur(rs.getString("NOM_UTILISATEUR"));
 					c.setMotDePasse(rs.getString("MOT_DE_PASSE"));
 					c.setDateNaissance(rs.getDate("DATE_NAISSANCE"));
 					c.setDateCreation(rs.getDate("DATE_CREATION"));
@@ -145,6 +153,8 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
                 c.setLieuNaissance(rs.getString("LIEU_NAISSANCE"));
                 c.setTelephone(rs.getString("TELEPHONE"));
                 c.setEmail(rs.getString("EMAIL"));
+				c.setEmailAuth(rs.getString("EMAIL_AUTH"));
+				c.setNomUtilisateur(rs.getString("NOM_UTILISATEUR"));
                 c.setMotDePasse(rs.getString("MOT_DE_PASSE"));
                 c.setDateNaissance(rs.getDate("DATE_NAISSANCE"));
                 c.setDateCreation(rs.getDate("DATE_CREATION"));
@@ -176,6 +186,8 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 	                c.setLieuNaissance(rs.getString("LIEU_NAISSANCE"));
 	                c.setTelephone(rs.getString("TELEPHONE"));
 	                c.setEmail(rs.getString("EMAIL"));
+					c.setEmailAuth(rs.getString("EMAIL_AUTH"));
+					c.setNomUtilisateur(rs.getString("NOM_UTILISATEUR"));
 	                c.setMotDePasse(rs.getString("MOT_DE_PASSE"));
 	                c.setDateNaissance(rs.getDate("DATE_NAISSANCE"));
 	                c.setDateCreation(rs.getDate("DATE_CREATION"));

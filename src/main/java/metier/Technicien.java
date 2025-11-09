@@ -13,7 +13,11 @@ public class Technicien {
 		telephone,
 		email,
 		specialite,
-		competence;
+		competence,
+		nomUtilisateur,		
+		emailAuth,
+		motDePasse;
+
 	
 	private Boolean disponibilite;
 
@@ -114,6 +118,30 @@ public class Technicien {
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+
+	public String getNomUtilisateur() {
+		return nomUtilisateur;
+	}
+
+	public void setNomUtilisateur(String nomUtilisateur) {
+		this.nomUtilisateur = nomUtilisateur;
+	}
+
+	public String getEmailAuth() {
+		return emailAuth;
+	}
+
+	public void setEmailAuth(String emailAuth) {
+		this.emailAuth = emailAuth;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
 	}
 
 	

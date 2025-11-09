@@ -77,8 +77,8 @@ public class SingletonConnection {
                 .outOfOrder(true)  // ← AJOUTEZ CETTE LIGNE
                 .load();
             
-            //flyway.repair();
-            flyway.clean();
+            flyway.repair();
+            //flyway.clean();
             flyway.migrate();
             
             System.out.println("Migration réussie");

@@ -18,81 +18,71 @@ public class CitoyenCRUDTest {
 	@Before
 	public void setUp() throws Exception {
 	}
-
-	@Test
-	public void testCreateAndGetById() {
-		Citoyen c = new Citoyen();
-        c.setNom("Dupont");
-        c.setPrenom("Jean");
-        c.setCin("C123456");
-        c.setLieuNaissance("Paris");
+	
+	private Citoyen createTestCitoyen(String nom, String prenom, String cin, String email) {
+        Citoyen c = new Citoyen();
+        c.setNom(nom);
+        c.setPrenom(prenom);
+        c.setCin(cin);
+        c.setLieuNaissance("TestVille");
         c.setTelephone("0123456789");
-        c.setEmail("jean.dupont@example.com");
-        c.setMotDePasse("secret");
-        c.setDateNaissance(new java.sql.Date(System.currentTimeMillis()));
-        c.setDateCreation(new java.sql.Date(System.currentTimeMillis()));
-        c.setIdRegion(1L);
-
-        // Création
+        c.setEmail(email);
+        c.setDateNaissance(new java.util.Date());
+        c.setDateCreation(new java.util.Date()); 
+        c.setMotDePasse("password123"); 
+        c.setNomUtilisateur(nom + "." + prenom);
+        c.setEmailAuth(cin + "@municipal.ma");
+        c.setIdRegion(null);
+        return c;
+    }
+	
+	@Test
+    public void testCreateAndGetById() {
+        Citoyen c = createTestCitoyen("Dupont", "Jean", "C123456", "jean.dupont@example.com");
         crud.createCitoyen(c);
 
         assertNotNull("L'ID ne doit pas être null après création", c.getIdCitoyen());
 
-        // Récupération
         Citoyen fetched = crud.getById(c.getIdCitoyen().intValue());
-        assertEquals("Dupont", fetched.getNom());
-        assertEquals("Jean", fetched.getPrenom());
-    
-	}
+        assertNotNull(fetched);
+        assertEquals(c.getNom(), fetched.getNom());
+        assertEquals(c.getPrenom(), fetched.getPrenom());
+        assertEquals(c.getNomUtilisateur(), fetched.getNomUtilisateur());
+        assertEquals(c.getEmailAuth(), fetched.getEmailAuth());
+        assertEquals(c.getMotDePasse(), fetched.getMotDePasse());
+    }
 
 	@Test
-	public void testDeleteCitoyen() {
-        Citoyen c = new Citoyen();
-        c.setNom("Delete");
-        c.setPrenom("Me");
-        c.setCin("D12345");
-        c.setLieuNaissance("Marseille");
-        c.setTelephone("0123987654");
-        c.setEmail("delete.me@example.com");
-        c.setMotDePasse("pass");
-        c.setDateNaissance(new java.sql.Date(System.currentTimeMillis()));
-        c.setDateCreation(new java.sql.Date(System.currentTimeMillis()));
-        c.setIdRegion(1L);
-
+    public void testDeleteCitoyen() {
+        Citoyen c = createTestCitoyen("Delete", "Me", "D12345", "delete.me@example.com");
         crud.createCitoyen(c);
         Long id = c.getIdCitoyen();
         assertNotNull(id);
 
-        // Suppression
         crud.deleteCitoyen(id.intValue());
         Citoyen deleted = crud.getById(id.intValue());
         assertNull("Le citoyen doit être supprimé", deleted);
-	}
+    }
+
 
 	@Test
-	public void testUpdateCitoyen() {
-		// Créer un citoyen pour test
-        Citoyen c = new Citoyen();
-        c.setNom("Test");
-        c.setPrenom("User");
-        c.setCin("T12345");
-        c.setLieuNaissance("Lyon");
-        c.setTelephone("0987654321");
-        c.setEmail("test.user@example.com");
-        c.setMotDePasse("1234");
-        c.setDateNaissance(new java.sql.Date(System.currentTimeMillis()));
-        c.setDateCreation(new java.sql.Date(System.currentTimeMillis()));
-        c.setIdRegion(1L);
-
+    public void testUpdateCitoyen() {
+        Citoyen c = createTestCitoyen("Test", "User", "T12345", "test.user@example.com");
         crud.createCitoyen(c);
 
         // Modification
-        c.setNom("TestModifié");
+        c.setNom("TestModifie");
+        c.setNomUtilisateur(c.getNom() + "." + c.getPrenom());
+        c.setEmailAuth(c.getCin() + "@municipal.ma");
+        c.setMotDePasse("newpassword");
         crud.updateCitoyen(c);
 
         Citoyen updated = crud.getById(c.getIdCitoyen().intValue());
-        assertEquals("TestModifié", updated.getNom());
-	}
+        assertEquals("TestModifie", updated.getNom());
+        assertEquals(c.getNomUtilisateur(), updated.getNomUtilisateur());
+        assertEquals(c.getEmailAuth(), updated.getEmailAuth());
+        assertEquals(c.getMotDePasse(), updated.getMotDePasse());
+    }
 
 	@Test
 	public void testGetAll() {

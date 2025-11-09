@@ -8,11 +8,39 @@ public class Employe {
 
 	private String nom,
 		prenom,
+		nomUtilisateur,
 		cin,
 		lieuNaissance,
 		telephone,
-		email;
+		email,
+		emailAuth,
+		motDePasse;
+	
 
+	//ADMIN_PRIVILEGE
+	private boolean adminPriv;
+	
+	public Employe () {
+		
+	}
+
+	public Employe(Long idMunicipal, String nom, String prenom, String cin, String lieuNaissance, String telephone,
+			String email, String motDePasse, Date dateNaissance, Date dateCreation) {
+		super();
+		this.idMunicipal = idMunicipal;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.cin = cin;
+		this.lieuNaissance = lieuNaissance;
+		this.telephone = telephone;
+		this.email = email;
+		this.motDePasse = motDePasse;
+		this.nomUtilisateur = nom + "." + prenom;
+		this.emailAuth = cin + "@municipal.ma";
+		this.dateNaissance = dateNaissance;
+		this.dateCreation = dateCreation;
+	}
+	
 	private Date dateNaissance,
 		dateCreation;
 
@@ -94,6 +122,38 @@ public class Employe {
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+
+	public String getNomUtilisateur() {
+		return nomUtilisateur;
+	}
+
+	public void setNomUtilisateur(String nomUtilisateur) {
+		this.nomUtilisateur = nomUtilisateur;
+	}
+
+	public String getEmailAuth() {
+		return emailAuth;
+	}
+
+	public void setEmailAuth(String emailAuth) {
+		this.emailAuth = emailAuth;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
+	public boolean isAdminPriv() {
+		return adminPriv;
+	}
+
+	public void setAdminPriv(boolean adminPriv) {
+		this.adminPriv = adminPriv;
 	}
 	
 	

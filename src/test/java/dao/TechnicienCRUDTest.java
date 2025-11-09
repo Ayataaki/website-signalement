@@ -2,11 +2,14 @@ package dao;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
 import java.sql.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import metier.Citoyen;
+import metier.Employe;
 import metier.Technicien;
 
 public class TechnicienCRUDTest {
@@ -16,65 +19,49 @@ public class TechnicienCRUDTest {
     @Before
     public void setUp() throws Exception {
         technicienDAO = new TechnicienCRUDImpl();
+        Connection conn = SingletonConnection.getConnection();
+	    conn.createStatement().executeUpdate("DELETE FROM TECHNICIEN");
     }
-
-    @Test
-    public void testCreateTechnicien() {
+    
+    private Technicien createTestTechnicien(String nom, String prenom, String cin, String email) {
         Technicien t = new Technicien();
-        t.setNom("Ahmed");
-        t.setPrenom("Salah");
-        t.setCin("AA112233");
+        t.setNom(nom);
+        t.setPrenom(prenom);
+        t.setCin(cin);
         t.setLieuNaissance("Rabat");
         t.setTelephone("0612345678");
-        t.setEmail("ahmed.salah@example.com");
+        t.setEmail(email);
         t.setDateNaissance(Date.valueOf("1990-01-10"));
         t.setSpecialite("Électricité");
         t.setCompetence("Installation");
+        t.setMotDePasse("secret");
         t.setDisponibilite(true);
         t.setDateCreation(new Date(System.currentTimeMillis()));
+        return t;
+    }
 
+    @Test
+    public void testCreateAndGetByIdTechnicien() {
+    	Technicien t = createTestTechnicien("Dupont", "Jean", "C123456", "jean.dupont@example.com");
         technicienDAO.createTechnicien(t);
+
+        assertNotNull("L'ID ne doit pas être null après création", t.getIdTechnicien());
+
+        Technicien fetched = technicienDAO.getById(t.getIdTechnicien().intValue());
+        assertNotNull(fetched);
+        assertEquals(t.getNom(), fetched.getNom());
+        assertEquals(t.getPrenom(), fetched.getPrenom());
+        assertEquals(t.getNomUtilisateur(), fetched.getNomUtilisateur());
+        assertEquals(t.getEmailAuth(), fetched.getEmailAuth());
+        assertEquals(t.getMotDePasse(), fetched.getMotDePasse());
 
         assertNotNull("L'ID du technicien doit être généré", t.getIdTechnicien());
     }
 
     @Test
-    public void testGetById() {
-        Technicien t = new Technicien();
-        t.setNom("Mouna");
-        t.setPrenom("El Idrissi");
-        t.setCin("BB223344");
-        t.setLieuNaissance("Casablanca");
-        t.setTelephone("0699988776");
-        t.setEmail("mouna.elidrissi@example.com");
-        t.setDateNaissance(Date.valueOf("1988-05-15"));
-        t.setSpecialite("Informatique");
-        t.setCompetence("Maintenance");
-        t.setDisponibilite(true);
-        t.setDateCreation(new Date(System.currentTimeMillis()));
-
-        technicienDAO.createTechnicien(t);
-
-        Technicien fetched = technicienDAO.getById(t.getIdTechnicien().intValue());
-        assertNotNull("Le technicien doit être trouvé en base", fetched);
-        assertEquals("Le nom doit correspondre", "Mouna", fetched.getNom());
-    }
-
-    @Test
     public void testUpdateTechnicien() {
-        Technicien t = new Technicien();
-        t.setNom("Hassan");
-        t.setPrenom("Khalid");
-        t.setCin("CC334455");
-        t.setLieuNaissance("Fès");
-        t.setTelephone("0622334455");
-        t.setEmail("hassan.khalid@example.com");
-        t.setDateNaissance(Date.valueOf("1992-03-20"));
-        t.setSpecialite("Plomberie");
-        t.setCompetence("Réparation");
-        t.setDisponibilite(true);
-        t.setDateCreation(new Date(System.currentTimeMillis()));
-
+        Technicien t =createTestTechnicien("Hassan","Khalid","CC334455","hassan.khalid@example.com");
+        
         technicienDAO.createTechnicien(t);
 
         // Mise à jour téléphone et spécialité
@@ -89,26 +76,16 @@ public class TechnicienCRUDTest {
     }
 
     @Test
-    public void testDeleteTechnicien() {
-        Technicien t = new Technicien();
-        t.setNom("Fatima");
-        t.setPrenom("Zahra");
-        t.setCin("DD445566");
-        t.setLieuNaissance("Agadir");
-        t.setTelephone("0611223344");
-        t.setEmail("fatima.zahra@example.com");
-        t.setDateNaissance(Date.valueOf("1991-08-12"));
-        t.setSpecialite("Soudure");
-        t.setCompetence("Assemblage");
-        t.setDisponibilite(true);
-        t.setDateCreation(new Date(System.currentTimeMillis()));
+	public void testDeleteTechnicien() {
+		Technicien t = createTestTechnicien("Hassan", "Khalid", "CC334455", "hassan.khalid@example.com");
 
-        technicienDAO.createTechnicien(t);
-        Long id = t.getIdTechnicien();
+		technicienDAO.createTechnicien(t);
 
-        technicienDAO.deleteTechnicien(id.intValue());
+		Long id = t.getIdTechnicien();
 
-        Technicien deleted = technicienDAO.getById(id.intValue());
-        assertNull("Le technicien supprimé ne doit plus exister", deleted);
-    }
+		technicienDAO.deleteTechnicien(id.intValue());
+
+		Technicien deleted = technicienDAO.getById(id.intValue());
+		assertNull("Le technicien supprimé ne doit plus exister", deleted);
+	}
 }

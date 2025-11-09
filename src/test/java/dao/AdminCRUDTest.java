@@ -3,29 +3,26 @@ package dao;
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
-import java.sql.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import metier.Citoyen;
-import metier.Employe;
+import metier.Administrateur;
 
-public class EmployeCRUDTest {
+public class AdminCRUDTest {
 	
-	private EmployeCRUDImpl employeDAO;
+	private AdminCRUDImpl adminDAO;
 
 	@Before
 	public void setUp() throws Exception {
-		employeDAO = new EmployeCRUDImpl();
+		adminDAO = new AdminCRUDImpl();
 
 	    Connection conn = SingletonConnection.getConnection();
-	    conn.createStatement().executeUpdate("DELETE FROM EMPLOYE");
+	    conn.createStatement().executeUpdate("DELETE FROM ADMINISTRATEUR");
 	}
-	
-	
-	private Employe createTestEmploye(String nom, String prenom, String cin, String email) {
-		Employe c = new Employe();
+
+	private Administrateur createTestAdmin(String nom, String prenom, String cin, String email) {
+		Administrateur c = new Administrateur();
         c.setNom(nom);
         c.setPrenom(prenom);
         c.setCin(cin);
@@ -37,18 +34,18 @@ public class EmployeCRUDTest {
         c.setMotDePasse("password123"); 
         c.setNomUtilisateur(nom + "." + prenom);
         c.setEmailAuth(cin + "@municipal.ma");
-        c.setIdMunicipal(null);
         return c;
     }
+	
 
 	@Test
-    public void testCreateAndGetByIdEmploye() {
-		Employe c = createTestEmploye("Dupont", "Jean", "C123456", "jean.dupont@example.com");
-        employeDAO.createEmploye(c);
+    public void testCreateAndGetByIdAdmin() {
+		Administrateur c = createTestAdmin("Dupont", "Jean", "C123456", "jean.dupont@example.com");
+        adminDAO.createAdmin(c);
 
-        assertNotNull("L'ID ne doit pas être null après création", c.getIdEmploye());
+        assertNotNull("L'ID ne doit pas être null après création", c.getIdAdmin());
 
-        Employe fetched = employeDAO.getById(c.getIdEmploye().intValue());
+        Administrateur fetched = adminDAO.getById(c.getIdAdmin().intValue());
         assertNotNull(fetched);
         assertEquals(c.getNom(), fetched.getNom());
         assertEquals(c.getPrenom(), fetched.getPrenom());
@@ -56,23 +53,23 @@ public class EmployeCRUDTest {
         assertEquals(c.getEmailAuth(), fetched.getEmailAuth());
         assertEquals(c.getMotDePasse(), fetched.getMotDePasse());
 
-        assertNotNull("L'ID de l'employé doit être généré",c.getIdEmploye());
+        assertNotNull("L'ID de l'admin doit être généré",c.getIdAdmin());
     }
 	
     @Test
-    public void testUpdateEmploye() {
+    public void testUpdateAdmin() {
     	
-    	Employe c = createTestEmploye("Dupont", "Jean", "C123456", "jean.dupont@example.com");
-        employeDAO.createEmploye(c);
+    	Administrateur c = createTestAdmin("Dupont", "Jean", "C123456", "jean.dupont@example.com");
+        adminDAO.createAdmin(c);
 
         // Modification
         c.setNom("TestModifie");
         c.setNomUtilisateur(c.getNom() + "." + c.getPrenom());
         c.setEmailAuth(c.getCin() + "@municipal.ma");
         c.setMotDePasse("newpassword");
-        employeDAO.updateEmploye(c);
+        adminDAO.updateAdmin(c);
 
-        Employe updated = employeDAO.getById(c.getIdEmploye().intValue());
+        Administrateur updated = adminDAO.getById(c.getIdAdmin().intValue());
         assertEquals("TestModifie", updated.getNom());
         assertEquals(c.getNomUtilisateur(), updated.getNomUtilisateur());
         assertEquals(c.getEmailAuth(), updated.getEmailAuth());
@@ -81,18 +78,19 @@ public class EmployeCRUDTest {
     }
 
     @Test
-    public void testDeleteEmploye() {
+    public void testDeleteAdmin() {
 
-    	Employe c = createTestEmploye("Dupont", "Jean", "C123456", "jean.dupont@example.com");
-        employeDAO.createEmploye(c);
+    	Administrateur c = createTestAdmin("Dupont", "Jean", "C123456", "jean.dupont@example.com");
+        adminDAO.createAdmin(c);
 
-        Long id = c.getIdEmploye();
+        Long id = c.getIdAdmin();
         assertNotNull(id);
 
-        employeDAO.deleteEmploye(id.intValue());
-        Employe deleted = employeDAO.getById(id.intValue());
-        assertNull("L'employé doit etre supprimé", deleted);
+        adminDAO.deleteAdmin(id.intValue());
+        Administrateur deleted = adminDAO.getById(id.intValue());
+        assertNull("L'administrateur doit etre supprimé", deleted);
     	
     }
+    
 
 }

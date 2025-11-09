@@ -9,14 +9,35 @@ public class Citoyen {
 	
 	private String nom,
 		prenom,
+		nomUtilisateur,
 		cin,
 		lieuNaissance,
 		telephone,
 		email,
+		emailAuth,
 		motDePasse;
 	
 	private Date dateNaissance,
 		dateCreation;
+	
+	public Citoyen(){}
+	
+	public Citoyen(Long idRegion, String nom, String prenom, String cin, String lieuNaissance, String telephone,
+			String email, String motDePasse, Date dateNaissance, Date dateCreation) {
+		super();
+		this.idRegion = idRegion;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.cin = cin;
+		this.lieuNaissance = lieuNaissance;
+		this.telephone = telephone;
+		this.email = email;
+		this.motDePasse = motDePasse;
+		this.nomUtilisateur = nom + "." + prenom;
+		this.emailAuth = cin + "@municipal.ma";
+		this.dateNaissance = dateNaissance;
+		this.dateCreation = dateCreation;
+	}
 
 	public Long getIdCitoyen() {
 		return idCitoyen;
@@ -104,6 +125,22 @@ public class Citoyen {
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+
+	public String getNomUtilisateur() {
+		return nomUtilisateur;
+	}
+
+	public void setNomUtilisateur(String nomUtilisateur) {
+		this.nomUtilisateur = nomUtilisateur;
+	}
+
+	public String getEmailAuth() {
+		return emailAuth;
+	}
+
+	public void setEmailAuth(String emailAuth) {
+		this.emailAuth = emailAuth;
 	}
 	
 	
