@@ -49,7 +49,7 @@ public class MunicipalCRUDImpl implements IMunicipalCRUD {
     }
 
     @Override
-    public Municipal getById(int id) {
+    public Municipal getById(Long id) {
         String sql = "SELECT * FROM MUNICIPAL WHERE ID_MUNICIPAL = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, id);
@@ -93,7 +93,7 @@ public class MunicipalCRUDImpl implements IMunicipalCRUD {
     }
 
     @Override
-    public void deleteMunicipal(int id) {
+    public void deleteMunicipal(Long id) {
         String sql = "DELETE FROM MUNICIPAL WHERE ID_MUNICIPAL = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, id);

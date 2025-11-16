@@ -246,7 +246,15 @@
 							<div class="input-icon">
 							  <label class="form-label">Région de résidence</label>
 							 <select class="form-control" id="idRegion" name="idRegion" required>
-									<option value="${sessionScope.user.idRegion}">${sessionScope.user.idRegion}</option>
+<%-- 									<option value="${sessionScope.user.idRegion}">${sessionScope.user.idRegion}</option> --%>
+									<option value="${sessionScope.user.idRegion}">
+										<c:forEach var="r" items="${sessionScope.regions}">
+											<c:if
+												test="${r.idRegion == sessionScope.user.idRegion}">
+									            ${r.nom}
+									        </c:if>
+										</c:forEach>
+									</option>
 									<c:forEach var="region" items="${sessionScope.regions}">
 										<option value="${region.idRegion}"
 											<c:if test="${region.idRegion == sessionScope.user.idRegion}">selected</c:if>>

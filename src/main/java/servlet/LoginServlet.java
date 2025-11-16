@@ -97,24 +97,50 @@ public class LoginServlet extends HttpServlet {
 			
 		} else if (employe != null && PasswordHashUtil.verifyPassword(motDePasse, employe.getMotDePasse())) {
 			
-			request.getSession().setAttribute("employe", employe);
-			request.getSession().setAttribute("userType", "employe");
-			response.sendRedirect("employe/dashboard.jsp");
+		 	dataSendEmploye(employe,request,response);
+			
+			
+			response.sendRedirect(request.getContextPath() + "/views/employe/DashboardEmploye.jsp");
 			
 		} else {
 			
 			request.setAttribute("error", "Email ou mot de passe incorrect");
-			request.getRequestDispatcher(request.getContextPath() + "/views/Auth/Connexion.jsp")
+			request.getRequestDispatcher("/views/Auth/Connexion.jsp")
 				.forward(request, response);
 			
 		}
 	}
-	
-//	System.out.println(citoyenDao.countCitoyen());
-//	System.out.println("count empl : "+employeDAO.countEmploye());
-//	System.out.println(signalementDao.countSignalement());
-//	System.out.println(signalementDao.getResolutionRate());
-//	System.out.println(signalementDao.getRecentReports(5));
+
+	private void dataSendEmploye(Employe employe, HttpServletRequest request, HttpServletResponse response) {
+		
+		int totalUsers = citoyenDao.countCitoyen();
+        int totalReports = signalementDao.countSignalement();
+        double resolutionRate = signalementDao.getResolutionRate(); 
+        List<Signalement> recentReports = signalementDao.getRecentReports(5); // les 5 derniers
+
+        Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();
+        //Map<String, Integer> typeData = signalementDao.getReportTypeStats(); -- not clear enough
+        List<Region> regions = regionDao.getAll();
+        //List<Employe> employes = employeDAO.getAll();
+        List<Citoyen> citoyens = citoyenDao.getAll();
+        List<Municipal> municipaux = municipalDao.getAll();
+        List<Signalement> signalements = signalementDao.getAll();
+        
+        request.getSession().setAttribute("totalUsers", totalUsers);
+        request.getSession().setAttribute("totalReports", totalReports);
+
+        request.getSession().setAttribute("recentReports", recentReports);
+        request.getSession().setAttribute("resolutionRate", resolutionRate);
+        request.getSession().setAttribute("monthlyData", monthlyData);
+
+        request.getSession().setAttribute("signalements", signalements); 
+        request.getSession().setAttribute("citoyens", citoyens); 
+        //request.getSession().setAttribute("employes", employes);    	
+        request.getSession().setAttribute("regions", regions);
+    	request.getSession().setAttribute("municipaux", municipaux);
+    	request.getSession().setAttribute("employe", employe);
+		request.getSession().setAttribute("userType", "employe");
+	}
 
 	private void dataSendAdmin(Administrateur admin, HttpServletRequest request, HttpServletResponse response) {
 		

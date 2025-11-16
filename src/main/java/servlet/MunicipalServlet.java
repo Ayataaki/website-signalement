@@ -31,15 +31,79 @@ public class MunicipalServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Charger la liste des régions
-		List<Region> regions = regionDao.getAll();
-		request.setAttribute("regions", regions);
-        request.getRequestDispatcher("views/FormMunicipal.jsp").forward(request, response);
+//		List<Region> regions = regionDao.getAll();
+//		request.setAttribute("regions", regions);
+//        request.getRequestDispatcher("views/FormMunicipal.jsp").forward(request, response);
+		doPost(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String nom = request.getParameter("nom");
+		String action = request.getParameter("action");
+
+		switch (action) {
+
+		case "update":
+
+			updateMunicipal(request, response);
+
+			getAllMun(request, response);
+
+			request.getRequestDispatcher("/views/admin/GererMunicipaux.jsp").forward(request, response);
+
+			break;
+		
+		case "delete":
+			
+			deleteMunicipal(request, response);
+
+			getAllMun(request, response);
+
+			request.getRequestDispatcher("/views/admin/GererMunicipaux.jsp").forward(request, response);
+
+			break;
+			
+		}
+
+    
+    }
+
+	private void deleteMunicipal(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+    	Long idMun = Long.parseLong(id.trim());
+    
+    	municipalDao.deleteMunicipal(idMun);
+	}
+
+	private void updateMunicipal(HttpServletRequest request, HttpServletResponse response) {
+		
+		String id = request.getParameter("idMunicipal");
+    	Long idMun = Long.parseLong(id.trim());
+		String nom = request.getParameter("nom");
+        String typeMunicipal = request.getParameter("type");
+        String idR = request.getParameter("idRegion");
+    	Long idRegion = Long.parseLong(idR.trim());
+        
+        Municipal m = municipalDao.getById(idMun);
+        m.setNom(nom);
+        m.setTypeMunicipal(typeMunicipal);
+        m.setIdRegion(idRegion);
+        
+        municipalDao.updateMunicipal(m);
+        
+        
+	}
+
+	private void getAllMun(HttpServletRequest request, HttpServletResponse response) {
+
+		List<Region> regions = regionDao.getAll();
+
+		request.getSession().setAttribute("regions", regions);
+	}
+
+	private void oldFunction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nom = request.getParameter("nom");
         String typeMunicipal = request.getParameter("typeMunicipal");
         String idRegion = request.getParameter("idRegion");
         
@@ -62,7 +126,8 @@ public class MunicipalServlet extends HttpServlet {
         List<Region> regions = regionDao.getAll();
         request.setAttribute("regions", regions);
         request.getRequestDispatcher("views/FormMunicipal.jsp").forward(request, response);
+	}
     
-    }
+    
 
 }

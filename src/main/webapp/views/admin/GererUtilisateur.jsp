@@ -352,7 +352,7 @@ body {
 
 			<div class="tab-content">
 				<!-- Citoyens -->
-				<div class="tab-pane fade show active" id="citoyens" role="tabpanel">
+				<div class="tab-pane fade show active" id="citoyens" role="tabpanel">					
 					<div class="table-responsive">
 						<table class="table table-hover table-sm" id="table-citoyens">
 							<thead>
@@ -379,24 +379,45 @@ body {
 										<td>${citoyen.dateNaissance}</td>
 										<td>
 											<button class="btn btn-sm btn-outline-primary btn-action"
-												title="Modifier">
+												data-bs-toggle="modal" data-bs-target="#editUserModal"
+												data-type="citoyen" data-id="${citoyen.idCitoyen}"
+												data-nom="${citoyen.nom}" data-prenom="${citoyen.prenom}"
+												data-cin="${citoyen.cin}"
+												data-telephone="${citoyen.telephone}"
+												data-email="${citoyen.email}"
+												data-lieu="${citoyen.lieuNaissance}"
+												data-idRegion="${citoyen.idRegion}"
+												data-date="${citoyen.dateNaissance}" title="Modifier">
 												<i class="bi bi-pencil"></i>
 											</button>
+
 											<button class="btn btn-sm btn-outline-danger btn-action"
-												title="Supprimer"
-												onclick="confirmDelete(${citoyen.idCitoyen})">
+												data-type="citoyen" data-id="${citoyen.idCitoyen}"
+												data-name="${citoyen.nom} ${citoyen.prenom}"
+												data-bs-toggle="modal" data-bs-target="#deleteModal">
 												<i class="bi bi-trash"></i>
 											</button>
+
 										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
-						<ul class="pagination justify-content-center mt-3" id="pagination-citoyens"></ul>
+						<ul class="pagination justify-content-center mt-3"
+							id="pagination-citoyens"></ul>
 					</div>
 				</div>
 				<!-- Employés -->
 				<div class="tab-pane fade" id="employes" role="tabpanel">
+				
+					<!-- Bouton ajouter employé -->
+					<div class="d-flex justify-content-end mb-3">
+						<button class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#addEmployeModal">
+							<i class="bi bi-person-plus me-2"></i> Ajouter un employé
+						</button>
+					</div>
+					
 					<div class="table-responsive">
 						<table class="table table-hover table-sm" id="table-employes">
 							<thead>
@@ -420,13 +441,26 @@ body {
 										<td>${employe.email}</td>
 										<td>${employe.dateNaissance}</td>
 										<td>
-											<button class="btn btn-sm btn-outline-primary btn-action">
+											<button class="btn btn-sm btn-outline-primary btn-action"
+												data-bs-toggle="modal" data-bs-target="#editUserModal"
+												data-type="employe" data-id="${employe.idEmploye}"
+												data-nom="${employe.nom}" data-prenom="${employe.prenom}"
+												data-cin="${employe.cin}"
+												data-telephone="${employe.telephone}"
+												data-email="${employe.email}"
+												data-lieu="${employe.lieuNaissance}"
+												data-idMunicipal = "${employe.idMunicipal}"
+												data-date="${employe.dateNaissance}" title="Modifier">
 												<i class="bi bi-pencil"></i>
 											</button>
+
 											<button class="btn btn-sm btn-outline-danger btn-action"
-												onclick="confirmDelete('${employe.nom} ${employe.prenom}')">
+												data-type="employe" data-id="${employe.idEmploye}"
+												data-name="${employe.nom} ${employe.prenom}"
+												data-bs-toggle="modal" data-bs-target="#deleteModal">
 												<i class="bi bi-trash"></i>
 											</button>
+
 										</td>
 									</tr>
 								</c:forEach>
@@ -438,9 +472,6 @@ body {
 				</div>
 
 			</div>
-<!-- 			<div class="d-flex justify-content-center mt-3"> -->
-<!-- 				<ul class="pagination" id="pagination"></ul> -->
-<!-- 			</div> -->
 		</div>
 	</div>
 
@@ -450,84 +481,385 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-<script>
+
+	<!-- Modal Ajouter Employé -->
+	<div class="modal fade" id="addEmployeModal" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="bi bi-person-plus me-2"></i> Ajouter un employé
+						municipal
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<form action="${pageContext.request.contextPath}/RegisterServlet" method="post"
+					onsubmit="return validateForm()">
+
+					<div class="modal-body">
+
+						<input type="hidden" name="typeCompte" value="employe"
+							class="form-control">
+
+						<div class="mb-3">
+							<label for="nom" class="form-label">Nom</label> <input
+								type="text" id="nom" name="nom" class="form-control" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="prenom" class="form-label">Prénom</label> <input
+								type="text" id="prenom" name="prenom" class="form-control"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label for="cin" class="form-label">CIN</label> <input
+								type="text" id="cin" name="cin" class="form-control" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="telephone" class="form-label">Téléphone</label> <input
+								type="tel" id="telephone" name="telephone" class="form-control"
+								required pattern="^0[5-7][0-9]{8}$" placeholder="ex: 0612345678">
+						</div>
+
+						<div class="mb-3">
+							<label for="email" class="form-label">Email</label> <input
+								type="email" id="email" name="email" class="form-control"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label for="lieu_naissance" class="form-label">Lieu de
+								naissance</label> <input type="text" id="lieu_naissance"
+								name="lieu_naissance" class="form-control" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="date_naissance" class="form-label">Date de
+								naissance</label> <input type="date" id="date_naissance"
+								name="date_naissance" class="form-control" required>
+						</div>
+
+						<div class="mb-3">
+							<label for="mot_de_passe" class="form-label">Mot de passe</label>
+							<input type="password" id="mot_de_passe" name="mot_de_passe"
+								class="form-control" placeholder="••••••••" required>
+						</div>
+
+						<!-- Région -->
+						<div class="mb-4">
+							<label for="idRegion" class="form-label"> Municipal <span
+								style="color: red">*</span>
+							</label>
+							<div class="input-icon">
+								<i class="fas fa-map-marked-alt"></i> <select
+									class="form-control" id="idMunicipal" name="idMunicipal"
+									required>
+									<option value="">Sélectionnez un municipal</option>
+
+									<c:forEach var="m" items="${sessionScope.municipaux}">
+										<option value="${m.idMunicipal}">${m.nom}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<small class="text-muted">Votre région de résidence</small>
+						</div>
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary"
+							data-bs-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary">Ajouter</button>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Modification Utilisateur -->
+	<div class="modal fade" id="editUserModal" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="bi bi-pencil-square me-2"></i> Modifier l’utilisateur
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<form action="${pageContext.request.contextPath}/UpdateServlet"
+					method="post">
+
+					<div class="modal-body">
+
+						<input type="hidden" name="id" id="edit-id"> 
+						<input type="hidden" name="type" id="edit-type">
+
+						<div class="mb-3">
+							<label class="form-label">Nom</label> <input type="text"
+								class="form-control" id="edit-nom" name="nom" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Prénom</label> <input type="text"
+								class="form-control" id="edit-prenom" name="prenom" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">CIN</label> <input type="text"
+								class="form-control" id="edit-cin" name="cin" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Téléphone</label> <input type="text"
+								class="form-control" id="edit-telephone" name="telephone"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Email</label> <input type="email"
+								class="form-control" id="edit-email" name="email" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Lieu Naissance</label> <input
+								type="text" class="form-control" id="edit-lieu"
+								name="lieuNaissance" required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Date Naissance</label> <input
+								type="date" class="form-control" id="edit-date"
+								name="dateNaissance" required>
+						</div>
+
+						<div id="divMunicipal" style="display: none;">
+							<label class="form-label">Municipalité</label> 
+							<select id="idMunicipal" name="idMunicipal" class="form-control">
+								<c:forEach var="m" items="${sessionScope.municipaux}">
+									<option value="${m.idMunicipal}">${m.nom}</option>
+								</c:forEach>
+							</select>
+						</div>
+
+
+						<div id="divRegion" style="display: none;">
+							<label class="form-label">Région</label> 
+							<select id="idRegion" name="idRegion" class="form-control">
+								<c:forEach var="r" items="${sessionScope.regions}">
+									<option value="${r.idRegion}">${r.nom}</option>
+								</c:forEach>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary"
+							data-bs-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deleteModal" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title">Confirmation de suppression</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+					<p>
+						Voulez-vous vraiment supprimer <strong id="deleteUserName"></strong>
+						?
+					</p>
+				</div>
+
+				<div class="modal-footer">
+					<form id="deleteForm" action="${pageContext.request.contextPath}/UpdateServlet" method="post">
+						<input type="hidden" name="action" value="delete"> 
+						<input type="hidden" name="deleteType" id="deleteType"> 
+						<input type="hidden" name="id" id="deleteId">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-danger">Supprimer</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
 document.addEventListener('DOMContentLoaded', function () {
-  function setupPagination(tableId, paginationId, rowsPerPage = 5) {
-    const table = document.querySelector(`#${tableId} tbody`);
-    const rows = Array.from(table.querySelectorAll('tr'));
-    const pagination = document.getElementById(paginationId);
-    const totalPages = Math.ceil(rows.length / rowsPerPage);
-    let currentPage = 1;
+	
+	const editModal = document.getElementById("editUserModal");
 
-    function displayPage(page) {
-      rows.forEach((row, index) => {
-        row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
-      });
-      renderPagination();
+    editModal.addEventListener("show.bs.modal", function (event) {
+        const button = event.relatedTarget;
+
+        // Récupération des attributs data-*
+        const type = button.getAttribute("data-type");
+        document.getElementById("edit-type").value = button.getAttribute("data-type");
+        document.getElementById("edit-id").value = button.getAttribute("data-id");
+        document.getElementById("edit-nom").value = button.getAttribute("data-nom");
+        document.getElementById("edit-prenom").value = button.getAttribute("data-prenom");
+        document.getElementById("edit-cin").value = button.getAttribute("data-cin");
+        document.getElementById("edit-telephone").value = button.getAttribute("data-telephone");
+        document.getElementById("edit-email").value = button.getAttribute("data-email");
+        document.getElementById("edit-lieu").value = button.getAttribute("data-lieu");
+        document.getElementById("edit-date").value = button.getAttribute("data-date");
+        if (type === "employe") {
+
+            // Afficher champs municipal
+            document.getElementById('divMunicipal').style.display = 'block';
+            document.getElementById('divRegion').style.display = 'none';
+
+            // Remplir les données
+            document.getElementById('idMunicipal').value = button.getAttribute('data-idMunicipal');
+            
+         	// Remplir les données
+            const idMunicipal = button.getAttribute('data-idMunicipal');
+            const selectMunicipal = document.getElementById('idMunicipal');
+            
+            // Définir la valeur sélectionnée
+            if (idMunicipal) {
+                selectMunicipal.value = idMunicipal;
+            }
+
+        } else if (type === "citoyen") {
+
+            // Afficher champs région
+            document.getElementById('divMunicipal').style.display = 'none';
+            document.getElementById('divRegion').style.display = 'block';
+
+            // idRegion provenant du bouton
+            document.getElementById('idRegion').value = button.getAttribute('data-idRegion');
+            
+            const idRegion = button.getAttribute('data-idRegion');
+            const selectRegion = document.getElementById('idRegion');
+            
+            if (idRegion) {
+                selectRegion.value = idRegion;
+            }
+            
+        }
+    });
+	      
+    const deleteModal = document.getElementById('deleteModal');
+
+    deleteModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+
+        const id = button.getAttribute("data-id");
+        const type = button.getAttribute("data-type");
+        const name = button.getAttribute("data-name");
+
+        // Remplir les champs cachés du formulaire
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteType").value = type;
+        
+        // Afficher le nom dans le message de confirmation
+        document.getElementById("deleteUserName").textContent = name;
+
+        console.log('🗑️ Préparation suppression:', { id, type, name });
+    });
+
+    // ========== PAGINATION ==========
+    function setupPagination(tableId, paginationId, rowsPerPage = 5) {
+        const table = document.querySelector(`#${tableId} tbody`);
+        const rows = Array.from(table.querySelectorAll('tr'));
+        const pagination = document.getElementById(paginationId);
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+        let currentPage = 1;
+
+        function displayPage(page) {
+            rows.forEach((row, index) => {
+                row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            pagination.innerHTML = '';
+
+            const prevLi = document.createElement('li');
+            prevLi.classList.add('page-item');
+            if (currentPage === 1) prevLi.classList.add('disabled');
+            const prevLink = document.createElement('a');
+            prevLink.classList.add('page-link');
+            prevLink.href = '#';
+            prevLink.textContent = 'Précédent';
+            prevLink.addEventListener('click', e => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayPage(currentPage);
+                }
+            });
+            prevLi.appendChild(prevLink);
+            pagination.appendChild(prevLi);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.classList.add('page-item');
+                if (i === currentPage) li.classList.add('active');
+                const a = document.createElement('a');
+                a.classList.add('page-link');
+                a.href = '#';
+                a.textContent = i;
+                a.addEventListener('click', e => {
+                    e.preventDefault();
+                    currentPage = i;
+                    displayPage(currentPage);
+                });
+                li.appendChild(a);
+                pagination.appendChild(li);
+            }
+
+            const nextLi = document.createElement('li');
+            nextLi.classList.add('page-item');
+            if (currentPage === totalPages) nextLi.classList.add('disabled');
+            const nextLink = document.createElement('a');
+            nextLink.classList.add('page-link');
+            nextLink.href = '#';
+            nextLink.textContent = 'Suivant';
+            nextLink.addEventListener('click', e => {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayPage(currentPage);
+                }
+            });
+            nextLi.appendChild(nextLink);
+            pagination.appendChild(nextLi);
+        }
+
+        displayPage(currentPage);
     }
 
-    function renderPagination() {
-      pagination.innerHTML = '';
-
-      const prevLi = document.createElement('li');
-      prevLi.classList.add('page-item');
-      if (currentPage === 1) prevLi.classList.add('disabled');
-      const prevLink = document.createElement('a');
-      prevLink.classList.add('page-link');
-      prevLink.href = '#';
-      prevLink.textContent = 'Précédent';
-      prevLink.addEventListener('click', e => {
-        e.preventDefault();
-        if (currentPage > 1) {
-          currentPage--;
-          displayPage(currentPage);
-        }
-      });
-      prevLi.appendChild(prevLink);
-      pagination.appendChild(prevLi);
-
-      for (let i = 1; i <= totalPages; i++) {
-        const li = document.createElement('li');
-        li.classList.add('page-item');
-        if (i === currentPage) li.classList.add('active');
-        const a = document.createElement('a');
-        a.classList.add('page-link');
-        a.href = '#';
-        a.textContent = i;
-        a.addEventListener('click', e => {
-          e.preventDefault();
-          currentPage = i;
-          displayPage(currentPage);
-        });
-        li.appendChild(a);
-        pagination.appendChild(li);
-      }
-
-      const nextLi = document.createElement('li');
-      nextLi.classList.add('page-item');
-      if (currentPage === totalPages) nextLi.classList.add('disabled');
-      const nextLink = document.createElement('a');
-      nextLink.classList.add('page-link');
-      nextLink.href = '#';
-      nextLink.textContent = 'Suivant';
-      nextLink.addEventListener('click', e => {
-        e.preventDefault();
-        if (currentPage < totalPages) {
-          currentPage++;
-          displayPage(currentPage);
-        }
-      });
-      nextLi.appendChild(nextLink);
-      pagination.appendChild(nextLi);
-    }
-
-    displayPage(currentPage);
-  }
-
-  window.onload = function () {
-	  setupPagination('table-citoyens', 'pagination-citoyens');
-	  setupPagination('table-employes', 'pagination-employes');
-	};
+    // Initialiser la pagination
+    setupPagination('table-citoyens', 'pagination-citoyens');
+    setupPagination('table-employes', 'pagination-employes');
 });
 </script>
 

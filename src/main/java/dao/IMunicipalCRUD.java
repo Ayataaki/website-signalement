@@ -8,11 +8,11 @@ public interface IMunicipalCRUD {
 
 	void createMunicipal(Municipal municipal);
 	
-	void deleteMunicipal(int id);
+	void deleteMunicipal(Long id);
 	
 	Municipal updateMunicipal(Municipal municipal);
 	
-	Municipal getById(int id);
+	Municipal getById(Long id);
 	
 	List<Municipal> getAll();
 

@@ -326,4 +326,69 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 		return null;
 	}
 
+	@Override
+	public int getCountNewSignalementByMunicipal(Long idMunicipal) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCountProcessingSignalementByMunicipal(Long idMunicipal) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCountFinishedSignalementByMunicipal(Long idMunicipal) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void updateStatut(Long idSignalement, Statut statut) {
+		String sql = "UPDATE SIGNALEMENT SET STATUT = ? WHERE ID_SIGNALEMENT = ?";
+
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+			ps.setString(1, statut.getLabel()); // ← "new", "processing", "final"
+			ps.setLong(2, idSignalement);
+
+			ps.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public List<Signalement> rechercherSignalements(String keyword) {
+	    List<Signalement> liste = new ArrayList<>();
+	    
+	    String sql = "SELECT * "+
+	    		"FROM SIGNALEMENT "+
+	    		"WHERE DESIGNATION LIKE ? OR DESCRIPTION LIKE ? "
+	    		+ "OR LOCALISATION LIKE ?";
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ps.setString(1, "%" + keyword + "%");
+	        ps.setString(2, "%" + keyword + "%");
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Signalement s = new Signalement();
+	            s.setIdSignalement(rs.getLong("ID_SIGNALEMENT"));
+                s.setDesignation(rs.getString("DESIGNATION"));
+                s.setDescription(rs.getString("DESCRIPTION"));
+                s.setLocalisation(rs.getString("LOCALISATION"));
+                s.setCommentaire(rs.getString("COMMENTAIRE"));
+                s.setImagePath(rs.getString("IMAGE_PATH"));	
+                s.setIdCitoyen(rs.getLong("ID_CITOYEN"));
+                s.setDateCreation(rs.getTimestamp("DATE_CREATION"));
+                liste.add(s);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return liste;
+	}
+
 }

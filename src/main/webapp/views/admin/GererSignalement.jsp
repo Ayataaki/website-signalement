@@ -353,14 +353,23 @@ body {
 										<td>${s.localisation}</td>
 										<td>${s.statut.label}</td>
 										<td>${s.dateCreation}</td>
-										<td>
+										<td>			
+											<!-- Bouton Modifier -->
 											<button class="btn btn-sm btn-outline-primary btn-action"
-												title="Modifier">
+												data-bs-toggle="modal" data-bs-target="#editUserModal"
+												data-type="signalement" data-id="${s.idSignalement}"
+												data-designation="${s.designation}"
+												data-description="${s.description}"
+												data-localisation="${s.localisation}"
+												data-commentaire="${s.commentaire}"
+												data-idCitoyen="${s.idCitoyen}"
+												data-statut="${s.statut.label}" title="Modifier">
 												<i class="bi bi-pencil"></i>
-											</button>
+											</button> <!-- Bouton Supprimer -->
 											<button class="btn btn-sm btn-outline-danger btn-action"
-												title="Supprimer"
-												onclick="confirmDelete(${s.idSignalement})">
+												data-type="signalement" data-id="${s.idSignalement}"
+												data-bs-toggle="modal" data-bs-target="#deleteModal"
+												title="Supprimer">
 												<i class="bi bi-trash"></i>
 											</button>
 										</td>
@@ -377,98 +386,259 @@ body {
 		</div>
 	</div>
 
+	<!-- Changez l'ID du modal et ajoutez un select pour le statut -->
+
+	<div class="modal fade" id="editUserModal" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="bi bi-pencil-square me-2"></i> Modifier le signalement
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<form action="${pageContext.request.contextPath}/SignalementServlet" method="post">
+
+					<div class="modal-body">
+
+						<input type="hidden" name="id" id="edit-id"> 
+						<input type="hidden" name="idCitoyen" id="edit-idCitoyen">						
+						<input type="hidden" name="action" value="updateAdmin"> 
+						<input type="hidden" name="type" id="edit-type" value="signalement">
+
+						<div class="mb-3">
+							<label class="form-label">Désignation</label> <input type="text"
+								class="form-control" id="edit-designation" name="designation"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Description</label>
+							<textarea class="form-control" id="edit-description"
+								name="description" rows="3" required></textarea>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Localisation</label> <input type="text"
+								class="form-control" id="edit-localisation" name="localisation"
+								required>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Commentaire</label>
+							<textarea class="form-control" id="edit-commentaire"
+								name="commentaire" rows="2"></textarea>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Statut</label> <select
+								class="form-select" id="edit-statut" name="statut" required>
+								<option value="new">Nouveau</option>
+								<option value="processing">En cours</option>
+								<option value="final">Résolu</option>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary"
+							data-bs-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- 3. MODAL DE SUPPRESSION (CORRECT) -->
+	<div class="modal fade" id="deleteModal" tabindex="-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="bi bi-exclamation-triangle me-2"></i> Confirmation de
+						suppression
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<div class="modal-body">
+					<p class="mb-0">
+						Voulez-vous vraiment supprimer <strong id="deleteUserName"></strong>
+						?
+					</p>
+					<small class="text-danger"> <i
+						class="bi bi-info-circle me-1"></i> Cette action est irréversible.
+					</small>
+				</div>
+
+				<div class="modal-footer">
+					<form id="deleteForm" action="${pageContext.request.contextPath}/SignalementServlet" method="post">
+						
+						<input type="hidden" name="action" value="deleteAdmin"> 
+						<input type="hidden" name="deleteType" value="signalement"> 
+						<input type="hidden" name="id" id="deleteId">
+
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">
+							<i class="bi bi-x-circle me-1"></i>Annuler
+						</button>
+						<button type="submit" class="btn btn-danger">
+							<i class="bi bi-trash me-1"></i>Supprimer
+						</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 
 	<!-- Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-<script>
-	function confirmDelete(type, name) {
-	    if (confirm(`Êtes-vous sûr de vouloir supprimer ${type} "${name}" ?\n\nCette action est irréversible.`)) {
-	        alert(`${type} "${name}" supprimé avec succès.`);
-	        // Ici vous ajouteriez la logique de suppression réelle
-	    }
-	}
-	
-	document.addEventListener('DOMContentLoaded', function() {
-	// Animation
-	const tables = document.querySelectorAll('.table tbody tr');
-	tables.forEach((row, index) => {
-	row.style.opacity = '0';
-	row.style.transform = 'translateY(20px)';
-	setTimeout(() => {
-	row.style.transition = 'all 0.3s ease';
-	row.style.opacity = '1';
-	row.style.transform = 'translateY(0)';
-	}, index * 50);
-	});
-	
-	// Pagination
-	const rowsPerPage = 5;
-	const table = document.querySelector('.table tbody');
-	const rows = Array.from(table.querySelectorAll('tr'));
-	const pagination = document.getElementById('pagination');
-	const totalPages = Math.ceil(rows.length / rowsPerPage);
-	let currentPage = 1;
-	
-	function displayPage(page) {
-	rows.forEach((row, index) => {
-	row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
-	});
-	renderPagination();
-	}
-	
-	function renderPagination() {
-	pagination.innerHTML = '';
-	
-	const prevLi = document.createElement('li');
-	prevLi.classList.add('page-item');
-	if (currentPage === 1) prevLi.classList.add('disabled');
-	prevLi.innerHTML = `<a class="page-link" href="#">Précédent</a>`;
-	prevLi.addEventListener('click', e => {
-	e.preventDefault();
-	if (currentPage > 1) {
-	currentPage--;
-	displayPage(currentPage);
-	}
-	});
-	pagination.appendChild(prevLi);
-	
-	for (let i = 1; i <= totalPages; i++) {
-	const li = document.createElement('li');
-	li.classList.add('page-item');
-	if (i === currentPage) li.classList.add('active');
-	const a = document.createElement('a');
-	a.classList.add('page-link');
-	a.href = '#';
-	a.textContent = i;
-	a.addEventListener('click', e => {
-	  e.preventDefault();
-	  currentPage = i;
-	  displayPage(currentPage);
-	});
-	li.appendChild(a);
-	pagination.appendChild(li);
-	}
-	
-	const nextLi = document.createElement('li');
-	nextLi.classList.add('page-item');
-	if (currentPage === totalPages) nextLi.classList.add('disabled');
-	nextLi.innerHTML = `<a class="page-link" href="#">Suivant</a>`;
-	nextLi.addEventListener('click', e => {
-	e.preventDefault();
-	if (currentPage < totalPages) {
-	currentPage++;
-	displayPage(currentPage);
-	}
-	});
-	pagination.appendChild(nextLi);
-	}
-	
-	displayPage(currentPage);
-	});
-</script>
+	<!-- Ajoutez ce script AVANT la fermeture de </body> dans votre page signalements -->
 
+	<script>
+document.addEventListener('DOMContentLoaded', function () {
+    
+    // ========== MODAL MODIFICATION SIGNALEMENT ==========
+    const editModal = document.getElementById("editUserModal");
+
+    if (editModal) {
+        editModal.addEventListener("show.bs.modal", function (event) {
+            const button = event.relatedTarget;
+
+            // Récupération des attributs data-*
+            document.getElementById("edit-type").value = button.getAttribute("data-type");
+            document.getElementById("edit-id").value = button.getAttribute("data-id");
+            document.getElementById("edit-designation").value = button.getAttribute("data-designation");
+            document.getElementById("edit-description").value = button.getAttribute("data-description");
+            document.getElementById("edit-localisation").value = button.getAttribute("data-localisation");
+            document.getElementById("edit-commentaire").value = button.getAttribute("data-commentaire") || '';
+            document.getElementById("edit-statut").value = button.getAttribute("data-statut");
+            document.getElementById("edit-idCitoyen").value = button.getAttribute("data-idCitoyen");
+
+            console.log('✏️ Modification signalement:', {
+                id: button.getAttribute("data-id"),
+                designation: button.getAttribute("data-designation")
+            });
+        });
+    }
+    
+    // ========== MODAL SUPPRESSION SIGNALEMENT ==========
+    const deleteModal = document.getElementById('deleteModal');
+
+    if (deleteModal) {
+        deleteModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+
+            const id = button.getAttribute("data-id");
+            const type = button.getAttribute("data-type");
+            
+            // Remplir les champs cachés du formulaire
+            document.getElementById("deleteId").value = id;
+            
+            // Afficher un message de confirmation générique pour le signalement
+            document.getElementById("deleteUserName").textContent = "ce signalement";
+
+            console.log('🗑️ Préparation suppression signalement:', { id, type });
+        });
+    }
+
+    // ========== PAGINATION ==========
+    function setupPagination(tableId, paginationId, rowsPerPage = 10) {
+        const table = document.querySelector(`#${tableId} tbody`);
+        if (!table) return;
+        
+        const rows = Array.from(table.querySelectorAll('tr'));
+        const pagination = document.getElementById(paginationId);
+        if (!pagination) return;
+        
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+        let currentPage = 1;
+
+        function displayPage(page) {
+            rows.forEach((row, index) => {
+                row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            pagination.innerHTML = '';
+
+            // Bouton Précédent
+            const prevLi = document.createElement('li');
+            prevLi.classList.add('page-item');
+            if (currentPage === 1) prevLi.classList.add('disabled');
+            const prevLink = document.createElement('a');
+            prevLink.classList.add('page-link');
+            prevLink.href = '#';
+            prevLink.textContent = 'Précédent';
+            prevLink.addEventListener('click', e => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayPage(currentPage);
+                }
+            });
+            prevLi.appendChild(prevLink);
+            pagination.appendChild(prevLi);
+
+            // Numéros de pages
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.classList.add('page-item');
+                if (i === currentPage) li.classList.add('active');
+                const a = document.createElement('a');
+                a.classList.add('page-link');
+                a.href = '#';
+                a.textContent = i;
+                a.addEventListener('click', e => {
+                    e.preventDefault();
+                    currentPage = i;
+                    displayPage(currentPage);
+                });
+                li.appendChild(a);
+                pagination.appendChild(li);
+            }
+
+            // Bouton Suivant
+            const nextLi = document.createElement('li');
+            nextLi.classList.add('page-item');
+            if (currentPage === totalPages) nextLi.classList.add('disabled');
+            const nextLink = document.createElement('a');
+            nextLink.classList.add('page-link');
+            nextLink.href = '#';
+            nextLink.textContent = 'Suivant';
+            nextLink.addEventListener('click', e => {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayPage(currentPage);
+                }
+            });
+            nextLi.appendChild(nextLink);
+            pagination.appendChild(nextLi);
+        }
+
+        displayPage(currentPage);
+    }
+
+    // Initialiser la pagination pour les signalements
+    setupPagination('table-citoyens', 'pagination', 10);
+});
+</script>
 </body>
 </html>

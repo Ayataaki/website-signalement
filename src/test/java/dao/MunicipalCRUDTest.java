@@ -41,7 +41,7 @@ public class MunicipalCRUDTest {
 
         municipalDAO.createMunicipal(m);
 
-        Municipal fetched = municipalDAO.getById(m.getIdMunicipal().intValue());
+        Municipal fetched = municipalDAO.getById(m.getIdMunicipal().longValue());
         assertNotNull("La municipalité doit être trouvée en base", fetched);
         assertEquals("Le nom doit correspondre", "Casablanca Ville", fetched.getNom());
         assertEquals("Le type doit correspondre", "Urbain", fetched.getTypeMunicipal());
@@ -62,7 +62,7 @@ public class MunicipalCRUDTest {
         m.setTypeMunicipal("Mixte");
         municipalDAO.updateMunicipal(m);
 
-        Municipal updated = municipalDAO.getById(m.getIdMunicipal().intValue());
+        Municipal updated = municipalDAO.getById(m.getIdMunicipal().longValue());
         assertEquals("Le nom doit être mis à jour", "Marrakech Nouvelle Ville", updated.getNom());
         assertEquals("Le type doit être mis à jour", "Mixte", updated.getTypeMunicipal());
     }
@@ -78,9 +78,9 @@ public class MunicipalCRUDTest {
         municipalDAO.createMunicipal(m);
         Long id = m.getIdMunicipal();
 
-        municipalDAO.deleteMunicipal(id.intValue());
+        municipalDAO.deleteMunicipal(id.longValue());
 
-        Municipal deleted = municipalDAO.getById(id.intValue());
+        Municipal deleted = municipalDAO.getById(id.longValue());
         assertNull("La municipalité supprimée ne doit plus exister", deleted);
     }
 }

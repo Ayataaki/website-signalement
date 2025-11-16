@@ -73,7 +73,7 @@ public class EmployeCRUDImpl implements IEmployeCRUD{
 	}
 
 	@Override
-	public void deleteEmploye(int id) {
+	public void deleteEmploye(Long id) {
 
 		String sql = "DELETE FROM EMPLOYE WHERE ID_EMPLOYE = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -93,7 +93,7 @@ public class EmployeCRUDImpl implements IEmployeCRUD{
 //				+ "EMAIL, DATE_NAISSANCE, DATE_CREATION, ID_MUNICIPAL
 		
 		String sql = "UPDATE EMPLOYE SET NOM = ?, PRENOM = ?, NOM_UTILISATEUR = ?, CIN = ?, LIEU_NAISSANCE = ?, "
-				+ "TELEPHONE = ?, EMAIL = ?, EMAIL_AUTH = ?, MOT_DE_PASSE = ?, DATE_NAISSANCE = ?, DATE_CREATION = ?,"
+				+ "TELEPHONE = ?, EMAIL = ?, EMAIL_AUTH = ?, MOT_DE_PASSE = ?, DATE_NAISSANCE = ?,"
 				+ " ID_MUNICIPAL = ?, ADMIN_PRIVILEGE = ? "
 				+ " WHERE ID_EMPLOYE = ?";
 
@@ -113,15 +113,14 @@ public class EmployeCRUDImpl implements IEmployeCRUD{
 			String hashedPassword = PasswordHashUtil.hashPassword(employe.getMotDePasse());
             ps.setString(9, hashedPassword);
 			ps.setDate(10, new java.sql.Date(employe.getDateNaissance().getTime()));
-			ps.setDate(11, new java.sql.Date(employe.getDateCreation().getTime()));
 			if (employe.getIdMunicipal() != null) {
-				ps.setLong(12, employe.getIdMunicipal());
+				ps.setLong(11, employe.getIdMunicipal());
 			} else {
-				ps.setNull(12, Types.BIGINT);
+				ps.setNull(11, Types.BIGINT);
 			}
-			ps.setBoolean(13, employe.isAdminPriv());
+			ps.setBoolean(12, employe.isAdminPriv());
 			
-         ps.setLong(14, employe.getIdEmploye());
+         ps.setLong(13, employe.getIdEmploye());
 
          ps.executeUpdate();
          return employe;
@@ -134,11 +133,11 @@ public class EmployeCRUDImpl implements IEmployeCRUD{
 	}
 
 	@Override
-	public Employe getById(int id) {
+	public Employe getById(Long idEmploye) {
 		
 		String sql = "SELECT * FROM EMPLOYE WHERE ID_EMPLOYE = ?";
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
-			ps.setLong(1, id);
+			ps.setLong(1, idEmploye);
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
 					Employe e = new Employe();
@@ -249,5 +248,20 @@ public class EmployeCRUDImpl implements IEmployeCRUD{
         }
         return list;
 	}
+
+
+	public void updatePwd(String hashedPassword, Long idEmploye) {
+		String sql = "UPDATE EMPLOYE SET MOT_DE_PASSE = ? WHERE ID_EMPLOYE = ?";
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+	        ps.setString(1, hashedPassword);
+	        ps.setLong(2, idEmploye);
+	        ps.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 
 }

@@ -246,6 +246,8 @@
             <form action="${pageContext.request.contextPath}/SignalementServlet" method="post" enctype="multipart/form-data" id="reportForm">
                 
                 <input type="hidden" name="idCitoyen" value="${sessionScope.user.idCitoyen}" >
+		        <input type="hidden" name="action" value="create">
+                
                 
                 <!-- Désignation -->
                 <div class="mb-4">

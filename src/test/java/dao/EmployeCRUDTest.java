@@ -48,7 +48,7 @@ public class EmployeCRUDTest {
 
         assertNotNull("L'ID ne doit pas être null après création", c.getIdEmploye());
 
-        Employe fetched = employeDAO.getById(c.getIdEmploye().intValue());
+        Employe fetched = employeDAO.getById(c.getIdEmploye().longValue());
         assertNotNull(fetched);
         assertEquals(c.getNom(), fetched.getNom());
         assertEquals(c.getPrenom(), fetched.getPrenom());
@@ -72,7 +72,7 @@ public class EmployeCRUDTest {
         c.setMotDePasse("newpassword");
         employeDAO.updateEmploye(c);
 
-        Employe updated = employeDAO.getById(c.getIdEmploye().intValue());
+        Employe updated = employeDAO.getById(c.getIdEmploye().longValue());
         assertEquals("TestModifie", updated.getNom());
         assertEquals(c.getNomUtilisateur(), updated.getNomUtilisateur());
         assertEquals(c.getEmailAuth(), updated.getEmailAuth());
@@ -90,8 +90,8 @@ public class EmployeCRUDTest {
         Long id = c.getIdEmploye();
         assertNotNull(id);
 
-        employeDAO.deleteEmploye(id.intValue());
-        Employe deleted = employeDAO.getById(id.intValue());
+        employeDAO.deleteEmploye(id.longValue());
+        Employe deleted = employeDAO.getById(id.longValue());
         assertNull("L'employé doit etre supprimé", deleted);
     	
     }

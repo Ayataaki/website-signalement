@@ -23,6 +23,7 @@ import metier.Employe;
 import metier.Municipal;
 import metier.Region;
 import metier.Signalement;
+import metier.Statut;
 
 public class Deboggue {
 
@@ -105,6 +106,11 @@ public class Deboggue {
 		    System.out.println("nom de la municipal"+r.getNom() );
 		}
         
+        signalementDao.updateStatut(28L,Statut.NEW);
+        Signalement s = signalementDao.getById(28L);
+	    System.out.println("statut de signalement d'id 28 est :"+s.getStatut());
+        
+        System.out.println(signalementDao.rechercherSignalements("AZ"));
     	}
 
 }

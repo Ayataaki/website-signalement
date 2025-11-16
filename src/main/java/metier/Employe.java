@@ -54,6 +54,23 @@ public class Employe {
 		this.dateNaissance = dateNaissance;
 	}
 
+	public Employe(Long idEmploye, String nom, String prenom, String cin, String lieuNaissance, String telephone,
+			String email, String password, Date dateNaissance, Long idMunicipalM) {
+		super();
+		this.idEmploye = idEmploye;
+		this.nom = nom;
+		this.idMunicipal = idMunicipalM;
+		this.prenom = prenom;
+		this.cin = cin;
+		this.lieuNaissance = lieuNaissance;
+		this.telephone = telephone;
+		this.email = email;
+		this.motDePasse = password;
+		this.nomUtilisateur = nom + "." + prenom;
+		this.emailAuth = cin + "@service-municipal.ma";
+		this.dateNaissance = dateNaissance;
+	}
+
 	private Date dateNaissance,
 		dateCreation;
 

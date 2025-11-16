@@ -92,6 +92,11 @@ public class RegisterServlet extends HttpServlet {
             	
             	employeDAO.createEmploye(new Employe(nom,prenom,cin,lieuNaissance,
             			telephone, email, password, dateNaissance,idMunicipal));
+
+                List<Employe> employes = employeDAO.getAll();
+                request.getSession().setAttribute("employes", employes); 
+                response.sendRedirect(request.getContextPath() + "/views/admin/GererUtilisateur.jsp?onglet=employes");
+
                 break;
                 
             case "technicien":
@@ -108,7 +113,8 @@ public class RegisterServlet extends HttpServlet {
                 break;
         }
 
-        response.sendRedirect("success.jsp");
+        //on peut pas rediriger deux fois d'une manière successive 
+        //response.sendRedirect("success.jsp");
 	
 	}
 

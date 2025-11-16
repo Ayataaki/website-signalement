@@ -332,6 +332,7 @@
 </jsp:include>
 
 <div class="main-content">
+
     <div class="page-header">
         <h1 class="page-title">
             <i class="fas fa-clipboard-list me-2" style="color: var(--primary-color);"></i>
@@ -341,28 +342,32 @@
     </div>
 
     <!-- Barre de recherche -->
-    <div class="search-section">
-        <form action="SignalementServlet" method="get" class="row g-3 align-items-end">
-            <div class="col-md-8">
-                <label class="form-label fw-semibold mb-2">Rechercher un signalement</label>
-                <input type="text" class="form-control" placeholder="Entrez un ID, désignation ou localisation..." name="search" value="${param.search}">
-            </div>
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="fas fa-search me-2"></i>
-                    Rechercher
-                </button>
-            </div>
-        </form>
-    </div>
+		<div class="search-section">
+			<form action="${pageContext.request.contextPath}/SignalementServlet"
+				method="post" class="row g-2 align-items-end">
+				<input type="hidden" name="action" value="recherche">
+				
+				<div class="col-md-8">
+					<label class="form-label fw-semibold mb-2">Rechercher un
+						signalement</label> 
+					<input type="text" class="form-control"
+						placeholder="Entrez une désignation ou description..."
+						name="search" value="${param.search}">
+				</div>
+				<div class="col-md-4 d-flex align-items-end">
+					<button type="submit" class="btn btn-primary w-100">
+						<i class="fas fa-search me-2"></i> Rechercher
+					</button>
+				</div>
+			</form>
+		</div>
 
-    <!-- Tableau des signalements -->
+		<!-- Tableau des signalements -->
     <div class="table-card">
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Désignation</th>
                         <th>Localisation</th>
                         <th>Statut</th>
@@ -371,17 +376,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="s" items="${signalements}">
+                    <c:forEach var="s" items="${sessionScope.signalements}">
                         <tr>                    
-                            <td><strong>#${s.idSignalement}</strong></td>
                             <td>${s.designation}</td>
                             <td>
                                 <i class="fas fa-map-marker-alt me-1 text-muted"></i>
                                 ${s.localisation}
                             </td>
                             <td>
-                                <span class="badge badge-${s.statutLabel == 'new' ? 'new' : (s.statutLabel == 'processing' ? 'processing' : 'final')}">
-                                    ${s.statutLabel == 'new' ? 'Nouveau' : (s.statutLabel == 'processing' ? 'En cours' : 'Résolu')}
+                                <span class="badge badge-${s.statut.label eq 'new' ? 'new' : (s.statut.label eq 'processing' ? 'processing' : 'final')}">
+                                    ${s.statut.label eq  'new' ? 'Nouveau' : (s.statut.label eq 'processing' ? 'En cours' : 'Résolu')}
                                 </span>
                             </td>
                             <td>
@@ -398,7 +402,7 @@
                                             data-designation="${s.designation}"
                                             data-description="${s.description}"
                                             data-localisation="${s.localisation}"
-                                            data-statut="${s.statutLabel}"
+                                            data-statut="${s.statut.label}"
                                             data-commentaire="${s.commentaire}"
                                             data-imagepath="${s.imagePath}"
                                             data-datecreation="${s.dateCreation}"
@@ -410,11 +414,11 @@
                                        data-bs-toggle="modal"
                                        data-bs-target="#editModal"
                                        data-id="${s.idSignalement}"
-                                       data-statut="${s.statutLabel}">
+                                       data-statut="${s.statut.label}">
                                        <i class="fas fa-edit"></i>
                                      </button>
 
-                                    <a href="SignalementServlet?action=delete&id=${s.idSignalement}" 
+                                    <a href="${pageContext.request.contextPath}/SignalementServlet?action=delete&idSignalement=${s.idSignalement}" 
                                        class="btn btn-sm btn-outline-danger" 
                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce signalement ?')"
                                        title="Supprimer">
@@ -427,7 +431,7 @@
                 </tbody>
             </table>
 
-            <c:if test="${empty signalements}">
+            <c:if test="${empty sessionScope.signalements}">
                 <div class="empty-state">
                     <i class="fas fa-inbox"></i>
                     <p class="mb-0">Aucun signalement trouvé.</p>
@@ -559,7 +563,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
 
-      <form action="SignalementServlet" method="post">
+      <form action="${pageContext.request.contextPath}/SignalementServlet" method="post">
         <input type="hidden" name="action" value="update">
         <input type="hidden" id="idSignalementInput" name="idSignalement">
 
@@ -590,6 +594,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Gestion de la modal d'édition

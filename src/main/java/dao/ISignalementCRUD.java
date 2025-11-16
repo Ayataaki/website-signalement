@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import metier.Signalement;
+import metier.Statut;
 
 public interface ISignalementCRUD {
 
@@ -27,6 +28,12 @@ public interface ISignalementCRUD {
 	
 	int countSignalement();
 	
+	int getCountNewSignalementByMunicipal(Long idMunicipal);
+	
+	int getCountProcessingSignalementByMunicipal(Long idMunicipal);
+	
+	int getCountFinishedSignalementByMunicipal(Long idMunicipal);
+	
 	int getCountNewSignalementByCitoyen(Long idCitoyen);
 	
 	int getCountProcessingSignalementByCitoyen(Long idCitoyen);
@@ -34,4 +41,9 @@ public interface ISignalementCRUD {
 	int getCountFinishedSignalementByCitoyen(Long idCitoyen);
 
 	Map<String, Integer> getMonthlyReportStats();
+
+	void updateStatut(Long idSignalement, Statut statut);
+
+	List<Signalement> rechercherSignalements(String keyword);
+
 }

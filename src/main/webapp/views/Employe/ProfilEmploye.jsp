@@ -178,8 +178,8 @@
                     <div class="avatar">
                         <i class="fas fa-user"></i>
                     </div>
-                    <h4 class="mb-1">${sessionScope.user.nom} ${sessionScope.user.prenom}</h4>
-                    <p class="text-muted mb-3">Citoyen</p>
+                    <h4 class="mb-1">${sessionScope.employe.nom} ${sessionScope.employe.prenom}</h4>
+                    <p class="text-muted mb-3">Employe</p>
                     <span class="badge bg-primary">Compte actif</span>
                 </div>
 
@@ -217,41 +217,49 @@
                         Informations personnelles
                     </h5>
                     <form action="${pageContext.request.contextPath}/EmployeServlet" method="post">
-                     <input type="hidden" name="idEmploye" value="${sessionScope.user.idEmploye}">
+                     <input type="hidden" name="idEmploye" value="${sessionScope.employe.idEmploye}">
                       <input type="hidden" name="action" value="update">
 
 						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Nom</label> <input type="text"
 									class="form-control" name="nom"
-									value="${sessionScope.user.nom}" required>
+									value="${sessionScope.employe.nom}" required>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label">Prénom</label> <input type="text"
 									class="form-control" name="prenom"
-									value="${sessionScope.user.prenom}" required>
+									value="${sessionScope.employe.prenom}" required>
 							</div>
 						</div>
 
 						<div class="mb-3">
                             <label class="form-label">CIN</label>
-                            <input type="text" class="form-control" name="cin" value="${sessionScope.user.cin}" required>
+                            <input type="text" class="form-control" name="cin" value="${sessionScope.employe.cin}" required>
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" value="${sessionScope.user.email}" required>
+                            <input type="email" class="form-control" name="email" value="${sessionScope.employe.email}" required>
                         </div>
 
 						<div class="mb-3">
 							<div class="input-icon">
-							  <label class="form-label">Région de résidence</label>
-							 <select class="form-control" id="idRegion" name="idRegion" required>
-									<option value="${sessionScope.user.idRegion}">${sessionScope.user.idRegion}</option>
-									<c:forEach var="region" items="${sessionScope.regions}">
-										<option value="${region.idRegion}"
-											<c:if test="${region.idRegion == sessionScope.user.idRegion}">selected</c:if>>
-											${region.nom}</option>
+							  <label class="form-label">Municipal</label> <select class="form-control" id="idRegion" name="idMunicipal"
+									required>
+									<%-- 									<option value="${sessionScope.employe.idMunicipal}">${sessionScope.employe.idMunicipal}</option> --%>
+									<option value="${sessionScope.employe.idMunicipal}">
+										<c:forEach var="m" items="${sessionScope.municipaux}">
+											<c:if
+												test="${m.idMunicipal == sessionScope.employe.idMunicipal}">
+									            ${m.nom}
+									        </c:if>
+										</c:forEach>
+									</option>
+									<c:forEach var="m" items="${sessionScope.municipaux}">
+										<option value="${m.idMunicipal}"
+											<c:if test="${m.idMunicipal == sessionScope.employe.idMunicipal}">selected</c:if>>
+											${m.nom}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -259,17 +267,17 @@
 
 						<div class="mb-3">
                             <label class="form-label">Téléphone</label>
-                            <input type="tel" class="form-control" name="telephone" value="${sessionScope.user.telephone}">
+                            <input type="tel" class="form-control" name="telephone" value="${sessionScope.employe.telephone}">
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label">Lieu de naissance</label>
-                            <input type="text" class="form-control" name="lieuNaissance" value="${sessionScope.user.lieuNaissance}">
+                            <input type="text" class="form-control" name="lieuNaissance" value="${sessionScope.employe.lieuNaissance}">
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label">Date de naissance</label>
-                            <input type="date" class="form-control" name="dateNaissance" value="${sessionScope.user.dateNaissance}">
+                            <input type="date" class="form-control" name="dateNaissance" value="${sessionScope.employe.dateNaissance}">
                         </div>
 
                         <div class="d-flex justify-content-end gap-3">
@@ -309,8 +317,9 @@
 					</c:if>
 					
 					<form action="${pageContext.request.contextPath}/EmployeServlet" method="post">
-                     <input type="hidden" name="idEmploye" value="${sessionScope.user.idEmploye}">
-                       <input type="hidden" name="action" value="changerMdp">
+                     	
+                     	<input type="hidden" name="idEmploye" value="${sessionScope.employe.idEmploye}">
+                     	<input type="hidden" name="action" value="changerMdp">
 
                         <div class="mb-3">
                             <label class="form-label">Mot de passe actuel</label>

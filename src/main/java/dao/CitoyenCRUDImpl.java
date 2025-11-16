@@ -271,6 +271,7 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 		String sql = "UPDATE CITOYEN SET MOT_DE_PASSE = ? WHERE ID_CITOYEN = ?";
 	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
+	    	// le mdp est hashé au niveau de la servlet, no need to stress
 	        ps.setString(1, pwd);
 	        ps.setLong(2, idCitoyen);
 	        ps.executeUpdate();

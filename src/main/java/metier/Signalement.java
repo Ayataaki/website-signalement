@@ -35,6 +35,17 @@ public class Signalement {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Signalement(Long idCitoyen, Statut fromLabel, String designation, String description,
+			String localisation, String commentaire) {
+		super();
+		this.idCitoyen = idCitoyen;
+		this.description = description;
+		this.localisation = localisation;
+		this.commentaire = commentaire;
+		this.designation = designation;
+		this.statut = fromLabel;
+	}
+
 	public Long getIdSignalement() {
 		return idSignalement;
 	}

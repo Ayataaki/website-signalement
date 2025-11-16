@@ -351,12 +351,19 @@ body {
 										<td>${m.dateCreation}</td>
 										<td>
 											<button class="btn btn-sm btn-outline-primary btn-action"
+												data-bs-toggle="modal" data-bs-target="#editMunicipalModal"
+												data-id="${m.idMunicipal}" data-nom="${m.nom}"
+												data-type="${m.typeMunicipal}" data-date="${m.dateCreation}"
+												data-idRegion="${m.idRegion}"
 												title="Modifier">
 												<i class="bi bi-pencil"></i>
 											</button>
+
 											<button class="btn btn-sm btn-outline-danger btn-action"
-												title="Supprimer"
-												onclick="confirmDelete(${m.idMunicipal})">
+												data-bs-toggle="modal"
+												data-bs-target="#deleteMunicipalModal"
+												data-id="${m.idMunicipal}" data-nom="${m.nom}"
+												title="Supprimer">
 												<i class="bi bi-trash"></i>
 											</button>
 										</td>
@@ -373,10 +380,79 @@ body {
 		</div>
 	</div>
 
+	<div class="modal fade" id="editMunicipalModal" tabindex="-1">
+		<div class="modal-dialog">
+			<form action="${pageContext.request.contextPath}/MunicipalServlet" method="post">
+			
+				<input type="hidden" name="action" value="update"> 
+				<input type="hidden" name="idMunicipal" id="edit-idMunicipal">
+				<input type="hidden" name="idRegion" id="edit-idRegion">
+				
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier une municipalité</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+
+					<div class="modal-body">
+						<label class="form-label">Nom</label> <input
+							id="edit-nomMunicipal" name="nom" class="form-control"> 
+						<label
+							class="form-label mt-2">Type</label> <input
+							id="edit-typeMunicipal" name="type" class="form-control"> 
+						<label
+							class="form-label mt-2">Région</label> 
+						<select id="edit-selectRegion" name="idRegion" class="form-control">
+							<c:forEach var="r" items="${sessionScope.regions}">
+								<option value="${r.idRegion}">${r.nom}</option>
+							</c:forEach>
+						</select> 
+						<label class="form-label mt-2">Date de création</label> 
+						<input id="edit-dateMunicipal" name="date" class="form-control" readonly>
+					</div>
+
+					<div class="modal-footer">
+						<button class="btn btn-primary">Modifier</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deleteMunicipalModal" tabindex="-1">
+		<div class="modal-dialog">
+			<form action="${pageContext.request.contextPath}/MunicipalServlet" method="post">
+			
+				<input type="hidden" name="action" value="delete"> 
+				<input type="hidden" name="idMunicipal" id="delete-idMunicipal">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Supprimer</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+
+					<div class="modal-body">
+						<p id="delete-message"></p>
+					</div>
+
+					<div class="modal-footer">
+						<button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						<button class="btn btn-danger">Supprimer</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
 
 	<!-- Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 <script>
@@ -386,8 +462,88 @@ body {
 	        // Ici vous ajouteriez la logique de suppression réelle
 	    }
 	}
-	
+		
 	document.addEventListener('DOMContentLoaded', function() {
+		
+// 		document.addEventListener("click", function(e) {
+
+// 		    const button = e.target.closest("button[data-bs-target]");
+
+// 		    if (!button) return;
+
+// 		    const modalId = button.getAttribute("data-bs-target");
+
+// 		    // ---- MODAL MODIFICATION ----
+// 		    if (modalId === "#editMunicipalModal") {
+		    	
+		    	
+// 		        document.getElementById("edit-idMunicipal").value = button.dataset.id;
+// 		        document.getElementById("edit-nomMunicipal").value = button.dataset.nom;
+// 		        document.getElementById("edit-typeMunicipal").value = button.dataset.type;
+// 		        document.getElementById("edit-dateMunicipal").value = button.dataset.date;
+// 		        document.getElementById("edit-selectRegion").value = button.dataset.idRegion;
+
+		        
+		        
+// 		        const idRegion = button.dataset.idRegion;
+
+// 		        // Sélectionner l'option correcte dans le select
+// 		        const selectRegion = document.getElementById("edit-selectRegion");
+// 		        selectRegion.value = idRegion;
+// 		    }
+
+// 		    // ---- MODAL SUPPRESSION ----
+// 		    if (modalId === "#deleteMunicipalModal") {
+// 		        document.getElementById("delete-idMunicipal").value = button.dataset.id;
+// 		        document.getElementById("delete-message").innerHTML =
+// 		            `Voulez-vous vraiment supprimer la municipalité : <strong>${button.dataset.nom}</strong> ?`;
+// 		    }
+// 		});
+		
+		// ---- MODAL MODIF ----
+		const editModal = document.getElementById("editMunicipalModal");
+
+	    if (editModal) {
+	        editModal.addEventListener("show.bs.modal", function (event) {
+	            const button = event.relatedTarget;
+
+	            // Récupération des attributs data-*
+	            document.getElementById("edit-idMunicipal").value = button.getAttribute("data-id");
+	            document.getElementById("edit-nomMunicipal").value = button.getAttribute("data-nomMunicipal");
+	            document.getElementById("edit-typeMunicipal").value = button.getAttribute("data-typeMunicipal");
+	            document.getElementById("edit-dateMunicipal").value = button.getAttribute("data-dateMunicipal");
+	            document.getElementById("edit-selectRegion").value = button.getAttribute("data-idRegion");
+
+	            const idRegion = button.getAttribute("data-idRegion");
+
+		        // Sélectionner l'option correcte dans le select
+		        const selectRegion = document.getElementById("edit-selectRegion");
+		        selectRegion.value = idRegion;
+	        });
+	    }
+	    
+	 // ========== MODAL SUPPRESSION SIGNALEMENT ==========
+	    const deleteModal = document.getElementById('deleteModal');
+
+	    if (deleteModal) {
+	        deleteModal.addEventListener('show.bs.modal', function(event) {
+	            const button = event.relatedTarget;
+	            
+
+	            document.getElementById("delete-idMunicipal").value = button.getAttribute("data-id");
+
+	            const id = button.getAttribute("data-id");
+	            //const type = button.getAttribute("data-type");
+	            
+	            // Remplir les champs cachés du formulaire
+	            document.getElementById("deleteId").value = id;
+	            
+	        });
+	    }
+
+
+		
+		
 	// Animation
 	const tables = document.querySelectorAll('.table tbody tr');
 	tables.forEach((row, index) => {
