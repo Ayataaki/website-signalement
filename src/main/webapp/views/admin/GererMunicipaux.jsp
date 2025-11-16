@@ -386,7 +386,6 @@ body {
 			
 				<input type="hidden" name="action" value="update"> 
 				<input type="hidden" name="idMunicipal" id="edit-idMunicipal">
-				<input type="hidden" name="idRegion" id="edit-idRegion">
 				
 
 				<div class="modal-content">
@@ -456,170 +455,145 @@ body {
 
 
 <script>
-	function confirmDelete(type, name) {
-	    if (confirm(`Êtes-vous sûr de vouloir supprimer ${type} "${name}" ?\n\nCette action est irréversible.`)) {
-	        alert(`${type} "${name}" supprimé avec succès.`);
-	        // Ici vous ajouteriez la logique de suppression réelle
-	    }
-	}
-		
-	document.addEventListener('DOMContentLoaded', function() {
-		
-// 		document.addEventListener("click", function(e) {
 
-// 		    const button = e.target.closest("button[data-bs-target]");
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ========== MODAL MODIFICATION ==========
+    const editModal = document.getElementById("editMunicipalModal");
 
-// 		    if (!button) return;
+    if (editModal) {
+        editModal.addEventListener("show.bs.modal", function (event) {
+            const button = event.relatedTarget;
 
-// 		    const modalId = button.getAttribute("data-bs-target");
+            // CORRECTION : Utiliser les bons noms d'attributs
+            const id = button.getAttribute("data-id");
+            const nom = button.getAttribute("data-nom");       
+            const type = button.getAttribute("data-type");       
+            const date = button.getAttribute("data-date");         
+            const idRegion = button.getAttribute("data-idregion"); 
+ 
+            console.log("📝 Données du bouton:", {
+                id: id,
+                nom: nom,
+                type: type,
+                date: date,
+                idRegion: idRegion
+            });
+ 
+            document.getElementById("edit-idMunicipal").value = id;
+            document.getElementById("edit-nomMunicipal").value = nom;
+            document.getElementById("edit-typeMunicipal").value = type;
+            document.getElementById("edit-dateMunicipal").value = date;
+ 
+            const selectRegion = document.getElementById("edit-selectRegion");
+            if (idRegion) {
+                selectRegion.value = idRegion; 
+            } else {
+                console.warn("idRegion est undefined ou null");
+            }
+        });
+    }
+    
+    // ========== MODAL SUPPRESSION ==========
+    const deleteModal = document.getElementById('deleteMunicipalModal');
 
-// 		    // ---- MODAL MODIFICATION ----
-// 		    if (modalId === "#editMunicipalModal") {
-		    	
-		    	
-// 		        document.getElementById("edit-idMunicipal").value = button.dataset.id;
-// 		        document.getElementById("edit-nomMunicipal").value = button.dataset.nom;
-// 		        document.getElementById("edit-typeMunicipal").value = button.dataset.type;
-// 		        document.getElementById("edit-dateMunicipal").value = button.dataset.date;
-// 		        document.getElementById("edit-selectRegion").value = button.dataset.idRegion;
+    if (deleteModal) {
+        deleteModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
 
-		        
-		        
-// 		        const idRegion = button.dataset.idRegion;
+            const id = button.getAttribute("data-id");
+            const nom = button.getAttribute("data-nom");
 
-// 		        // Sélectionner l'option correcte dans le select
-// 		        const selectRegion = document.getElementById("edit-selectRegion");
-// 		        selectRegion.value = idRegion;
-// 		    }
+            // Remplir le champ caché
+            document.getElementById("delete-idMunicipal").value = id;
+            
+            // Afficher le message
+            document.getElementById("delete-message").innerHTML =
+                `Voulez-vous vraiment supprimer la municipalité : <strong>${nom}</strong> ?`;
+            
+            console.log("🗑️ Suppression:", { id: id, nom: nom });
+        });
+    }
 
-// 		    // ---- MODAL SUPPRESSION ----
-// 		    if (modalId === "#deleteMunicipalModal") {
-// 		        document.getElementById("delete-idMunicipal").value = button.dataset.id;
-// 		        document.getElementById("delete-message").innerHTML =
-// 		            `Voulez-vous vraiment supprimer la municipalité : <strong>${button.dataset.nom}</strong> ?`;
-// 		    }
-// 		});
-		
-		// ---- MODAL MODIF ----
-		const editModal = document.getElementById("editMunicipalModal");
+    // ========== ANIMATION DES LIGNES ==========
+    const tables = document.querySelectorAll('.table tbody tr');
+    tables.forEach((row, index) => {
+        row.style.opacity = '0';
+        row.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            row.style.transition = 'all 0.3s ease';
+            row.style.opacity = '1';
+            row.style.transform = 'translateY(0)';
+        }, index * 50);
+    });
 
-	    if (editModal) {
-	        editModal.addEventListener("show.bs.modal", function (event) {
-	            const button = event.relatedTarget;
+    // ========== PAGINATION ==========
+    const rowsPerPage = 5;
+    const table = document.querySelector('.table tbody');
+    const rows = Array.from(table.querySelectorAll('tr'));
+    const pagination = document.getElementById('pagination');
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+    let currentPage = 1;
 
-	            // Récupération des attributs data-*
-	            document.getElementById("edit-idMunicipal").value = button.getAttribute("data-id");
-	            document.getElementById("edit-nomMunicipal").value = button.getAttribute("data-nomMunicipal");
-	            document.getElementById("edit-typeMunicipal").value = button.getAttribute("data-typeMunicipal");
-	            document.getElementById("edit-dateMunicipal").value = button.getAttribute("data-dateMunicipal");
-	            document.getElementById("edit-selectRegion").value = button.getAttribute("data-idRegion");
+    function displayPage(page) {
+        rows.forEach((row, index) => {
+            row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+        });
+        renderPagination();
+    }
 
-	            const idRegion = button.getAttribute("data-idRegion");
+    function renderPagination() {
+        pagination.innerHTML = '';
 
-		        // Sélectionner l'option correcte dans le select
-		        const selectRegion = document.getElementById("edit-selectRegion");
-		        selectRegion.value = idRegion;
-	        });
-	    }
-	    
-	 // ========== MODAL SUPPRESSION SIGNALEMENT ==========
-	    const deleteModal = document.getElementById('deleteModal');
+        // Bouton Précédent
+        const prevLi = document.createElement('li');
+        prevLi.classList.add('page-item');
+        if (currentPage === 1) prevLi.classList.add('disabled');
+        prevLi.innerHTML = `<a class="page-link" href="#">Précédent</a>`;
+        prevLi.addEventListener('click', e => {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+        pagination.appendChild(prevLi);
 
-	    if (deleteModal) {
-	        deleteModal.addEventListener('show.bs.modal', function(event) {
-	            const button = event.relatedTarget;
-	            
+        // Numéros de pages
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.classList.add('page-item');
+            if (i === currentPage) li.classList.add('active');
+            const a = document.createElement('a');
+            a.classList.add('page-link');
+            a.href = '#';
+            a.textContent = i;
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                currentPage = i;
+                displayPage(currentPage);
+            });
+            li.appendChild(a);
+            pagination.appendChild(li);
+        }
 
-	            document.getElementById("delete-idMunicipal").value = button.getAttribute("data-id");
+        // Bouton Suivant
+        const nextLi = document.createElement('li');
+        nextLi.classList.add('page-item');
+        if (currentPage === totalPages) nextLi.classList.add('disabled');
+        nextLi.innerHTML = `<a class="page-link" href="#">Suivant</a>`;
+        nextLi.addEventListener('click', e => {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+        pagination.appendChild(nextLi);
+    }
 
-	            const id = button.getAttribute("data-id");
-	            //const type = button.getAttribute("data-type");
-	            
-	            // Remplir les champs cachés du formulaire
-	            document.getElementById("deleteId").value = id;
-	            
-	        });
-	    }
-
-
-		
-		
-	// Animation
-	const tables = document.querySelectorAll('.table tbody tr');
-	tables.forEach((row, index) => {
-	row.style.opacity = '0';
-	row.style.transform = 'translateY(20px)';
-	setTimeout(() => {
-	row.style.transition = 'all 0.3s ease';
-	row.style.opacity = '1';
-	row.style.transform = 'translateY(0)';
-	}, index * 50);
-	});
-	
-	// Pagination
-	const rowsPerPage = 5;
-	const table = document.querySelector('.table tbody');
-	const rows = Array.from(table.querySelectorAll('tr'));
-	const pagination = document.getElementById('pagination');
-	const totalPages = Math.ceil(rows.length / rowsPerPage);
-	let currentPage = 1;
-	
-	function displayPage(page) {
-	rows.forEach((row, index) => {
-	row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
-	});
-	renderPagination();
-	}
-	
-	function renderPagination() {
-	pagination.innerHTML = '';
-	
-	const prevLi = document.createElement('li');
-	prevLi.classList.add('page-item');
-	if (currentPage === 1) prevLi.classList.add('disabled');
-	prevLi.innerHTML = `<a class="page-link" href="#">Précédent</a>`;
-	prevLi.addEventListener('click', e => {
-	e.preventDefault();
-	if (currentPage > 1) {
-	currentPage--;
-	displayPage(currentPage);
-	}
-	});
-	pagination.appendChild(prevLi);
-	
-	for (let i = 1; i <= totalPages; i++) {
-	const li = document.createElement('li');
-	li.classList.add('page-item');
-	if (i === currentPage) li.classList.add('active');
-	const a = document.createElement('a');
-	a.classList.add('page-link');
-	a.href = '#';
-	a.textContent = i;
-	a.addEventListener('click', e => {
-	  e.preventDefault();
-	  currentPage = i;
-	  displayPage(currentPage);
-	});
-	li.appendChild(a);
-	pagination.appendChild(li);
-	}
-	
-	const nextLi = document.createElement('li');
-	nextLi.classList.add('page-item');
-	if (currentPage === totalPages) nextLi.classList.add('disabled');
-	nextLi.innerHTML = `<a class="page-link" href="#">Suivant</a>`;
-	nextLi.addEventListener('click', e => {
-	e.preventDefault();
-	if (currentPage < totalPages) {
-	currentPage++;
-	displayPage(currentPage);
-	}
-	});
-	pagination.appendChild(nextLi);
-	}
-	
-	displayPage(currentPage);
-	});
+    displayPage(currentPage);
+});
 </script>
 
 </body>

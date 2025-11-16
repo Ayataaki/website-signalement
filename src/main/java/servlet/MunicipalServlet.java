@@ -30,10 +30,6 @@ public class MunicipalServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Charger la liste des régions
-//		List<Region> regions = regionDao.getAll();
-//		request.setAttribute("regions", regions);
-//        request.getRequestDispatcher("views/FormMunicipal.jsp").forward(request, response);
 		doPost(request,response);
     }
 
@@ -70,7 +66,7 @@ public class MunicipalServlet extends HttpServlet {
     }
 
 	private void deleteMunicipal(HttpServletRequest request, HttpServletResponse response) {
-		String id = request.getParameter("id");
+		String id = request.getParameter("idMunicipal");
     	Long idMun = Long.parseLong(id.trim());
     
     	municipalDao.deleteMunicipal(idMun);
@@ -97,9 +93,9 @@ public class MunicipalServlet extends HttpServlet {
 
 	private void getAllMun(HttpServletRequest request, HttpServletResponse response) {
 
-		List<Region> regions = regionDao.getAll();
+		List<Municipal> municipaux = municipalDao.getAll();
 
-		request.getSession().setAttribute("regions", regions);
+		request.getSession().setAttribute("municipaux", municipaux);
 	}
 
 	private void oldFunction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
