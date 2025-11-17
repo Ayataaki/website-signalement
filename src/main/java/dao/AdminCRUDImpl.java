@@ -112,7 +112,7 @@ public class AdminCRUDImpl implements IAdminCRUD {
 	}
 
 	@Override
-	public Administrateur getById(int id) {
+	public Administrateur getById(Long id) {
 
 		String sql = "SELECT * FROM ADMINISTRATEUR WHERE ID_ADMIN = ?";
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -204,5 +204,19 @@ public class AdminCRUDImpl implements IAdminCRUD {
 		return null;
 
 	}
+
+	public void updatePwd(String pwd, Long idAdmin) {
+	    String sql = "UPDATE ADMINISTRATEUR SET MOT_DE_PASSE = ? WHERE ID_ADMIN = ?";
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ps.setString(1, pwd);
+	        ps.setLong(2, idAdmin);
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
+	
 
 }
