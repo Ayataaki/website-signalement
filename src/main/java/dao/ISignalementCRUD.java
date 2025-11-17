@@ -23,10 +23,14 @@ public interface ISignalementCRUD {
 	double getResolutionRate();
 	
 	List<Signalement> getRecentReports(int limit);
-
-	List<Signalement> getSignalementByMunicipal(long idMunicipal);
 	
+	List<Signalement> getRecentReportsByMunicipal(Long idMunicipal,int limit);
+
+	List<Signalement> getSignalementByMunicipal(Long idMunicipal);
+		
 	int countSignalement();
+	
+	int countSignalementByMunicipal(Long idMunicipal);
 	
 	int getCountNewSignalementByMunicipal(Long idMunicipal);
 	

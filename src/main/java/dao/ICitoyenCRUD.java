@@ -21,5 +21,7 @@ public interface ICitoyenCRUD {
 	
 	List<Citoyen> getCitoyenByRegion(Long idRegion);
 	
+	List<Citoyen> getCitoyenByMunicipal(Long idMunicipal);
+	
 	int countCitoyen();
 }
