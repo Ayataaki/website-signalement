@@ -331,8 +331,17 @@ body {
 			</div>
 			
 			<div class="tab-content">
-				<!-- Citoyens -->
-				<div class="tab-pane fade show active">
+				<!-- Municipaux -->
+				<div class="tab-pane fade show active">	
+				
+					<!-- Bouton ajouter employé -->
+					<div class="d-flex justify-content-end mb-3">
+						<button class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#addMunicipalModal">
+							<i class="fas fa-building me-2"></i> Ajouter un service municipal
+						</button>
+					</div>
+												
 					<div class="table-responsive">
 						<table class="table table-hover table-sm">
 							<thead>
@@ -452,9 +461,85 @@ body {
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+	<div class="modal fade" id="addMunicipalModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="fas fa-building me-2"></i> Ajouter un municipal
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<form action="${pageContext.request.contextPath}/MunicipalServlet"
+					method="post" onsubmit="return validateForm()">
+
+					<div class="modal-body">
+
+						<input type="hidden" name="action" value="create" class="form-control">
+
+						<!-- Nom du municipal -->
+						<div class="mb-3">
+							<label for="nom" class="form-label"> Nom du municipal </label> 
+							<input type="text" class="form-control" id="nom" name="nom"
+								placeholder="Ex: Casablanca" value="${param.nom}" required>
+						</div>
+
+					<!-- Type de municipal -->
+					<div class="mb-3">
+						<label for="typeMunicipal" class="form-label"> Type de municipal </label>
+						
+						<div class="input-icon">
+							<select class="form-select" id="typeMunicipal" name="typeMunicipal" required>
+								<option value="" disabled selected>Sélectionnez un type</option>
+								<option value="Commune Urbaine"
+									${param.typeMunicipal == 'Commune Urbaine' ? 'selected' : ''}>Commune Urbaine</option>
+								<option value="Commune Rurale"
+									${param.typeMunicipal == 'Commune Rurale' ? 'selected' : ''}>Commune Rurale</option>
+								<option value="Arrondissement"
+									${param.typeMunicipal == 'Arrondissement' ? 'selected' : ''}>Arrondissement</option>
+								<option value="Municipalité"
+									${param.typeMunicipal == 'Municipalité' ? 'selected' : ''}>Municipalité</option>
+							</select>
+						</div>
+						<small class="text-muted">Type administratif du municipal</small>
+					</div>
+
+					<!-- Région -->
+					<div class="mb-3">
+						<label for="idRegion" class="form-label"> Région </label>
+						<div class="input-icon">
+							<select class="form-select" id="idRegion" name="idRegion"
+								required>
+								<option value="" disabled selected>Sélectionnez une région</option>
+
+								<c:forEach var="region" items="${regions}">
+									<option value="${region.idRegion}"
+										${param.idRegion == region.idRegion.toString() ? 'selected' : ''}>
+										${region.nom}</option>
+								</c:forEach>
+
+							</select>
+						</div>
+
+						<small class="text-muted">Région d'appartenance du municipal</small>
+					</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary">Ajouter</button>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
 
 
-<script>
+
+	<script>
 
 document.addEventListener('DOMContentLoaded', function() {
     

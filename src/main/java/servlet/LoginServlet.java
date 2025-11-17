@@ -113,18 +113,29 @@ public class LoginServlet extends HttpServlet {
 
 	private void dataSendEmploye(Employe employe, HttpServletRequest request, HttpServletResponse response) {
 		
+		Long idMunicipal = employe.getIdMunicipal();
 		int totalUsers = citoyenDao.countCitoyen();
-        int totalReports = signalementDao.countSignalement();
+        int totalReports = signalementDao.countSignalementByMunicipal(idMunicipal);
+        
+        //uncorrect
         double resolutionRate = signalementDao.getResolutionRate(); 
+        
+        //to correct
         List<Signalement> recentReports = signalementDao.getRecentReports(5); // les 5 derniers
 
+        //to correct
         Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();
+        
+        //not needed data
+        
         //Map<String, Integer> typeData = signalementDao.getReportTypeStats(); -- not clear enough
         List<Region> regions = regionDao.getAll();
         //List<Employe> employes = employeDAO.getAll();
         List<Citoyen> citoyens = citoyenDao.getAll();
         List<Municipal> municipaux = municipalDao.getAll();
-        List<Signalement> signalements = signalementDao.getAll();
+        
+        
+        List<Signalement> signalements = signalementDao.getSignalementByMunicipal(idMunicipal);
         
         request.getSession().setAttribute("totalUsers", totalUsers);
         request.getSession().setAttribute("totalReports", totalReports);

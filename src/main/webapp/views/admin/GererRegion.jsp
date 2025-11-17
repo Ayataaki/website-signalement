@@ -333,6 +333,15 @@ body {
 			<div class="tab-content">
 				<!-- Citoyens -->
 				<div class="tab-pane fade show active">
+				
+				<!-- Bouton ajouter région -->
+					<div class="d-flex justify-content-end mb-3">
+						<button class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#addRegionModal">
+							<i class="fas fa-building me-2"></i> Ajouter une région
+						</button>
+					</div>
+				
 					<div class="table-responsive">
 						<table class="table table-hover table-sm">
 							<thead>
@@ -355,12 +364,23 @@ body {
 										<td>${r.dateCreation}</td>
 										<td>
 											<button class="btn btn-sm btn-outline-primary btn-action"
+												data-bs-toggle="modal" 
+												data-bs-target="#editRegionModal"
+												data-id="${r.idRegion}" 
+												data-nom="${r.nom}"
+												data-superficie="${r.superficie}"
+												data-population="${r.population}"
+												data-capReg="${r.capitaleRegionale}" 
+												data-date="${r.dateCreation}"
 												title="Modifier">
 												<i class="bi bi-pencil"></i>
 											</button>
+
 											<button class="btn btn-sm btn-outline-danger btn-action"
-												title="Supprimer"
-												onclick="confirmDelete(${r.idRegion})">
+												data-bs-toggle="modal"
+												data-bs-target="#deleteRegionModal"
+												data-id="${r.idRegion}" data-nom="${r.nom}"	
+												title="Supprimer">
 												<i class="bi bi-trash"></i>
 											</button>
 										</td>
@@ -376,6 +396,123 @@ body {
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="editRegionModal" tabindex="-1">
+		<div class="modal-dialog">
+			<form action="${pageContext.request.contextPath}/RegionServlet" method="post">
+			
+				<input type="hidden" name="action" value="update"> 
+				<input type="hidden" name="idRegion" id="edit-idRegion">				
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Modifier une région</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+
+					<div class="modal-body">
+						<label class="form-label">Nom</label> 
+						<input id="edit-nomRegion" name="nom" class="form-control"> 
+						
+						<label class="form-label mt-2">La capitale régionale</label> 
+						<input id="edit-capReg" name="capitaleRegionale" class="form-control"> 
+													
+						<label class="form-label mt-2">Supérficie</label> 
+						<input id="edit-superficie" name="superficie" class="form-control"> 
+						
+						<label class="form-label mt-2">Population</label> 
+						<input id="edit-population" name="population" class="form-control"> 
+																		
+						<label class="form-label mt-2">Date de création</label> 
+						<input id="edit-dateMunicipal" name="date" class="form-control" readonly>						
+					</div>
+
+					<div class="modal-footer">
+						<button class="btn btn-primary">Modifier</button>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deleteRegionModal" tabindex="-1">
+		<div class="modal-dialog">
+			<form action="${pageContext.request.contextPath}/RegionServlet" method="post">
+			
+				<input type="hidden" name="action" value="delete"> 
+				<input type="hidden" name="idRegion" id="delete-idRegion">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Supprimer</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+
+					<div class="modal-body">
+						<p id="delete-message"></p>
+					</div>
+
+					<div class="modal-footer">
+						<button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						<button class="btn btn-danger">Supprimer</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="addRegionModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="fas fa-building me-2"></i> Ajouter une région
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<form action="${pageContext.request.contextPath}/RegionServlet"
+					method="post" onsubmit="return validateForm()">
+
+					<div class="modal-body">
+
+						<input type="hidden" name="action" value="create" class="form-control">
+
+						<div class="mb-3">
+							<label for="nom" class="form-label"> Nom de la région</label> 
+							<input type="text" class="form-control" id="nom" name="nom" required>
+						</div>
+						
+						<div class="mb-3">
+							<label for="nom" class="form-label"> La capitale régionale</label> 
+							<input type="text" class="form-control" name="capitaleRegionale" required>
+						</div>
+						
+						<div class="mb-3">
+							<label for="nom" class="form-label"> Superficie</label> 
+							<input type="text" class="form-control"  name="superficie" required>
+						</div>
+						
+						<div class="mb-3">
+							<label for="nom" class="form-label"> Population</label> 
+							<input type="text" class="form-control" name="population" required>
+						</div>
+						
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+						<button type="submit" class="btn btn-primary">Ajouter</button>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+	
+	
 
 
 	<!-- Bootstrap JS -->
@@ -383,15 +520,54 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-<script>
-	function confirmDelete(type, name) {
-	    if (confirm(`Êtes-vous sûr de vouloir supprimer ${type} "${name}" ?\n\nCette action est irréversible.`)) {
-	        alert(`${type} "${name}" supprimé avec succès.`);
-	        // Ici vous ajouteriez la logique de suppression réelle
-	    }
-	}
-	
+<script>	
 	document.addEventListener('DOMContentLoaded', function() {
+		
+
+	    // ========== MODAL MODIFICATION ==========
+	    const editModal = document.getElementById("editRegionModal");
+
+	    if (editModal) {
+	        editModal.addEventListener("show.bs.modal", function (event) {
+	            const button = event.relatedTarget;
+
+	            // CORRECTION : Utiliser les bons noms d'attributs
+	            const id = button.getAttribute("data-id");
+	            const nom = button.getAttribute("data-nom");  
+	            const superficie = button.getAttribute("data-superficie");       
+	            const population = button.getAttribute("data-population");       
+	            const date = button.getAttribute("data-date");         
+	            const capReg = button.getAttribute("data-capReg"); 
+	 	 
+	            document.getElementById("edit-idRegion").value = id;
+	            document.getElementById("edit-nomRegion").value = nom;
+	            document.getElementById("edit-capReg").value = capReg;
+	            document.getElementById("edit-superficie").value = superficie;
+	            document.getElementById("edit-population").value = population;
+	            document.getElementById("edit-dateMunicipal").value = date;
+	 
+	        });
+	    }
+	    
+	    // ========== MODAL SUPPRESSION ==========
+	    const deleteModal = document.getElementById('deleteRegionModal');
+
+	    if (deleteModal) {
+	        deleteModal.addEventListener('show.bs.modal', function(event) {
+	            const button = event.relatedTarget;
+
+	            const id = button.getAttribute("data-id");
+	            const nom = button.getAttribute("data-nom");
+
+	            // Remplir le champ caché
+	            document.getElementById("delete-idRegion").value = id;
+	            
+	            // Afficher le message
+	            document.getElementById("delete-message").innerHTML =
+	                `Voulez-vous vraiment supprimer la région : <strong>${nom}</strong> ?`;
+	            
+	        });
+	    }
 	// Animation
 	const tables = document.querySelectorAll('.table tbody tr');
 	tables.forEach((row, index) => {
@@ -465,6 +641,21 @@ body {
 	});
 	pagination.appendChild(nextLi);
 	}
+	
+	// Fonction pour réinitialiser complètement la pagination
+	function reinitPagination() {
+	    const table = document.querySelector('.table tbody');
+	    const rows = Array.from(table.querySelectorAll('tr'));
+	    
+	    // Afficher TOUTES les lignes d'abord
+	    rows.forEach(row => row.style.display = '');
+	    
+	    // Puis réinitialiser la pagination
+	    displayPage(1);
+	}
+
+	// Appeler après chaque modification
+	window.addEventListener('load', reinitPagination);
 	
 	displayPage(currentPage);
 	});

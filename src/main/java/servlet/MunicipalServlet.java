@@ -60,6 +60,16 @@ public class MunicipalServlet extends HttpServlet {
 
 			break;
 			
+		case "create":
+			
+			createMunicipal(request, response);
+
+			getAllMun(request, response);
+
+			request.getRequestDispatcher("/views/admin/GererMunicipaux.jsp").forward(request, response);
+
+			break;
+			
 		}
 
     
@@ -98,7 +108,7 @@ public class MunicipalServlet extends HttpServlet {
 		request.getSession().setAttribute("municipaux", municipaux);
 	}
 
-	private void oldFunction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void createMunicipal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nom = request.getParameter("nom");
         String typeMunicipal = request.getParameter("typeMunicipal");
         String idRegion = request.getParameter("idRegion");
@@ -121,7 +131,8 @@ public class MunicipalServlet extends HttpServlet {
 
         List<Region> regions = regionDao.getAll();
         request.setAttribute("regions", regions);
-        request.getRequestDispatcher("views/FormMunicipal.jsp").forward(request, response);
+        
+        
 	}
     
     

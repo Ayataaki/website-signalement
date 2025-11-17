@@ -106,11 +106,25 @@ public class Deboggue {
 		    System.out.println("nom de la municipal"+r.getNom() );
 		}
         
-        signalementDao.updateStatut(28L,Statut.NEW);
-        Signalement s = signalementDao.getById(28L);
-	    System.out.println("statut de signalement d'id 28 est :"+s.getStatut());
+//        signalementDao.updateStatut(28L,Statut.NEW);
+//        Signalement s = signalementDao.getById(28L);
+//	    System.out.println("statut de signalement d'id 28 est :"+s.getStatut());
+//        
+//        System.out.println(signalementDao.rechercherSignalements("AZ"));
         
-        System.out.println(signalementDao.rechercherSignalements("AZ"));
-    	}
+        //System.out.println(signalementDao.getSignalementIdByMunicipal(2L).getFirst().getDesignation());
+	
+
+//        System.out.println(signalementDao.getCountProcessingSignalementByMunicipal(2L));
+//        System.out.println(signalementDao.getCountNewSignalementByMunicipal(2L));
+//        System.out.println(signalementDao.getCountFinishedSignalementByMunicipal(2L));
+
+
+        for (Citoyen s: citoyenDao.getCitoyenByMunicipal(2L) ) {
+        	System.out.println(s.getEmail());
+        }
+	}
+	
+	
 
 }

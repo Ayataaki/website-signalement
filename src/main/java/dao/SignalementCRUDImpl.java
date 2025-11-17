@@ -281,11 +281,6 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 				s.setDesignation(rs.getString("DESIGNATION"));
 				s.setIdCitoyen(rs.getLong("ID_CITOYEN"));
 
-//	            s.setIdSignalement(rs.getLong("id_signalement"));
-//	            s.setDescription(rs.getString("description"));
-//	            s.setLocalisation(rs.getString("localisation"));
-//				s.setStatut(Statut.fromLabel(rs.getString("STATUT")));
-//				s.setDateCreation(rs.getDate("date_creation"));
 	            list.add(s);
 	        }
 	    } catch (Exception e) {
@@ -321,27 +316,42 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 	}
 
 	@Override
-	public List<Signalement> getSignalementByMunicipal(long idMunicipal) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getCountNewSignalementByMunicipal(Long idMunicipal) {
-		// TODO Auto-generated method stub
-		return 0;
+		List<Signalement> liste = new ArrayList<>();
+		liste = getSignalementByMunicipal(idMunicipal);
+		int count = 0;
+		for(Signalement s: liste) {
+			if(s.getStatut().getLabel().equals("new")) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 	@Override
 	public int getCountProcessingSignalementByMunicipal(Long idMunicipal) {
-		// TODO Auto-generated method stub
-		return 0;
+		List<Signalement> liste = new ArrayList<>();
+		liste = getSignalementByMunicipal(idMunicipal);
+		int count = 0;
+		for(Signalement s: liste) {
+			if(s.getStatut().getLabel().equals("processing")) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 	@Override
 	public int getCountFinishedSignalementByMunicipal(Long idMunicipal) {
-		// TODO Auto-generated method stub
-		return 0;
+		List<Signalement> liste = new ArrayList<>();
+		liste = getSignalementByMunicipal(idMunicipal);
+		int count = 0;
+		for(Signalement s: liste) {
+			if(s.getStatut().getLabel().equals("final")) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 	@Override
@@ -350,7 +360,7 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 
 		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
-			ps.setString(1, statut.getLabel()); // ← "new", "processing", "final"
+			ps.setString(1, statut.getLabel()); // "new", "processing", "final"
 			ps.setLong(2, idSignalement);
 
 			ps.executeUpdate(); 
@@ -389,6 +399,62 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 	        e.printStackTrace();
 	    }
 	    return liste;
+	}
+
+	@Override
+	public List<Signalement> getSignalementByMunicipal(Long idMunicipal) {
+		
+		List<Signalement> liste = new ArrayList<>();
+	    
+	    String sql = "SELECT s.ID_SIGNALEMENT "
+	    		+ "FROM MUNICIPAL m "
+	    		+ "JOIN EMPLOYE e ON m.ID_MUNICIPAL = e.ID_MUNICIPAL "
+	    		+ "JOIN CITOYEN c ON m.ID_REGION = c.ID_REGION "
+	    		+ "JOIN SIGNALEMENT s ON s.ID_CITOYEN = c.ID_CITOYEN "
+	    		+ "WHERE m.ID_MUNICIPAL = ?";
+	    
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	    	
+	        ps.setLong(1,idMunicipal);
+	        
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {	            
+	        	liste.add(getById(rs.getLong("ID_SIGNALEMENT")));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return liste;
+	}
+
+	@Override
+	public int countSignalementByMunicipal(Long idMunicipal) {
+		
+		String sql = "SELECT count(s.ID_SIGNALEMENT) "
+	    		+ "FROM MUNICIPAL m "
+	    		+ "JOIN EMPLOYE e ON m.ID_MUNICIPAL = e.ID_MUNICIPAL "
+	    		+ "JOIN CITOYEN c ON m.ID_REGION = c.ID_REGION "
+	    		+ "JOIN SIGNALEMENT s ON s.ID_CITOYEN = c.ID_CITOYEN "
+	    		+ "WHERE m.ID_MUNICIPAL = ?";
+		
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ps.setLong(1,idMunicipal);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next())
+					return rs.getInt(1);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("Erreur lors du calcul de total des signalements", ex);
+		}
+		return 0;
+	}
+
+	@Override
+	public List<Signalement> getRecentReportsByMunicipal(Long idMunicipal,int limit) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

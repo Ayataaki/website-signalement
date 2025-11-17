@@ -296,4 +296,29 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 		return 0;
 	}
 
+	@Override
+	public List<Citoyen> getCitoyenByMunicipal(Long idMunicipal) {
+		
+		List<Citoyen> liste = new ArrayList<>();
+		
+		String sql = "SELECT c.ID_CITOYEN "
+				+ "FROM MUNICIPAL m "
+				+ "JOIN CITOYEN c "
+				+ "ON m.ID_REGION = c.ID_REGION "
+				+ "WHERE m.ID_MUNICIPAL = ?";
+		
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setLong(1, idMunicipal);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					liste.add(getById(rs.getLong(1)));
+				}
+				return liste;
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("Erreur lors de la récupération du citoyen", ex);
+		}		
+	}
+
 }
