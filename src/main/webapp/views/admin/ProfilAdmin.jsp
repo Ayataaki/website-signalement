@@ -56,6 +56,10 @@
         .sidebar .nav-link i {
             margin-right: 10px;
         }
+        .layout-container {
+	        display: flex;
+	        min-height: 100vh;
+          }
 
         .sidebar .nav-link:hover {
             background: #f1f1f1;
@@ -165,6 +169,10 @@
     font-size: 1rem;
     transition: all 0.3s ease;
 }
+.btn-action {
+	padding: 0.375rem 0.75rem;
+	margin: 0 0.25rem;
+}
 
 .btn-register:hover {
     background-color: var(--primary-hover);
@@ -182,6 +190,7 @@
 <body>
 
 <!-- ============ SIDEBAR ============ -->
+<div class="layout-container">
 <div class="sidebar">
     <div class="logo">
         <h4 class="mb-0">
@@ -210,6 +219,27 @@
             <i class="fas fa-user-shield"></i> Profil 
         </a>
     </nav>
+    
+   <div class="mt-auto p-3">
+			<div class="user-info">
+				<div class="d-flex align-items-center mb-2">
+					<div class="avatar-sm me-2">
+						<i class="fas fa-user-shield"></i>
+					</div>
+					<div>
+						<small class="d-block fw-semibold">
+							${sessionScope.admin.nom} ${sessionScope.admin.prenom} </small> <small
+							class="text-muted">Administrateur</small>
+					</div>
+				</div>
+				<a href="${pageContext.request.contextPath}/LogoutServlet"
+					class="btn btn-outline-danger btn-sm w-100"> <i
+					class="fas fa-sign-out-alt me-1"></i> Déconnexion
+				</a>
+			</div>
+		</div>
+
+</div>
 </div>
 
 

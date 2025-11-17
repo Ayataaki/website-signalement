@@ -388,7 +388,7 @@
                                         <th>Localisation</th>
                                         <th>Statut</th>
                                         <th>Date</th>
-                                        <th>Actions</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -440,15 +440,7 @@
                                                             ${sig.dateCreation}
                                                         </small>
                                                     </td>
-                                                    <td>
-                                                        <a 
-<%--                                                         href="SignalementServlet?action=view&id=${sig.idSignalement}"  --%>
-															href="#"
-                                                           class="btn btn-sm btn-outline-primary"
-                                                           title="Voir détails">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
-                                                    </td>
+                                                    
                                                 </tr>
                                             </c:forEach>
                                         </c:otherwise>

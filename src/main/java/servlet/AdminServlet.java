@@ -17,7 +17,7 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	  // Récupérer la session sans en créer une nouvelle
-        HttpSession session = request.getSession(false);
+    	HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("admin") == null) {
             // Rediriger vers la page de login si pas d'admin en session
             response.sendRedirect(request.getContextPath() + "/loginAdmin.jsp");
