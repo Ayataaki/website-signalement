@@ -38,10 +38,10 @@
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Régions</span>
                 </a>
-                <a href="ProfilAdmin.jsp" class="nav-link">
-                    <i class="fas fa-user-cog"></i>
-					<span>Profil</span>
-                </a>
+               <a href="${pageContext.request.contextPath}/AdminServlet" class="nav-link">
+               <i class="fas fa-user-cog"></i>
+               <span>Profil</span>
+</a>
             </nav>
 </body>
 </html>

@@ -13,9 +13,11 @@ void createAdmin(Administrateur admin);
 	
 	Administrateur updateAdmin(Administrateur admin);
 	
-	Administrateur getById(int id);
+	Administrateur getById(Long id);
 	
 	List<Administrateur> getAll();
 
 	Administrateur findByEmailAuth(String email);
+
+	
 }
