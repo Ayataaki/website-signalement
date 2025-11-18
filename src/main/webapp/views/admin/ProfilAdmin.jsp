@@ -132,7 +132,7 @@
 }
 
 .modal-body {
-    padding: 2.5rem; /* plus de padding pour le corps du formulaire */
+    padding: 5rem; /* plus de padding pour le corps du formulaire */
 }
 
 .form-label {
@@ -183,6 +183,25 @@
 .row .col-md-6 {
     padding-right: 1rem;
     padding-left: 1rem;
+}
+/* Dans la section <style> */
+.modal-body .row {
+    margin-bottom: 1rem;
+}
+
+.modal-body .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+.modal-body .form-control {
+    margin-top: 0;
+}
+
+.modal-footer {
+    padding: 1rem 2rem;
+    background-color: #f8f9fa;
 }
     </style>
 </head>
@@ -358,6 +377,7 @@
 </div>
 
 
+
 <!-- ======== MODAL AJOUT ADMIN ======== -->
 <div class="modal fade" id="modalAddAdmin" tabindex="-1">
   <div class="modal-dialog modal-lg">
@@ -368,47 +388,63 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
-      <form action="${pageContext.request.contextPath}/RegisterServlet" method="post" onsubmit="return validateForm()">
-                <div class="row">
-                    <div class="col-md-6">
-                    
-                    <input type="hidden" name="typeCompte" value="admin" class="form-control" >
-                    
-                    
-                        <label for="nom" class="form-label">Nom</label>
-                        <input type="text" id="nom" name="nom" class="form-control" required>
+      <div class="modal-body">
+        <form id="formAddAdmin" action="${pageContext.request.contextPath}/RegisterServlet" method="post" onsubmit="return validateForm()">
+          <input type="hidden" name="typeCompte" value="admin">
+          
+          <div class="row">
+            <div class="col-12">
+              <label for="nom" class="form-label">Nom</label>
+              <input type="text" id="nom" name="nom" class="form-control" required>
+            
 
-                        <label for="prenom" class="form-label">Prénom</label>
-                        <input type="text" id="prenom" name="prenom" class="form-control" required>
+            
+              <label for="prenom" class="form-label">Prénom</label>
+              <input type="text" id="prenom" name="prenom" class="form-control" required>
+            
+         
 
-                        <label for="cin" class="form-label">CIN</label>
-                        <input type="text" id="cin" name="cin" class="form-control" required>
+          
+              <label for="cin" class="form-label">CIN</label>
+              <input type="text" id="cin" name="cin" class="form-control" required>
+            
 
-                        <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
-                        <input type="text" id="lieu_naissance" name="lieu_naissance" class="form-control" required>
-                        </div>
+            
+              <label for="date_naissance" class="form-label">Date de naissance</label>
+              <input type="date" id="date_naissance" name="date_naissance" class="form-control" required>
+            
 
-                        <div class="col-md-6">
-                        <label for="telephone" class="form-label">Téléphone</label>
-                        <input type="tel" id="telephone" name="telephone" class="form-control" required pattern="^0[5-7][0-9]{8}$" placeholder="ex: 0612345678">
+              <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
+              <input type="text" id="lieu_naissance" name="lieu_naissance" class="form-control" required>
+            
 
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="ex: user@municipal.com" required>
+          
+              <label for="telephone" class="form-label">Téléphone</label>
+              <input type="tel" id="telephone" name="telephone" class="form-control" required pattern="^0[5-7][0-9]{8}$" placeholder="ex: 0612345678">
+            
 
-                        <label for="date_naissance" class="form-label">Date de naissance</label>
-                        <input type="date" id="date_naissance" name="date_naissance" class="form-control" required>
+          
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="ex: user@municipal.com" required>
+          
+          
 
-                        <label for="mot_de_passe" class="form-label">Mot de passe</label>
-                        <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" placeholder="••••••••" required>
-
-					</div>
-                </div>
-
-                <button type="submit" class="btn-register mt-3">Créer un compte</button>
-            </form>
+          
+              <label for="mot_de_passe" class="form-label">Mot de passe</label>
+              <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" placeholder="••••••••" required minlength="6">
+            </div>
+          </div>
+        
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" form="formAddAdmin" class="btn btn-primary">
+          <i class="fas fa-user-plus me-2"></i>Créer le compte
+        </button>
+      
+        </form>
+      </div>
     </div>
   </div>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

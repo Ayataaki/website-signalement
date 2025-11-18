@@ -83,7 +83,7 @@ public class RegisterServlet extends HttpServlet {
             			telephone, email, password, dateNaissance,idRegion);
             	
             	citoyenDao.createCitoyen(newCitoyen);          	
-            	
+            	request.getRequestDispatcher("/views/Auth/Connexion.jsp").forward(request, response);
                 break;
                 
             case "employe":
