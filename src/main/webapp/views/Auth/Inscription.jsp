@@ -8,7 +8,7 @@
     <title>Inscription - UrbAlert</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
+   <style>
         :root {
             --primary-color: #1976D2;
             --primary-hover: #1565C0;
@@ -57,7 +57,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             padding: 2.5rem;
             width: 100%;
-            max-width: 600px;
+            max-width: 900px;
         }
 
         .register-card h2 {
@@ -91,7 +91,7 @@
         }
 
         .btn-register {
-            background-color: var(--primary-color);
+         background-color: var(--primary-color);
             color: white;
             padding: 0.75rem;
             border: none;
@@ -128,13 +128,14 @@
             }
         }
     </style>
+        
 </head>
 <body>
 
     <!-- Header -->
     <header class="header">
         <div class="container d-flex justify-content-between align-items-center">
-            <a href="Accueil.jsp" class="logo">
+            <a href="AccueilServlet" class="logo">
                 <i class="fas fa-building"></i>
                 <span>UrbAlert – Signalez, Suivez, Améliorez Votre Ville</span>
             </a>
@@ -149,7 +150,7 @@
 
             <form action="RegisterServlet" method="post" onsubmit="return validateForm()">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-12">
                     
                     <input type="hidden" name="typeCompte" value="citoyen" class="form-control" >
                     
@@ -165,9 +166,7 @@
 
                         <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
                         <input type="text" id="lieu_naissance" name="lieu_naissance" class="form-control" required>
-                    </div>
-
-                    <div class="col-md-6">
+                    
                         <label for="telephone" class="form-label">Téléphone</label>
                         <input type="tel" id="telephone" name="telephone" class="form-control" required pattern="^0[5-7][0-9]{8}$" placeholder="ex: 0612345678">
 
@@ -182,7 +181,7 @@
 
 
 						<!-- Région -->
-						<div class="mb-4">
+						
 							<label for="idRegion" class="form-label"> Région <span
 								style="color: red">*</span>
 							</label>
@@ -197,28 +196,22 @@
 								</select>
 							</div>
 							<small class="text-muted">Votre région de résidence</small>
-						</div>
+						
 
 						<small class="text-muted">Région d'appartenance du
 								municipal</small>
 						</div>
 
 					</div>
-                </div>
+                
 
                 <button type="submit" class="btn-register mt-3">Créer un compte</button>
-            </form>
+            
 
             <div class="login-link">
                 Vous avez déjà un compte ? <a href="${pageContext.request.contextPath}/views/Auth/Connexion.jsp">Connectez-vous</a>
             </div>
-        </div>
-    </div>
-    
-
-    <script>
-       
-    </script>
+            </form>
 
 </body>
 </html>

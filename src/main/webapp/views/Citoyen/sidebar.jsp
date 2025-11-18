@@ -35,7 +35,7 @@
             Mes signalements
         </a>
         <a class="nav-link ${param.activePage == 'report' ? 'active' : ''}" 
-           href="FormSingnalement.jsp">
+           href="SignalerProblème.jsp">
             <i class="fas fa-plus-circle"></i>
             Signaler un problème
         </a>

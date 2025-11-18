@@ -48,11 +48,11 @@
         }
 
         /* Form Container */
-        .form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
+      .form-container {
+    margin-left: 280px; /* largeur de la sidebar */
+    padding: 2rem;
+    width: calc(100% - 280px); /* prend tout l'espace restant */
+}
 
         .form-card {
             background: white;
@@ -80,7 +80,7 @@
 
         /* Form Styles */
         .form-label {
-            font-weight: 600;
+            font-weight: 100%;
             color: var(--text-dark);
             margin-bottom: 0.5rem;
         }
@@ -151,18 +151,6 @@
             padding-left: 40px;
         }
 
-        /* Map Styles */
-        #map {
-            height: 400px;
-            border-radius: 8px;
-            margin-top: 1rem;
-            border: 2px solid #e0e0e0;
-            z-index: 1;
-        }
-
-        .leaflet-container {
-            border-radius: 8px;
-        }
 
         /* Buttons */
         .btn-submit {
@@ -242,20 +230,71 @@
                 font-size: 0.875rem;
             }
         }
+        
+        /* Sidebar */
+.sidebar {
+    background: white;
+    min-height: 100vh;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 280px;
+}
+
+.logo {
+    padding: 2rem 1.5rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1rem;
+}
+
+.nav-link {
+    color: var(--text-dark);
+    padding: 0.75rem 1.5rem;
+    margin: 0.25rem 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-linkk.active {
+    background-color: rgba(25,118,210,0.1);
+    color: var(--primary-color);
+}
+
+.nav-link i {
+    width: 20px;
+    margin-right: 0.75rem;
+}
+
+/* Informations utilisateur dans la sidebar */
+.user-info {
+    background: white;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.user-avatar {
+    font-size: 1.5rem;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+        min-height: auto;
+    }
+}
+        
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <a href="${pageContext.request.contextPath}/Accueil.jsp" class="logo">
-                <i class="fas fa-building"></i>
-                <span>UrbAlert – Signalez, Suivez, Améliorez Votre Ville</span>
-            </a>
-        </div>
-    </header>
+<jsp:include page="sidebar.jsp">
+    <jsp:param name="activePage" value="reports"/>
+</jsp:include>
 
+   
     <!-- Form Container -->
     <div class="form-container">
         <div class="form-card">

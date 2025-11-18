@@ -167,7 +167,7 @@
 
 			<div class="register-link">
                 Vous n'avez pas de compte ? 
-                <a href="${pageContext.request.contextPath}/RegisterServlet" class="btn-primary">Inscrivez-vous</a>
+                <a href="${pageContext.request.contextPath}/RegisterServlet" class="text-primary">Inscrivez-vous</a>
                 
             </div>
         </div>
