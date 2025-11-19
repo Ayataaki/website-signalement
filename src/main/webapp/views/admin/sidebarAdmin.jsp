@@ -18,23 +18,23 @@
             </div>
 
             <nav class="nav flex-column">
-                <a href="DashboardAdmin.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/views/admin/DashboardAdmin.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
                     <i class="fas fa-chart-line"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="GererUtilisateur.jsp" class="nav-link ${param.activePage == 'users' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/views/admin/GererUtilisateur.jsp" class="nav-link ${param.activePage == 'users' ? 'active' : ''}">
                     <i class="fas fa-users"></i>
                     <span>Gérer Utilisateurs</span>
                 </a>
-                <a href="GererSignalement.jsp" class="nav-link ${param.activePage == 'reports' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/views/admin/GererSignalement.jsp" class="nav-link ${param.activePage == 'reports' ? 'active' : ''}">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Tous les Signalements</span>
                 </a>
-                <a href="GererMunicipaux.jsp" class="nav-link ${param.activePage == 'municipaux' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/views/admin/GererMunicipaux.jsp" class="nav-link ${param.activePage == 'municipaux' ? 'active' : ''}">
                     <i class="fas fa-building"></i>
                     <span>Services Municipaux</span>
                 </a>
-                <a href="GererRegion.jsp" class="nav-link ${param.activePage == 'regions' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/views/admin/GererRegion.jsp" class="nav-link ${param.activePage == 'regions' ? 'active' : ''}">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Régions</span>
                 </a>

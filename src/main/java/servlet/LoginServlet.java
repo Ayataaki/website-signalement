@@ -100,7 +100,7 @@ public class LoginServlet extends HttpServlet {
 		 	dataSendEmploye(employe,request,response);
 			
 			
-			response.sendRedirect(request.getContextPath() + "/views/employe/DashboardEmploye.jsp");
+			response.sendRedirect(request.getContextPath() + "/views/Employe/DashboardEmploye.jsp");
 			
 		} else {
 			

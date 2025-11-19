@@ -228,7 +228,7 @@
                     Vue d'ensemble
                 </h2>
                 
-                <!-- Cartes de statistiques -->
+               <!-- Cartes de statistiques -->
                 <div class="row g-4 mb-4">
                     <!-- Total Reports -->
                     <div class="col-md-6 col-lg-3">
@@ -237,8 +237,10 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">Total Signalements</p>
-                                        <h3 class="mb-0 fw-bold">${sessionScope.totalReports}</h3>
-                                        <small class="text-muted">Signalements créés</small>
+                                        <h3 class="mb-0 fw-bold">${totalReports}</h3>
+                                        <small class="text-success">
+                                            <i class="bi bi-arrow-up"></i> +5 aujourd'hui
+                                        </small>
                                     </div>
                                     <div class="stat-icon bg-primary bg-opacity-10 text-primary">
                                         <i class="bi bi-file-text"></i>
@@ -248,7 +250,7 @@
                         </div>
                     </div>
                     
-                    <!-- Nouveaux -->
+                     <!-- Nouveaux -->
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card">
                             <div class="card-body">
@@ -267,6 +269,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     
                     <!-- En Cours -->
                     <div class="col-md-6 col-lg-3">
@@ -311,6 +314,7 @@
                     </div>
                 </div>
                 
+               
                
                     
                     <!-- Graphique par Statut -->

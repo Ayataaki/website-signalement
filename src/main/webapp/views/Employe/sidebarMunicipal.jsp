@@ -33,17 +33,19 @@
     </div>
     
     <nav class="nav flex-column">
-        <a href="DashboardEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}" >
+
+        <a href="${pageContext.request.contextPath}/DashboardEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
             <i class="fas fa-chart-line"></i>
             Tableau de bord
         </a>
-        <a href="GererSignalements.jsp" class="nav-link ${param.activePage == 'reports' ? 'active' : ''}" >
+        <a href="${pageContext.request.contextPath}/GererSignalements.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
             <i class="fas fa-clipboard-list"></i>
             Gérer Signalements
         </a>
 
-        <a href="ProfilEmploye.jsp" class="nav-link ${param.activePage == 'profile' ? 'active' : ''}" >
-            <i class="fas fa-user-circle"></i>
+
+        <a href="${pageContext.request.contextPath}/ProfilEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
+           <i class="fas fa-user-circle"></i>
             Mon Profil
         </a>
     </nav>
