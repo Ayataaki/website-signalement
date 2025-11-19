@@ -109,7 +109,9 @@ public class Deboggue {
         
         System.out.println("getMonthlyReportStatsByMunicipal :"+signalementDao.getMonthlyReportStatsByMunicipal(1L));
         
-        
+        System.out.println("Signalements réels : " + signalementDao.getAll().size());
+
+        System.out.println("monthly reports send to admin dashboard are :"+signalementDao.getMonthlyReportStats());
         
 	}
 	

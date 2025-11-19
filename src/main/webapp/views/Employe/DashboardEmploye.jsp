@@ -314,7 +314,7 @@
                
                     
                     <!-- Graphique par Statut -->
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">
                                 <h5 class="card-title mb-4">
