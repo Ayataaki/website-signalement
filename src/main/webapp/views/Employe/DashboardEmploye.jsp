@@ -256,8 +256,7 @@
                                     <div>
                                         <p class="text-muted mb-1 small">Nouveaux</p>
                                         <h3 class="mb-0 fw-bold text-danger">
-											<%--${sessionScope.nouveaux} --%>
-												13
+											${sessionScope.nouveaux}											
                                         </h3>
                                         <small class="text-muted">À traiter</small>
                                     </div>
@@ -277,8 +276,7 @@
                                     <div>
                                         <p class="text-muted mb-1 small">En Cours</p>
                                         <h3 class="mb-0 fw-bold text-warning">
-											<%-- ${sessionScope.enCours} --%>
-                                        	8
+											${sessionScope.enCours}
                                         </h3>
                                         <small class="text-muted">En traitement</small>
                                     </div>
@@ -298,8 +296,7 @@
                                     <div>
                                         <p class="text-muted mb-1 small">Résolus</p>
                                         <h3 class="mb-0 fw-bold text-success">
-											<%-- ${sessionScope.resolus} --%>
-											2
+											${sessionScope.resolus}
 										</h3>
                                         <small class="text-muted">
 											Résolu
@@ -317,7 +314,7 @@
                
                     
                     <!-- Graphique par Statut -->
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">
                                 <h5 class="card-title mb-4">

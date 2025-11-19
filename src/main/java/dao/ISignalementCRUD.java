@@ -52,4 +52,6 @@ public interface ISignalementCRUD {
 	
 	List<Signalement> getRecentReportsByMunicipal(Long idMunicipal, int limit);
 
+	Map<String, Integer> getMonthlyReportStatsByMunicipal(Long idMunicipal);
+
 }

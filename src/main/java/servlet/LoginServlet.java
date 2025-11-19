@@ -124,9 +124,11 @@ public class LoginServlet extends HttpServlet {
         List<Signalement> recentReports = signalementDao.getRecentReportsByMunicipal(idMunicipal,5); // les 5 derniers
 
         //to correct
-        Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();
+        Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStatsByMunicipal(idMunicipal);
         
-        //not needed data
+        int nouveaux = signalementDao.getCountNewSignalementByMunicipal(idMunicipal);
+        int enCours = signalementDao.getCountProcessingSignalementByMunicipal(idMunicipal);
+        int resolus = signalementDao.getCountFinishedSignalementByMunicipal(idMunicipal);
         
         //Map<String, Integer> typeData = signalementDao.getReportTypeStats(); -- not clear enough
         List<Region> regions = regionDao.getAll();
@@ -140,6 +142,10 @@ public class LoginServlet extends HttpServlet {
         request.getSession().setAttribute("totalUsers", totalUsers);
         request.getSession().setAttribute("totalReports", totalReports);
 
+        request.getSession().setAttribute("nouveaux", nouveaux);
+        request.getSession().setAttribute("enCours", enCours);
+        request.getSession().setAttribute("resolus", resolus);
+        
         request.getSession().setAttribute("recentReports", recentReports);
         request.getSession().setAttribute("resolutionRate", resolutionRate);
         request.getSession().setAttribute("monthlyData", monthlyData);

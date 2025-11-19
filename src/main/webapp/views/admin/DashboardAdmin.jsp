@@ -341,7 +341,7 @@
                 <!-- Graphiques -->
                 <div class="row g-4 mb-4">
                     <!-- Monthly Trends -->
-                    <div class="col-lg-8">
+                    <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">
                                 <h5 class="card-title mb-4">
@@ -467,52 +467,95 @@
     <!-- Charts -->
     <script>
         // Monthly Trends Chart
-        const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
-        const monthlyData = {
-            labels: [
-                <c:forEach var="entry" items="${monthlyData}" varStatus="status">
-                    '${entry.key}'<c:if test="${!status.last}">,</c:if>
-                </c:forEach>
-            ],
-            datasets: [{
-                label: 'Signalements',
-                data: [
-                    <c:forEach var="entry" items="${monthlyData}" varStatus="status">
-                        ${entry.value}<c:if test="${!status.last}">,</c:if>
-                    </c:forEach>
-                ],
-                borderColor: '#1976D2',
-                backgroundColor: 'rgba(25, 118, 210, 0.1)',
-                borderWidth: 3,
-                fill: true,
-                tension: 0.4,
-                pointRadius: 5,
-                pointHoverRadius: 7,
-                pointBackgroundColor: '#1976D2'
-            }]
-        };
+//         const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+//         const monthlyData = {
+//             labels: [
+//                 <c:forEach var="entry" items="${monthlyData}" varStatus="status">
+//                     '${entry.key}'<c:if test="${!status.last}">,</c:if>
+//                 </c:forEach>
+//             ],
+//             datasets: [{
+//                 label: 'Signalements',
+//                 data: [
+//                     <c:forEach var="entry" items="${monthlyData}" varStatus="status">
+//                         ${entry.value}<c:if test="${!status.last}">,</c:if>
+//                     </c:forEach>
+//                 ],
+//                 borderColor: '#1976D2',
+//                 backgroundColor: 'rgba(25, 118, 210, 0.1)',
+//                 borderWidth: 3,
+//                 fill: true,
+//                 tension: 0.4,
+//                 pointRadius: 5,
+//                 pointHoverRadius: 7,
+//                 pointBackgroundColor: '#1976D2'
+//             }]
+//         };
         
-        new Chart(monthlyCtx, {
-            type: 'line',
-            data: monthlyData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 10
-                        }
-                    }
+//         new Chart(monthlyCtx, {
+//             type: 'line',
+//             data: monthlyData,
+//             options: {
+//                 responsive: true,
+//                 maintainAspectRatio: false,
+//                 plugins: {
+//                     legend: {
+//                         display: false
+//                     }
+//                 },
+//                 scales: {
+//                     y: {
+//                         beginAtZero: true,
+//                         ticks: {
+//                             stepSize: 10
+//                         }
+//                     }
+//                 }
+//             }
+//         });
+
+const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+const monthlyData = {
+    labels: [
+        <c:forEach var="entry" items="${monthlyData}" varStatus="status">
+            '${entry.key}'<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ],
+    datasets: [{
+        label: 'Signalements',
+        data: [
+            <c:forEach var="entry" items="${monthlyData}" varStatus="status">
+                ${entry.value}<c:if test="${!status.last}">,</c:if>
+            </c:forEach>
+        ],
+        backgroundColor: 'rgba(25, 118, 210, 0.6)',
+        borderColor: '#1976D2',
+        borderWidth: 1
+    }]
+};
+
+new Chart(monthlyCtx, {
+    type: 'bar',
+    data: monthlyData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 10
                 }
             }
-        });
+        }
+    }
+});
+
         
         // Type Distribution Chart
         const typeCtx = document.getElementById('typeChart').getContext('2d');
