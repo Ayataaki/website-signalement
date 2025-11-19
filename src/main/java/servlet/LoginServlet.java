@@ -114,14 +114,14 @@ public class LoginServlet extends HttpServlet {
 	private void dataSendEmploye(Employe employe, HttpServletRequest request, HttpServletResponse response) {
 		
 		Long idMunicipal = employe.getIdMunicipal();
-		int totalUsers = citoyenDao.countCitoyen();
+		int totalUsers = citoyenDao.countCitoyenByMunicipal(idMunicipal);
         int totalReports = signalementDao.countSignalementByMunicipal(idMunicipal);
         
         //uncorrect
-        double resolutionRate = signalementDao.getResolutionRate(); 
+        double resolutionRate = signalementDao.getResolutionRateByMunicipal(idMunicipal); 
         
         //to correct
-        List<Signalement> recentReports = signalementDao.getRecentReports(5); // les 5 derniers
+        List<Signalement> recentReports = signalementDao.getRecentReportsByMunicipal(idMunicipal,5); // les 5 derniers
 
         //to correct
         Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();

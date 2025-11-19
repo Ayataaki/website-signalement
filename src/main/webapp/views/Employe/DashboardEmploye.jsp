@@ -40,17 +40,27 @@
         }
         
         .sidebar {
-            width: var(--sidebar-width);
-            background: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
+/*             width: var(--sidebar-width); */
+/*             background: white; */
+/*             box-shadow: 2px 0 10px rgba(0,0,0,0.1); */
+/*             position: fixed; */
+/*             left: 0; */
+/*             top: 0; */
+/*             height: 100vh; */
+/*             overflow-y: auto; */
+/*             display: flex; */
+/*             flex-direction: column; */
+/*             z-index: 1000; */
+
+		    background: white;
+		    min-height: 100vh;
+		    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+		    position: fixed;
+		    width: 280px;
+		    display: flex;
+		    flex-direction: column;
+
+
         }
         
         .main-content {
@@ -106,9 +116,13 @@
         }
         
         .user-info {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 0.75rem;
+/*             background: #f8f9fa; */
+/*             border-radius: 8px; */
+/*             padding: 0.75rem; */
+			background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
         
         .avatar-sm {
@@ -157,29 +171,41 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 70px;
-            }
+/*             .sidebar { */
+/*                 width: 70px; */
+/*             } */
             
-            .sidebar .nav-link span {
-                display: none;
-            }
+/*             .sidebar .nav-link span { */
+/*                 display: none; */
+/*             } */
             
-            .sidebar .logo h4,
-            .sidebar .logo small,
-            .user-info div:not(.avatar-sm) {
-                display: none;
-            }
+/*             .sidebar .logo h4, */
+/*             .sidebar .logo small, */
+/*             .user-info div:not(.avatar-sm) { */
+/*                 display: none; */
+/*             } */
             
+/*             .main-content { */
+/*                 margin-left: 70px; */
+/*                 width: calc(100% - 70px); */
+/*             } */
+            
+/*             :root { */
+/*                 --sidebar-width: 70px; */
+/*             } */
+			.sidebar {
+                width: 100%;
+                position: relative;
+                min-height: auto;
+            }
             .main-content {
-                margin-left: 70px;
-                width: calc(100% - 70px);
+                margin-left: 0;
             }
-            
-            :root {
-                --sidebar-width: 70px;
+            .modal-body {
+                padding: 1.5rem;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -202,7 +228,7 @@
                     Vue d'ensemble
                 </h2>
                 
-                <!-- Cartes de statistiques -->
+               <!-- Cartes de statistiques -->
                 <div class="row g-4 mb-4">
                     <!-- Total Reports -->
                     <div class="col-md-6 col-lg-3">
@@ -211,8 +237,10 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">Total Signalements</p>
-                                        <h3 class="mb-0 fw-bold">${sessionScope.totalReports}</h3>
-                                        <small class="text-success">Signalements créés</small>
+                                        <h3 class="mb-0 fw-bold">${totalReports}</h3>
+                                        <small class="text-success">
+                                            <i class="bi bi-arrow-up"></i> +5 aujourd'hui
+                                        </small>
                                     </div>
                                     <div class="stat-icon bg-primary bg-opacity-10 text-primary">
                                         <i class="bi bi-file-text"></i>
@@ -222,17 +250,14 @@
                         </div>
                     </div>
                     
-                    <!-- Nouveaux -->
+                     <!-- Nouveaux -->
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">Nouveaux</p>
-                                        <h3 class="mb-0 fw-bold text-danger">
-											<%--${sessionScope.nouveaux} --%>
-												13
-                                        </h3>
+                                        <h3 class="mb-0 fw-bold text-danger">${nouveaux}</h3>
                                         <small class="text-muted">À traiter</small>
                                     </div>
                                     <div class="stat-icon bg-danger bg-opacity-10 text-danger">
@@ -243,6 +268,7 @@
                         </div>
                     </div>
                     
+                    
                     <!-- En Cours -->
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card">
@@ -250,10 +276,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">En Cours</p>
-                                        <h3 class="mb-0 fw-bold text-warning">
-											<%-- ${sessionScope.enCours} --%>
-                                        	8
-                                        </h3>
+                                        <h3 class="mb-0 fw-bold text-warning">${enCours}</h3>
                                         <small class="text-muted">En traitement</small>
                                     </div>
                                     <div class="stat-icon bg-warning bg-opacity-10 text-warning">
@@ -271,10 +294,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">Résolus</p>
-                                        <h3 class="mb-0 fw-bold text-success">
-											<%-- ${sessionScope.resolus} --%>
-											2
-										</h3>
+                                        <h3 class="mb-0 fw-bold text-success">${resolus}</h3>
                                         <small class="text-success">
                                             <i class="bi bi-arrow-up"></i> +12%
                                         </small>
@@ -288,6 +308,7 @@
                     </div>
                 </div>
                 
+               
                
                     
                     <!-- Graphique par Statut -->
@@ -307,7 +328,7 @@
                 </div>
                 
                 <!-- Signalements récents -->
-                <div class="row">
+                <div class="row px-4">
                     <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">

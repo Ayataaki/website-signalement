@@ -21,11 +21,11 @@ public interface ISignalementCRUD {
 	List<Signalement> getAll();
 	
 	double getResolutionRate();
+
+	double getResolutionRateByMunicipal(Long idMunicipal);
 	
 	List<Signalement> getRecentReports(int limit);
 	
-	List<Signalement> getRecentReportsByMunicipal(Long idMunicipal,int limit);
-
 	List<Signalement> getSignalementByMunicipal(Long idMunicipal);
 		
 	int countSignalement();
@@ -49,5 +49,7 @@ public interface ISignalementCRUD {
 	void updateStatut(Long idSignalement, Statut statut);
 
 	List<Signalement> rechercherSignalements(String keyword);
+	
+	List<Signalement> getRecentReportsByMunicipal(Long idMunicipal, int limit);
 
 }

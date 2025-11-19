@@ -34,18 +34,11 @@
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 1.125rem;
-            text-decoration: none;
+        	padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;            
         }
 
-        .logo i {
-            font-size: 1.75rem;
-        }
 
         /* Form Container */
       .form-container {
@@ -246,24 +239,42 @@
     margin-bottom: 1rem;
 }
 
-.nav-link {
-    color: var(--text-dark);
-    padding: 0.75rem 1.5rem;
-    margin: 0.25rem 0.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
+/* .nav-link { */
+/*     color: var(--text-dark); */
+/*     padding: 0.75rem 1.5rem; */
+/*     margin: 0.25rem 0.5rem; */
+/*     border-radius: 8px; */
+/*     transition: all 0.3s ease; */
+/* } */
 
-.nav-link:hover,
-.nav-linkk.active {
-    background-color: rgba(25,118,210,0.1);
-    color: var(--primary-color);
-}
+/* .nav-link:hover, */
+/* .nav-link.active { */
+/*     background-color: rgba(25,118,210,0.1); */
+/*     color: var(--primary-color); */
+/* } */
 
-.nav-link i {
-    width: 20px;
-    margin-right: 0.75rem;
-}
+/* .nav-link i { */
+/*     width: 20px; */
+/*     margin-right: 0.75rem; */
+/* } */
+
+		.nav-link {
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(25, 118, 210, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
 
 /* Informations utilisateur dans la sidebar */
 .user-info {
@@ -271,10 +282,6 @@
     padding: 1rem;
     border-radius: 12px;
     margin-bottom: 1rem;
-}
-
-.user-avatar {
-    font-size: 1.5rem;
 }
 
 /* Responsive pour mobile */
@@ -291,7 +298,7 @@
 <body>
 
 <jsp:include page="sidebar.jsp">
-    <jsp:param name="activePage" value="reports"/>
+    <jsp:param name="activePage" value="report"/>
 </jsp:include>
 
    

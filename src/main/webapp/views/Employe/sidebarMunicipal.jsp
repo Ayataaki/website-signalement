@@ -33,17 +33,19 @@
     </div>
     
     <nav class="nav flex-column">
-        <a href="${pageContext.request.contextPath}/DashboardEmploye.jsp" class="nav-link">
+
+        <a href="${pageContext.request.contextPath}/DashboardEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
             <i class="fas fa-chart-line"></i>
             Tableau de bord
         </a>
-        <a href="${pageContext.request.contextPath}/GererSignalements.jsp" class="nav-link">
+        <a href="${pageContext.request.contextPath}/GererSignalements.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
             <i class="fas fa-clipboard-list"></i>
             Gérer Signalements
         </a>
 
-        <a href="${pageContext.request.contextPath}/ProfilEmploye.jsp" class="nav-link">
-            <i class="fas fa-user-circle"></i>
+
+        <a href="${pageContext.request.contextPath}/ProfilEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
+           <i class="fas fa-user-circle"></i>
             Mon Profil
         </a>
     </nav>
@@ -59,6 +61,7 @@
                     <small class="text-muted">Agent Municipal</small>
                 </div>
             </div>
+            
             <a href="${pageContext.request.contextPath}/LogoutServlet" class="btn btn-outline-danger btn-sm w-100">
                 <i class="fas fa-sign-out-alt me-1"></i>
                 Déconnexion

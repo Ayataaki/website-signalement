@@ -125,7 +125,7 @@ public class EmployeServlet extends HttpServlet {
 		
 		employeDao.updateEmploye(updatedEmploye);
 		
-		request.getSession().setAttribute("updatedEmploye", updatedEmploye);
+		request.getSession().setAttribute("employe", updatedEmploye);
 		
 	}
 }

@@ -212,7 +212,7 @@
     <div class="layout-container">
         <!-- Sidebar -->
 		<jsp:include page="sidebarAdmin.jsp">
-			<jsp:param name="activePage" value="signalements" />
+			<jsp:param name="activePage" value="dashboard" />
 		</jsp:include>
 
 		<div class="mt-auto p-3">

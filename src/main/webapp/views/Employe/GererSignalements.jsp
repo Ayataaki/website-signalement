@@ -328,7 +328,7 @@
 <body>
 
 <jsp:include page="sidebarMunicipal.jsp">
-    <jsp:param name="activePage" value="signalements"/>
+    <jsp:param name="activePage" value="reports"/>
 </jsp:include>
 
 <div class="main-content">
