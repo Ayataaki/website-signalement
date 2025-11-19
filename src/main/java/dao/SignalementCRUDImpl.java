@@ -511,6 +511,39 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 
 	    return list;
 	}
+	
+	@Override
+	public Map<String, Integer> getMonthlyReportStatsByMunicipal(Long idMunicipal) {
+		
+		String sql = "SELECT MONTHNAME(s.DATE_CREATION) AS mois, COUNT(*) AS total "
+		           + "FROM MUNICIPAL m "
+		           + "JOIN EMPLOYE e ON m.ID_MUNICIPAL = e.ID_MUNICIPAL "
+		           + "JOIN CITOYEN c ON m.ID_REGION = c.ID_REGION "
+		           + "JOIN SIGNALEMENT s ON s.ID_CITOYEN = c.ID_CITOYEN "
+		           + "WHERE m.ID_MUNICIPAL = ? "
+		           + "GROUP BY MONTH(s.DATE_CREATION), MONTHNAME(s.DATE_CREATION) "
+		           + "ORDER BY MONTH(s.DATE_CREATION)";
+
+
+	    Map<String, Integer> result = new LinkedHashMap<>();
+
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ps.setLong(1, idMunicipal);
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            String month = rs.getString("mois");
+	            int total = rs.getInt("total");
+	            result.put(month, total);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
+
 
 
 }
