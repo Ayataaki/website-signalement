@@ -30,7 +30,7 @@
             Tableau de bord
         </a>
         <a class="nav-link ${param.activePage == 'reports' ? 'active' : ''}" 
-           href="MesSignalements.jsp">
+           href="${pageContext.request.contextPath}/views/Citoyen/MesSignalements.jsp">
             <i class="fas fa-list"></i>
             Mes signalements
         </a>

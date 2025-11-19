@@ -198,14 +198,14 @@
 					</div>
 					<div class="card-body">
 						<c:choose>
-							<c:when test="${empty sessionScope.signalementCitoyen}">
+							<c:when test="${empty sessionScope.signalements}">
 								<div class="empty-state">
 									<i class="fas fa-inbox"></i>
 									<p>Aucun signalement pour le moment</p>
 								</div>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="s" items="${sessionScope.signalementCitoyen}">
+								<c:forEach var="s" items="${sessionScope.signalements}">
 								<c:out value="${s.designation}"/>
 									<div class="activity-item 
 										<c:choose>

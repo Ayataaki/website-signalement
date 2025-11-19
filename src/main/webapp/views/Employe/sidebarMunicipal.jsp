@@ -33,16 +33,16 @@
     </div>
     
     <nav class="nav flex-column">
-        <a href="DashboardEmploye.jsp" class="nav-link">
+        <a href="${pageContext.request.contextPath}/DashboardEmploye.jsp" class="nav-link">
             <i class="fas fa-chart-line"></i>
             Tableau de bord
         </a>
-        <a href="GererSignalements.jsp" class="nav-link">
+        <a href="${pageContext.request.contextPath}/GererSignalements.jsp" class="nav-link">
             <i class="fas fa-clipboard-list"></i>
             Gérer Signalements
         </a>
 
-        <a href="ProfilEmploye.jsp" class="nav-link">
+        <a href="${pageContext.request.contextPath}/ProfilEmploye.jsp" class="nav-link">
             <i class="fas fa-user-circle"></i>
             Mon Profil
         </a>

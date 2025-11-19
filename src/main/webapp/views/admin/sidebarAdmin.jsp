@@ -22,19 +22,19 @@
                     <i class="fas fa-chart-line"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="GererUtilisateur.jsp" class="nav-link">
+                <a href="${pageContext.request.contextPath}/views/admin/GererUtilisateur.jsp" class="nav-link">
                     <i class="fas fa-users"></i>
                     <span>Gérer Utilisateurs</span>
                 </a>
-                <a href="GererSignalement.jsp" class="nav-link">
+                <a href="${pageContext.request.contextPath}/views/admin/GererSignalement.jsp" class="nav-link">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Tous les Signalements</span>
                 </a>
-                <a href="GererMunicipaux.jsp" class="nav-link">
+                <a href="${pageContext.request.contextPath}/views/admin/GererMunicipaux.jsp" class="nav-link">
                     <i class="fas fa-building"></i>
                     <span>Services Municipaux</span>
                 </a>
-                <a href="GererRegion.jsp" class="nav-link">
+                <a href="${pageContext.request.contextPath}/views/admin/GererRegion.jsp" class="nav-link">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Régions</span>
                 </a>
