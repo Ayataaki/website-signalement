@@ -457,4 +457,66 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 		return null;
 	}
 
+	@Override
+	public double getResolutionRateByMunicipal(Long idMunicipal) {
+		String sql = "SELECT (SUM(CASE WHEN s.statut = 'FINAL' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS taux "
+	               + "FROM MUNICIPAL m "
+	               + "JOIN EMPLOYE e ON m.ID_MUNICIPAL = e.ID_MUNICIPAL "
+	               + "JOIN CITOYEN c ON m.ID_REGION = c.ID_REGION "
+	               + "JOIN SIGNALEMENT s ON s.ID_CITOYEN = c.ID_CITOYEN "
+	               + "WHERE m.ID_MUNICIPAL = ?";
+
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ps.setLong(1, idMunicipal);
+	        ResultSet rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            double taux = rs.getDouble("taux");
+	            return Math.round(taux * 100.0) / 100.0; // Arrondi à 2 décimales
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return 0;
+	}
+	
+	@Override
+	public List<Signalement> getRecentReportsByMunicipal(Long idMunicipal, int limit) {
+	    List<Signalement> list = new ArrayList<>();
+
+	    String sql = "SELECT s.* FROM MUNICIPAL m "
+	               + "JOIN EMPLOYE e ON m.ID_MUNICIPAL = e.ID_MUNICIPAL "
+	               + "JOIN CITOYEN c ON m.ID_REGION = c.ID_REGION "
+	               + "JOIN SIGNALEMENT s ON s.ID_CITOYEN = c.ID_CITOYEN "
+	               + "WHERE m.ID_MUNICIPAL = ? "
+	               + "ORDER BY s.DATE_CREATION DESC LIMIT ?";
+
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ps.setLong(1, idMunicipal);
+	        ps.setInt(2, limit);
+
+	        ResultSet rs = ps.executeQuery();
+	        while (rs.next()) {
+	            Signalement s = new Signalement();
+	            s.setIdSignalement(rs.getLong("ID_SIGNALEMENT"));
+	            s.setDescription(rs.getString("DESCRIPTION"));
+	            s.setLocalisation(rs.getString("LOCALISATION"));
+	            s.setDateCreation(rs.getDate("DATE_CREATION"));
+	            s.setImagePath(rs.getString("IMAGE_PATH"));
+	            s.setStatut(Statut.fromLabel(rs.getString("STATUT")));
+	            s.setCommentaire(rs.getString("COMMENTAIRE"));
+	            s.setDesignation(rs.getString("DESIGNATION"));
+	            s.setIdCitoyen(rs.getLong("ID_CITOYEN"));
+
+	            list.add(s);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
+
+
 }

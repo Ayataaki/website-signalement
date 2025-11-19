@@ -321,4 +321,12 @@ public class CitoyenCRUDImpl implements ICitoyenCRUD{
 		}		
 	}
 
+	@Override
+	public int countCitoyenByMunicipal(Long idMunicipal) {
+		List<Citoyen> liste = getCitoyenByMunicipal(idMunicipal);
+		return liste.size();
+	}
+	
+	
+
 }

@@ -257,7 +257,8 @@
 
 						<div class="mb-3">
                             <label class="form-label">CIN</label>
-                            <input type="text" class="form-control" name="cin" value="${sessionScope.employe.cin}" required>
+                            <input type="text" class="form-control" name="cin" 
+                            value="${sessionScope.employe.cin}" required>
                         </div>
                         
                         <div class="mb-3">

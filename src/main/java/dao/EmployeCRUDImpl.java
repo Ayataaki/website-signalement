@@ -93,7 +93,7 @@ public class EmployeCRUDImpl implements IEmployeCRUD{
 //				+ "EMAIL, DATE_NAISSANCE, DATE_CREATION, ID_MUNICIPAL
 		
 		String sql = "UPDATE EMPLOYE SET NOM = ?, PRENOM = ?, NOM_UTILISATEUR = ?, CIN = ?, LIEU_NAISSANCE = ?, "
-				+ "TELEPHONE = ?, EMAIL = ?, EMAIL_AUTH = ?, MOT_DE_PASSE = ?, DATE_NAISSANCE = ?,"
+				+ "TELEPHONE = ?, EMAIL = ?, EMAIL_AUTH = ?, DATE_NAISSANCE = ?,"
 				+ " ID_MUNICIPAL = ?, ADMIN_PRIVILEGE = ? "
 				+ " WHERE ID_EMPLOYE = ?";
 
@@ -110,17 +110,15 @@ public class EmployeCRUDImpl implements IEmployeCRUD{
 			ps.setString(7, employe.getEmail());
 			employe.setEmailAuth(employe.getCin() + "@service-municipal.ma");
 			ps.setString(8, employe.getEmailAuth());
-			String hashedPassword = PasswordHashUtil.hashPassword(employe.getMotDePasse());
-            ps.setString(9, hashedPassword);
-			ps.setDate(10, new java.sql.Date(employe.getDateNaissance().getTime()));
+			ps.setDate(9, new java.sql.Date(employe.getDateNaissance().getTime()));
 			if (employe.getIdMunicipal() != null) {
-				ps.setLong(11, employe.getIdMunicipal());
+				ps.setLong(10, employe.getIdMunicipal());
 			} else {
-				ps.setNull(11, Types.BIGINT);
+				ps.setNull(10, Types.BIGINT);
 			}
-			ps.setBoolean(12, employe.isAdminPriv());
+			ps.setBoolean(11, employe.isAdminPriv());
 			
-         ps.setLong(13, employe.getIdEmploye());
+         ps.setLong(12, employe.getIdEmploye());
 
          ps.executeUpdate();
          return employe;

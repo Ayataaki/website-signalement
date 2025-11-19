@@ -23,5 +23,7 @@ public interface ICitoyenCRUD {
 	
 	List<Citoyen> getCitoyenByMunicipal(Long idMunicipal);
 	
+	int countCitoyenByMunicipal(Long idMunicipal);
+	
 	int countCitoyen();
 }
