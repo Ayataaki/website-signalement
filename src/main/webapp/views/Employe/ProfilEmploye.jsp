@@ -146,22 +146,44 @@
             background-color: #f5f5f5;
             border-color: #d0d0d0;
         }
-
+        .logout-block {
+    margin-top: auto;
+}
+        
+.user-info {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .sidebar {
+    display: flex;
+    flex-direction: column;
+}
+        
         @media (max-width: 768px) {
+/*             .sidebar { */
+/*                 width: 100%; */
+/*                 position: relative; */
+/*                 min-height: auto; */
+/*             } */
             .sidebar {
                 width: 100%;
                 position: relative;
                 min-height: auto;
             }
+            
             .main-content {
                 margin-left: 0;
             }
+            
+		
         }
     </style>
 </head>
 <body>
     <jsp:include page="sidebarMunicipal.jsp">
-    <jsp:param name="activePage" value="signalements"/>
+    <jsp:param name="activePage" value="profile"/>
 </jsp:include>
 
     <div class="main-content">

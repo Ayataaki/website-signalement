@@ -40,17 +40,27 @@
         }
         
         .sidebar {
-            width: var(--sidebar-width);
-            background: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
+/*             width: var(--sidebar-width); */
+/*             background: white; */
+/*             box-shadow: 2px 0 10px rgba(0,0,0,0.1); */
+/*             position: fixed; */
+/*             left: 0; */
+/*             top: 0; */
+/*             height: 100vh; */
+/*             overflow-y: auto; */
+/*             display: flex; */
+/*             flex-direction: column; */
+/*             z-index: 1000; */
+
+		    background: white;
+		    min-height: 100vh;
+		    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+		    position: fixed;
+		    width: 280px;
+		    display: flex;
+		    flex-direction: column;
+
+
         }
         
         .main-content {
@@ -106,9 +116,13 @@
         }
         
         .user-info {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 0.75rem;
+/*             background: #f8f9fa; */
+/*             border-radius: 8px; */
+/*             padding: 0.75rem; */
+			background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
         
         .avatar-sm {
@@ -157,29 +171,41 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 70px;
-            }
+/*             .sidebar { */
+/*                 width: 70px; */
+/*             } */
             
-            .sidebar .nav-link span {
-                display: none;
-            }
+/*             .sidebar .nav-link span { */
+/*                 display: none; */
+/*             } */
             
-            .sidebar .logo h4,
-            .sidebar .logo small,
-            .user-info div:not(.avatar-sm) {
-                display: none;
-            }
+/*             .sidebar .logo h4, */
+/*             .sidebar .logo small, */
+/*             .user-info div:not(.avatar-sm) { */
+/*                 display: none; */
+/*             } */
             
+/*             .main-content { */
+/*                 margin-left: 70px; */
+/*                 width: calc(100% - 70px); */
+/*             } */
+            
+/*             :root { */
+/*                 --sidebar-width: 70px; */
+/*             } */
+			.sidebar {
+                width: 100%;
+                position: relative;
+                min-height: auto;
+            }
             .main-content {
-                margin-left: 70px;
-                width: calc(100% - 70px);
+                margin-left: 0;
             }
-            
-            :root {
-                --sidebar-width: 70px;
+            .modal-body {
+                padding: 1.5rem;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -212,7 +238,7 @@
                                     <div>
                                         <p class="text-muted mb-1 small">Total Signalements</p>
                                         <h3 class="mb-0 fw-bold">${sessionScope.totalReports}</h3>
-                                        <small class="text-success">Signalements créés</small>
+                                        <small class="text-muted">Signalements créés</small>
                                     </div>
                                     <div class="stat-icon bg-primary bg-opacity-10 text-primary">
                                         <i class="bi bi-file-text"></i>
@@ -275,8 +301,8 @@
 											<%-- ${sessionScope.resolus} --%>
 											2
 										</h3>
-                                        <small class="text-success">
-                                            <i class="bi bi-arrow-up"></i> +12%
+                                        <small class="text-muted">
+											Résolu
                                         </small>
                                     </div>
                                     <div class="stat-icon bg-success bg-opacity-10 text-success">
@@ -307,7 +333,7 @@
                 </div>
                 
                 <!-- Signalements récents -->
-                <div class="row">
+                <div class="row px-4">
                     <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">

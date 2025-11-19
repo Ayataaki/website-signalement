@@ -18,27 +18,27 @@
             </div>
 
             <nav class="nav flex-column">
-                <a href="DashboardAdmin.jsp" class="nav-link active">
+                <a href="DashboardAdmin.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
                     <i class="fas fa-chart-line"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="GererUtilisateur.jsp" class="nav-link">
+                <a href="GererUtilisateur.jsp" class="nav-link ${param.activePage == 'users' ? 'active' : ''}">
                     <i class="fas fa-users"></i>
                     <span>Gérer Utilisateurs</span>
                 </a>
-                <a href="GererSignalement.jsp" class="nav-link">
+                <a href="GererSignalement.jsp" class="nav-link ${param.activePage == 'reports' ? 'active' : ''}">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Tous les Signalements</span>
                 </a>
-                <a href="GererMunicipaux.jsp" class="nav-link">
+                <a href="GererMunicipaux.jsp" class="nav-link ${param.activePage == 'municipaux' ? 'active' : ''}">
                     <i class="fas fa-building"></i>
                     <span>Services Municipaux</span>
                 </a>
-                <a href="GererRegion.jsp" class="nav-link">
+                <a href="GererRegion.jsp" class="nav-link ${param.activePage == 'regions' ? 'active' : ''}">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Régions</span>
                 </a>
-               <a href="${pageContext.request.contextPath}/AdminServlet" class="nav-link">
+               <a href="${pageContext.request.contextPath}/AdminServlet" class="nav-link ${param.activePage == 'profil' ? 'active' : ''}">
                <i class="fas fa-user-cog"></i>
                <span>Profil</span>
 </a>

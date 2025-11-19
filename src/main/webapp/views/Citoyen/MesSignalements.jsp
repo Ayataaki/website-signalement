@@ -12,116 +12,179 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-:root {
-    --primary-color: #1976D2;
-    --primary-hover: #1565C0;
-    --danger-color: #F44336;
-    --warning-color: #FF9800;
-    --success-color: #43A047;
-    --text-dark: #212121;
-    --text-gray: #666;
-}
+        :root {
+            --primary-color: #1976D2;
+            --primary-hover: #1565C0;
+            --danger-color: #F44336;
+            --warning-color: #FF9800;
+            --success-color: #43A047;
+            --text-dark: #212121;
+            --text-gray: #666;
+        }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f8f9fa;
-    color: var(--text-dark);
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+        }
 
-.sidebar {
-    background: white;
-    min-height: 100vh;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    position: fixed;
-    width: 280px;
-}
+        .sidebar {
+            background: white;
+            min-height: 100vh;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 280px;
+            
+        }
 
-.main-content {
-    margin-left: 280px;
-    padding: 2rem;
-}
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+        }
 
-.nav-link {
-    color: var(--text-dark);
-    padding: 0.75rem 1.5rem;
-    margin: 0.25rem 0.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
+        .logo {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
 
-.nav-link:hover, .nav-link.active {
-    background-color: rgba(25,118,210,0.1);
-    color: var(--primary-color);
-}
+        .nav-link {
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
 
-.report-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    border-left: 4px solid var(--primary-color);
-    height: 100%;
-}
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(25, 118, 210, 0.1);
+            color: var(--primary-color);
+        }
 
-.report-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
+        .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
 
-.report-card.new { border-left-color: var(--primary-color); }
-.report-card.processing { border-left-color: var(--warning-color); }
-.report-card.final { border-left-color: var(--success-color); }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
 
-.badge-status {
-    padding: 0.5rem 1rem;
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon.primary { background-color: rgba(25, 118, 210, 0.1); color: var(--primary-color); }
+        .stat-icon.danger { background-color: rgba(244, 67, 54, 0.1); color: var(--danger-color); }
+        .stat-icon.warning { background-color: rgba(255, 152, 0, 0.1); color: var(--warning-color); }
+        .stat-icon.success { background-color: rgba(67, 160, 71, 0.1); color: var(--success-color); }
+
+        .activity-item {
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            margin-bottom: 0.5rem;
+            border-left: 4px solid transparent;
+        }
+
+        .activity-item.new { border-left-color: var(--primary-color); }
+        .activity-item.in-progress { border-left-color: var(--warning-color); }
+        .activity-item.resolved { border-left-color: var(--success-color); }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .status-new { background-color: var(--primary-color); }
+        .status-pending { background-color: var(--warning-color); }
+        .status-resolved { background-color: var(--success-color); }
+
+        .user-info {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .report-card {
+		    border-radius: 12px;
+		    padding: 1.5rem;
+		    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+		    transition: transform 0.3s ease;
+		    background-color: #ffffff; /* fallback */
+		}
+		
+		/* Couleurs par statut */
+		.report-card.new {
+		    background-color: rgba(25, 118, 210, 0.1); /* bleu clair */
+		    border-left: 6px solid var(--primary-color);
+		}
+		
+		.report-card.processing {
+		    background-color: rgba(255, 152, 0, 0.1); /* orange clair */
+		    border-left: 6px solid var(--warning-color);
+		}
+		
+		.report-card.final {
+		    background-color: rgba(67, 160, 71, 0.1); /* vert clair */
+		    border-left: 6px solid var(--success-color);
+		}
+        .report-card:hover {
+		    transform: translateY(-2px);
+		    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+		}
+        .badge-status {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
     border-radius: 20px;
     font-weight: 500;
-    border: none;
+    color: #212121; /* texte noir */
+    background-color: #e0e0e0; /* gris clair par défaut */
 }
 
-.badge-new { background-color: var(--primary-color); color: white; }
-.badge-processing { background-color: var(--warning-color); color: white; }
-.badge-final { background-color: var(--success-color); color: white; }
-
-.report-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 1rem;
+/* Couleurs spécifiques par statut */
+.badge-new {
+    background-color: #e3f2fd; /* bleu très clair */
 }
 
-@media (max-width:768px) {
-    .sidebar {
-        width: 100%;
-        position: relative;
-        min-height: auto;
-    }
-    .main-content {
-        margin-left: 0;
-    }
+.badge-processing {
+    background-color: #fff3e0; /* orange très clair */
 }
 
-/* Animation fade-in */
-.fade-in { animation: fadeInUp 0.6s ease-out; }
-@keyframes fadeInUp {
-    from { opacity:0; transform: translateY(20px); }
-    to { opacity:1; transform: translateY(0); }
+.badge-final {
+    background-color: #e8f5e9; /* vert très clair */
 }
+        
 
-/* Pagination style */
-.page-link {
-    border-radius: 8px;
-    margin: 0 2px;
-    border: 1px solid #e0e0e0;
-}
-.page-item.active .page-link {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                min-height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
 </style>
+
 </head>
 <body>
 <jsp:include page="sidebar.jsp">
@@ -148,16 +211,22 @@ body {
                             <c:when test="${s.statut.label eq 'new'}">badge-new</c:when>
                             <c:when test="${s.statut.label eq 'processing'}">badge-processing</c:when>
                             <c:when test="${s.statut.label eq 'final'}">badge-final</c:when>
-                        </c:choose>
-                    ">
-                        ${s.statut.label}
+                        </c:choose>">
+<%--                         ${s.statut.label} --%>
+						<c:choose>
+						    <c:when test="${s.statut.label eq 'new'}">Nouveau</c:when>
+						    <c:when test="${s.statut.label eq 'processing'}">En cours</c:when>
+						    <c:when test="${s.statut.label eq 'final'}">Résolu</c:when>
+						    <c:otherwise>Inconnu</c:otherwise>
+						</c:choose>
                     </span>
                     <small class="text-muted"><fmt:formatDate value="${s.dateCreation}" pattern="dd MMM yyyy"/></small>
                 </div>
                 <h6 class="fw-semibold mb-2">${s.designation}</h6>
                 <p class="text-muted small mb-3">${s.description}</p>
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="badge bg-light text-dark" style="border:1px solid #e0e0e0;">${s.localisation}</span>
+                	<h7 class="fw-semibold mb-2">${s.localisation}</h7>
+<%--                     <span class="badge bg-light text-dark" style="border:1px solid #e0e0e0;">${s.localisation}</span> --%>
                     <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reportModal${s.idSignalement}" style="border-radius:20px; padding:0.25rem 1rem;">
                         Détails
                     </button>

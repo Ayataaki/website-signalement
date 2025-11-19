@@ -43,24 +43,31 @@
             border-bottom: 1px solid #e0e0e0;
             margin-bottom: 1rem;
         }
-
-        .nav-link {
-            color: var(--text-dark);
-            padding: 0.75rem 1.5rem;
-            margin: 0.25rem 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+        
+        .user-info {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
 
-        .nav-link:hover, .nav-link.active {
-            background-color: rgba(25, 118, 210, 0.1);
-            color: var(--primary-color);
-        }
+/*         .nav-link { */
+/*             color: var(--text-dark); */
+/*             padding: 0.75rem 1.5rem; */
+/*             margin: 0.25rem 0.5rem; */
+/*             border-radius: 8px; */
+/*             transition: all 0.3s ease; */
+/*         } */
 
-        .nav-link i {
-            width: 20px;
-            margin-right: 0.75rem;
-        }
+/*         .nav-link:hover, .nav-link.active { */
+/*             background-color: rgba(25, 118, 210, 0.1); */
+/*             color: var(--primary-color); */
+/*         } */
+
+/*         .nav-link i { */
+/*             width: 20px; */
+/*             margin-right: 0.75rem; */
+/*         } */
 
         .profile-card {
             background: white;
@@ -146,6 +153,24 @@
             background-color: #f5f5f5;
             border-color: #d0d0d0;
         }
+        
+        .nav-link {
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(25, 118, 210, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
 
         @media (max-width: 768px) {
             .sidebar {
@@ -160,9 +185,12 @@
     </style>
 </head>
 <body>
+
     <jsp:include page="sidebar.jsp">
-        <jsp:param name="activePage" value="profil"/>
+        <jsp:param name="activePage" value="profile"/>
     </jsp:include>
+    
+   
 
     <div class="main-content">
         <div class="d-flex justify-content-between align-items-center mb-4">

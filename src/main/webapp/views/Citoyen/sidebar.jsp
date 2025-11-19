@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Sidebar Menu -->
 <div class="sidebar">
-    <div class="logo">
-            <h4 class=" text-primary">
-                <i class="fas fa-building "></i>
-                UrbAlert
-            </h4>
-            <small class="text-muted">Espace Citoyen</small>
-        </div>
-        
-    <!-- Informations utilisateur -->
+	<div class="logo">
+		<h4 class=" text-primary">
+			<i class="fas fa-building "></i> UrbAlert
+		</h4>
+		<small class="text-muted">Espace Citoyen</small>
+	</div>
+
+	<!-- Informations utilisateur -->
     <div class="user-info">
         <div class="d-flex align-items-center">
             <div class="user-avatar">

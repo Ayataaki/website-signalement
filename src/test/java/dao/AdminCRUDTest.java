@@ -45,7 +45,7 @@ public class AdminCRUDTest {
 
         assertNotNull("L'ID ne doit pas être null après création", c.getIdAdmin());
 
-        Administrateur fetched = adminDAO.getById(c.getIdAdmin().intValue());
+        Administrateur fetched = adminDAO.getById(c.getIdAdmin().longValue());
         assertNotNull(fetched);
         assertEquals(c.getNom(), fetched.getNom());
         assertEquals(c.getPrenom(), fetched.getPrenom());
@@ -69,7 +69,7 @@ public class AdminCRUDTest {
         c.setMotDePasse("newpassword");
         adminDAO.updateAdmin(c);
 
-        Administrateur updated = adminDAO.getById(c.getIdAdmin().intValue());
+        Administrateur updated = adminDAO.getById(c.getIdAdmin().longValue());
         assertEquals("TestModifie", updated.getNom());
         assertEquals(c.getNomUtilisateur(), updated.getNomUtilisateur());
         assertEquals(c.getEmailAuth(), updated.getEmailAuth());
@@ -89,7 +89,7 @@ public class AdminCRUDTest {
         assertNotNull(id);
 
         adminDAO.deleteAdmin(id.intValue());
-        Administrateur deleted = adminDAO.getById(id.intValue());
+        Administrateur deleted = adminDAO.getById(id.longValue());
         assertNull("L'administrateur doit etre supprimé", deleted);
     	
     }
