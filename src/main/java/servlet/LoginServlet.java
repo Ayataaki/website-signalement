@@ -121,7 +121,7 @@ public class LoginServlet extends HttpServlet {
         double resolutionRate = signalementDao.getResolutionRateByMunicipal(idMunicipal); 
         
         //to correct
-        List<Signalement> recentReports = signalementDao.getRecentReports(5); // les 5 derniers
+        List<Signalement> recentReports = signalementDao.getRecentReportsByMunicipal(idMunicipal,5); // les 5 derniers
 
         //to correct
         Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();

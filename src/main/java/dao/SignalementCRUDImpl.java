@@ -452,12 +452,6 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 	}
 
 	@Override
-	public List<Signalement> getRecentReportsByMunicipal(Long idMunicipal,int limit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public double getResolutionRateByMunicipal(Long idMunicipal) {
 		String sql = "SELECT (SUM(CASE WHEN s.statut = 'FINAL' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS taux "
 	               + "FROM MUNICIPAL m "
