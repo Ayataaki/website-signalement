@@ -257,7 +257,9 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">Nouveaux</p>
-                                        <h3 class="mb-0 fw-bold text-danger">${nouveaux}</h3>
+                                        <h3 class="mb-0 fw-bold text-danger">
+											${sessionScope.nouveaux}											
+                                        </h3>
                                         <small class="text-muted">À traiter</small>
                                     </div>
                                     <div class="stat-icon bg-danger bg-opacity-10 text-danger">
@@ -276,7 +278,9 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">En Cours</p>
-                                        <h3 class="mb-0 fw-bold text-warning">${enCours}</h3>
+                                        <h3 class="mb-0 fw-bold text-warning">
+											${sessionScope.enCours}
+                                        </h3>
                                         <small class="text-muted">En traitement</small>
                                     </div>
                                     <div class="stat-icon bg-warning bg-opacity-10 text-warning">
@@ -294,9 +298,11 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="text-muted mb-1 small">Résolus</p>
-                                        <h3 class="mb-0 fw-bold text-success">${resolus}</h3>
-                                        <small class="text-success">
-                                            <i class="bi bi-arrow-up"></i> +12%
+                                        <h3 class="mb-0 fw-bold text-success">
+											${sessionScope.resolus}
+										</h3>
+                                        <small class="text-muted">
+											Résolu
                                         </small>
                                     </div>
                                     <div class="stat-icon bg-success bg-opacity-10 text-success">
@@ -312,7 +318,7 @@
                
                     
                     <!-- Graphique par Statut -->
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">
                                 <h5 class="card-title mb-4">

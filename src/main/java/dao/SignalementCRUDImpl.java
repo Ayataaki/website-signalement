@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -289,31 +290,31 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 	    return list;
 	}
 	
-	public Map<String, Integer> getMonthlyReportStats() {
-
-		String sql = "SELECT MONTHNAME(MIN(DATE_CREATION)) AS mois, COUNT(*) AS total " 
-	               + "FROM SIGNALEMENT "
-	               + "GROUP BY MONTH(DATE_CREATION) "
-	               + "ORDER BY MONTH(DATE_CREATION)";
-
-
-		Map<String, Integer> result = new LinkedHashMap<>();
-
-		try (PreparedStatement ps = connection.prepareStatement(sql)) {
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				String month = rs.getString("mois");
-				int total = rs.getInt("total");
-				result.put(month, total);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return result;
-	}
+//	public Map<String, Integer> getMonthlyReportStats() {
+//
+//		String sql = "SELECT MONTHNAME(MIN(DATE_CREATION)) AS mois, COUNT(*) AS total " 
+//	               + "FROM SIGNALEMENT "
+//	               + "GROUP BY MONTH(DATE_CREATION) "
+//	               + "ORDER BY MONTH(DATE_CREATION)";
+//
+//
+//		Map<String, Integer> result = new LinkedHashMap<>();
+//
+//		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+//			ResultSet rs = ps.executeQuery();
+//
+//			while (rs.next()) {
+//				String month = rs.getString("mois");
+//				int total = rs.getInt("total");
+//				result.put(month, total);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return result;
+//	}
 
 	@Override
 	public int getCountNewSignalementByMunicipal(Long idMunicipal) {
@@ -511,6 +512,74 @@ public class SignalementCRUDImpl implements ISignalementCRUD{
 
 	    return list;
 	}
+	
+	@Override
+	public Map<String, Integer> getMonthlyReportStatsByMunicipal(Long idMunicipal) {
+		
+		String sql = "SELECT MONTHNAME(s.DATE_CREATION) AS mois, COUNT(*) AS total "
+		           + "FROM MUNICIPAL m "
+		           + "JOIN EMPLOYE e ON m.ID_MUNICIPAL = e.ID_MUNICIPAL "
+		           + "JOIN CITOYEN c ON m.ID_REGION = c.ID_REGION "
+		           + "JOIN SIGNALEMENT s ON s.ID_CITOYEN = c.ID_CITOYEN "
+		           + "WHERE m.ID_MUNICIPAL = ? "
+		           + "GROUP BY MONTH(s.DATE_CREATION), MONTHNAME(s.DATE_CREATION) "
+		           + "ORDER BY MONTH(s.DATE_CREATION)";
 
+
+	    Map<String, Integer> result = new LinkedHashMap<>();
+
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ps.setLong(1, idMunicipal);
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            String month = rs.getString("mois");
+	            int total = rs.getInt("total");
+	            result.put(month, total);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
+
+	public Map<String, Integer> getMonthlyReportStats() {
+	    Map<String, Integer> result = new LinkedHashMap<>();
+
+	    // Initialiser tous les mois à 0
+	    List<String> months = Arrays.asList(
+	        "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+	        "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+	    );
+	    for (String month : months) {
+	        result.put(month, 0);
+	    }
+
+	    String sql = "SELECT MONTH(s.DATE_CREATION) AS mois_num, COUNT(DISTINCT s.ID_SIGNALEMENT) AS total "
+	            + "FROM MUNICIPAL m "
+	            + "JOIN EMPLOYE e ON m.ID_MUNICIPAL = e.ID_MUNICIPAL "
+	            + "JOIN CITOYEN c ON m.ID_REGION = c.ID_REGION "
+	            + "JOIN SIGNALEMENT s ON s.ID_CITOYEN = c.ID_CITOYEN "
+	            + "GROUP BY mois_num "
+	            + "ORDER BY mois_num";
+
+	    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            int moisNum = rs.getInt("mois_num");
+	            int total = rs.getInt("total");
+	            String moisNom = months.get(moisNum - 1); 
+	            result.put(moisNom, total);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
 
 }
