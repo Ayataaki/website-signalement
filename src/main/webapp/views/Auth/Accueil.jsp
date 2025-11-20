@@ -27,8 +27,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             color: var(--text-dark);
         }
-
-        /* Header */
+ 
         .header {
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -110,8 +109,7 @@
             background: var(--primary-hover);
             color: white;
         }
-
-        /* Hero Section */
+ 
         .hero-section {
             position: relative;
             height: 500px;
@@ -175,8 +173,7 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
-
-        /* Features Section */
+ 
         .features-section {
             padding: 4rem 0;
             background-color: #f8f9fa;
@@ -247,8 +244,7 @@
             line-height: 1.5;
             margin: 0;
         }
-
-        /* How It Works Section */
+ 
         .how-it-works {
             padding: 4rem 0;
             background-color: white;
@@ -305,8 +301,7 @@
             height: 100%;
             object-fit: cover;
         }
-
-        /* Contact Section */
+ 
         .contact-section {
             padding: 4rem 0;
             background-color: #f8f9fa;
@@ -352,8 +347,7 @@
             color: var(--text-gray);
             margin: 0;
         }
-
-        /* Footer */
+ 
         .footer {
             background-color: var(--text-dark);
             color: white;
@@ -395,8 +389,7 @@
             background-color: var(--primary-color);
             transform: translateY(-3px);
         }
-
-        /* Mobile Menu Toggle */
+ 
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -435,8 +428,7 @@
     </style>
 </head>
 <body>
-
-    <!-- Header -->
+ 
     <header class="header">
         <div class="header-container">
             <a href="#" class="logo">
@@ -448,8 +440,7 @@
                 
 				<a href="${pageContext.request.contextPath}/RegisterServlet" class="btn-primary">Inscription</a>
                 <a href="${pageContext.request.contextPath}/views/Auth/Apropos.jsp" class="nav-link">À propos</a>
-                <a href="${pageContext.request.contextPath}/views/Auth/Connexion.jsp" class="btn-outline">Connexion</a>
-<%--                 <a href="${pageContext.request.contextPath}/views/Auth/Inscription.jsp" class="btn-primary">Inscription</a> --%>
+                <a href="${pageContext.request.contextPath}/views/Auth/Connexion.jsp" class="btn-outline">Connexion</a> 
             
             </nav>
             <button class="mobile-menu-toggle">
@@ -457,8 +448,7 @@
             </button>
         </div>
     </header>
-
-    <!-- Hero Section -->
+ 
     <section class="hero-section">
         <img src="https://www.bladi.net/img/logo/ville-rabat-plus-chere-maroc.jpg" 
              alt="Ville de Rabat" 
@@ -475,8 +465,7 @@
             </button>
         </div>
     </section>
-
-    <!-- Features Section -->
+ 
     <section class="features-section">
         <div class="container">
             <h2 class="section-title">Signaler un problème en quelques clics</h2>
@@ -525,8 +514,7 @@
             </div>
         </div>
     </section>
-
-    <!-- How It Works Section -->
+ 
     <section class="how-it-works">
         <div class="container">
             <div class="row align-items-center">
@@ -568,9 +556,8 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
+    </section> 
+    
     <section class="contact-section">
         <div class="container">
             <h2 class="section-title">Contactez-nous</h2>
@@ -608,8 +595,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
+ 
     <footer class="footer">
         <div class="container">
             <div class="row">

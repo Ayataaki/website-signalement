@@ -21,8 +21,7 @@
             background-color: #f8f9fa;
             color: var(--text-dark);
         }
-
-        /* Header */
+ 
         .header {
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -43,8 +42,7 @@
         .logo i {
             font-size: 1.75rem;
         }
-
-        /* Form Card */
+ 
         .login-container {
             display: flex;
             justify-content: center;
@@ -131,8 +129,7 @@
     </style>
 </head>
 <body>
-
-    <!-- Header -->
+ 
     <header class="header">
         <div class="container d-flex justify-content-between align-items-center">
             <a href="Accueil.jsp" class="logo">
@@ -142,8 +139,7 @@
             
         </div>
     </header>
-
-    <!-- Login Form -->
+ 
     <div class="login-container">
         <div class="login-card">
             <h2>Bienvenue</h2>

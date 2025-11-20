@@ -13,9 +13,6 @@ import java.util.List;
 import dao.IRegionCRUD;
 import dao.RegionCRUDImpl;
 
-/**
- * Servlet implementation class RegionServlet
- */
 @WebServlet("/RegionServlet")
 public class RegionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -106,7 +103,6 @@ public class RegionServlet extends HttpServlet {
 	private void updateRegion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Récupérer les paramètres
         String idStr = request.getParameter("idRegion");        
         long id = Long.parseLong(idStr);
         String nom = request.getParameter("nom");
@@ -118,14 +114,12 @@ public class RegionServlet extends HttpServlet {
             float superficie = Float.parseFloat(superficieStr);
             int population = Integer.parseInt(populationStr);
             
-            // Créer l'objet région avec l'ID
             Region region = regionDao.getById(id);
             region.setCapitaleRegionale(capitaleRegionale);
             region.setNom(nom);
             region.setPopulation(population);
             region.setSuperficie(superficie);
             
-            // Mettre à jour
             regionDao.updateRegion(region);
             
     }

@@ -8,7 +8,6 @@
     <title>Signaler un problème - UrbAlert</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Leaflet CSS pour OpenStreetMap -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
@@ -25,7 +24,6 @@
             color: var(--text-dark);
         }
 
-        /* Header */
         .header {
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -39,13 +37,11 @@
             margin-bottom: 1rem;            
         }
 
-
-        /* Form Container */
-      .form-container {
-    margin-left: 280px; /* largeur de la sidebar */
-    padding: 2rem;
-    width: calc(100% - 280px); /* prend tout l'espace restant */
-}
+      	.form-container {
+		    margin-left: 280px; 
+		    padding: 2rem;
+		    width: calc(100% - 280px); 
+		}
 
         .form-card {
             background: white;
@@ -70,8 +66,7 @@
             color: var(--text-gray);
             margin-bottom: 2rem;
         }
-
-        /* Form Styles */
+ 
         .form-label {
             font-weight: 100%;
             color: var(--text-dark);
@@ -90,8 +85,7 @@
             box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.1);
             outline: none;
         }
-
-        /* Image Upload */
+ 
         .image-upload-area {
             border: 2px dashed #e0e0e0;
             border-radius: 12px;
@@ -125,8 +119,7 @@
             margin-top: 1rem;
             object-fit: cover;
         }
-
-        /* Location Input with Icon */
+ 
         .input-with-icon {
             position: relative;
         }
@@ -142,10 +135,7 @@
 
         .input-with-icon .form-control {
             padding-left: 40px;
-        }
-
-
-        /* Buttons */
+        } 
         .btn-submit {
             background-color: var(--secondary-color);
             color: white;
@@ -180,22 +170,19 @@
             border-color: var(--text-gray);
             color: var(--text-dark);
         }
-
-        /* Character Counter */
+ 
         .char-counter {
             font-size: 0.875rem;
             color: var(--text-gray);
             text-align: right;
             margin-top: 0.25rem;
         }
-
-        /* Loading indicator */
+ 
         .loading-text {
             color: var(--primary-color);
             font-size: 0.875rem;
         }
-
-        /* Success message after image upload */
+ 
         .file-name {
             color: var(--secondary-color);
             font-size: 0.875rem;
@@ -223,21 +210,20 @@
                 font-size: 0.875rem;
             }
         }
-        
-        /* Sidebar */
-.sidebar {
-    background: white;
-    min-height: 100vh;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    position: fixed;
-    width: 280px;
-}
-
-.logo {
-    padding: 2rem 1.5rem 1rem;
-    border-bottom: 1px solid #e0e0e0;
-    margin-bottom: 1rem;
-}
+         
+		.sidebar {
+		    background: white;
+		    min-height: 100vh;
+		    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+		    position: fixed;
+		    width: 280px;
+		}
+		
+		.logo {
+		    padding: 2rem 1.5rem 1rem;
+		    border-bottom: 1px solid #e0e0e0;
+		    margin-bottom: 1rem;
+		}
 
 		.nav-link {
             color: var(--text-dark);
@@ -257,31 +243,30 @@
             margin-right: 0.75rem;
         }
 
-.user-info {
-    background: white;
-    padding: 1rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        position: relative;
-        min-height: auto;
-    }
-}
+		.user-info {
+		    background: white;
+		    padding: 1rem;
+		    border-radius: 12px;
+		    margin-bottom: 1rem;
+		}
+		
+		@media (max-width: 768px) {
+		    .sidebar {
+		        width: 100%;
+		        position: relative;
+		        min-height: auto;
+		    }
+		}
         
     </style>
 </head>
 <body>
-
-<jsp:include page="sidebar.jsp">
-    <jsp:param name="activePage" value="report"/>
-</jsp:include>
+	
+	<jsp:include page="sidebar.jsp">
+	    <jsp:param name="activePage" value="report"/>
+	</jsp:include>
 
    
-    <!-- Form Container -->
     <div class="form-container">
         <div class="form-card">
             <h1 class="form-title">Signaler un problème</h1>
@@ -291,8 +276,7 @@
                 
                 <input type="hidden" name="idCitoyen" value="${sessionScope.user.idCitoyen}">
                 <input type="hidden" name="action" value="create">
-                
-                <!-- Désignation -->
+                 
                 <div class="mb-4">
                     <label for="designation" class="form-label">
                         Objet de la réclamation <span class="text-danger">*</span>
@@ -305,8 +289,7 @@
                         placeholder="Mettez un titre à votre signalement"
                         required>
                 </div>
-                
-                <!-- Description -->
+                 
                 <div class="mb-4">
                     <label for="description" class="form-label">
                         Description du problème <span class="text-danger">*</span>
@@ -323,8 +306,7 @@
                         <span id="charCount">0</span>/500 caractères
                     </div>
                 </div>
-                
-                <!-- Localisation/adresse -->
+                 
                 <div class="mb-4">
                     <label for="adresse" class="form-label">
                         Adresse où se trouve le problème <span class="text-danger">*</span>
@@ -340,8 +322,7 @@
                             required>
                     </div>
                 </div>
-
-                <!-- Image Upload -->
+ 
                 <div class="mb-4">
                     <label class="form-label">
                         Photo du problème <span class="text-danger">*</span>
@@ -364,8 +345,7 @@
                     </div>
                     <img id="imagePreview" class="image-preview d-none" alt="Aperçu">
                 </div>
-
-                <!-- Commentaire additionnel -->
+ 
                 <div class="mb-4">
                     <label for="commentaire" class="form-label">Commentaire additionnel</label>
                     <textarea 
@@ -375,8 +355,7 @@
                         rows="3" 
                         placeholder="Ajoutez des informations supplémentaires (optionnel)..."></textarea>
                 </div>
-
-                <!-- Buttons -->
+ 
                 <div class="d-flex gap-3 justify-content-end">
                     <button type="button" class="btn btn-cancel" onclick="window.history.back()">
                         <i class="fas fa-times me-2"></i>Annuler
@@ -388,13 +367,10 @@
             </form>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
+ 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JavaScript -->
-    <script>
-    // Character counter
+     
+    <script> 
     const descriptionTextarea = document.getElementById('description');
     const charCount = document.getElementById('charCount');
 
@@ -403,8 +379,7 @@
         charCount.textContent = length;
         charCount.style.color = (length > 450) ? '#d32f2f' : 'var(--text-gray)';
     });
-
-    // Image upload handling
+ 
     const uploadArea = document.getElementById('uploadArea');
     const imageInput = document.getElementById('imageInput');
     const imagePreview = document.getElementById('imagePreview');
@@ -459,8 +434,7 @@
         };
         reader.readAsDataURL(file);
     }
-
-    // 🔥 Anti-double-submit
+ 
     const form = document.getElementById('reportForm');
     const submitBtn = form.querySelector('.btn-submit');
 
@@ -474,13 +448,11 @@
             alert("Veuillez remplir tous les champs obligatoires.");
             return;
         }
-
-        // Désactiver le bouton immédiatement → empêche tout double envoi
+ 
         submitBtn.disabled = true;
         submitBtn.innerHTML =
             '<i class="fas fa-spinner fa-spin me-2"></i> Envoi en cours...';
-
-        // Aucun this.submit(), on laisse l’envoi NATIF du navigateur (1 seul)
+ 
     });
 </script>
 

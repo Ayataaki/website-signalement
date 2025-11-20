@@ -21,8 +21,7 @@
             margin: 0;
             font-family: Arial, sans-serif;
         }
-
-        /* ---------- SIDEBAR ---------- */
+ 
         .sidebar {
             width: var(--sidebar-width);
             background: white;
@@ -74,8 +73,7 @@
             font-weight: 600;
             border-left-color: var(--primary-color);
         }
-
-        /* ---------- MAIN CONTENT ---------- */
+ 
         .main-content {
             margin-left: var(--sidebar-width);
             padding: 2rem;
@@ -104,94 +102,92 @@
             color: white;
             font-size: 3rem;
         }
-        
- /* ---------- FORMULAIRE MODAL AGRANDI ---------- */
-.modal-dialog {
-    max-width: 900px; /* plus large que la taille par défaut */
-}
-
-.modal-content {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 25px rgba(0,0,0,0.15);
-}
-
-.modal-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
-    color: white;
-    border-bottom: none;
-    padding: 2rem; /* plus d'espace */
-}
-
-.modal-header .btn-close {
-    filter: invert(1); /* rend le bouton blanc */
-}
-
-.modal-title {
-    margin: 0;
-    font-weight: 600;
-    font-size: 1.5rem;
-}
-
-.modal-body {
-    padding: 2.5rem; /* plus de padding pour le corps du formulaire */
-}
-
-.form-label {
-    font-weight: 500;
-    margin-top: 1rem;
-    display: block;
-    font-size: 1rem;
-}
-
-.form-control {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 0.85rem; /* champ plus grand */
-    width: 100%;
-    margin-top: 0.25rem;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(25,118,210,0.15);
-    outline: none;
-}
-
-.btn-register {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0.85rem 2rem; /* bouton plus grand */
-    font-weight: 500;
-    margin-top: 1.5rem;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-.btn-action {
-	padding: 0.375rem 0.75rem;
-	margin: 0 0.25rem;
-}
-
-.btn-register:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(25,118,210,0.3);
-}
-
-.row .col-md-6 {
-    padding-right: 1rem;
-    padding-left: 1rem;
-}
+         
+		.modal-dialog {
+		    max-width: 900px;  
+		}
+		
+		.modal-content {
+		    border-radius: 12px;
+		    overflow: hidden;
+		    box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+		}
+		
+		.modal-header {
+		    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+		    color: white;
+		    border-bottom: none;
+		    padding: 2rem; 
+		}
+		
+		.modal-header .btn-close {
+		    filter: invert(1);  
+		}
+		
+		.modal-title {
+		    margin: 0;
+		    font-weight: 600;
+		    font-size: 1.5rem;
+		}
+		
+		.modal-body {
+		    padding: 2.5rem;  
+		}
+		
+		.form-label {
+		    font-weight: 500;
+		    margin-top: 1rem;
+		    display: block;
+		    font-size: 1rem;
+		}
+		
+		.form-control {
+		    border: 1px solid #e0e0e0;
+		    border-radius: 8px;
+		    padding: 0.85rem;  
+		    width: 100%;
+		    margin-top: 0.25rem;
+		    font-size: 1rem;
+		    transition: all 0.3s ease;
+		}
+		
+		.form-control:focus {
+		    border-color: var(--primary-color);
+		    box-shadow: 0 0 0 0.2rem rgba(25,118,210,0.15);
+		    outline: none;
+		}
+		
+		.btn-register {
+		    background-color: var(--primary-color);
+		    color: white;
+		    border: none;
+		    border-radius: 8px;
+		    padding: 0.85rem 2rem; 
+		    font-weight: 500;
+		    margin-top: 1.5rem;
+		    font-size: 1rem;
+		    transition: all 0.3s ease;
+		}
+		.btn-action {
+			padding: 0.375rem 0.75rem;
+			margin: 0 0.25rem;
+		}
+		
+		.btn-register:hover {
+		    background-color: var(--primary-hover);
+		    transform: translateY(-1px);
+		    box-shadow: 0 4px 15px rgba(25,118,210,0.3);
+		}
+		
+		.row .col-md-6 {
+		    padding-right: 1rem;
+		    padding-left: 1rem;
+		}
     </style>
 </head>
 
 <body>
-
-<!-- ============ SIDEBAR ============ -->
+ 
 <div class="layout-container">
 <div class="sidebar">
     <div class="logo">
@@ -243,9 +239,6 @@
 
 </div>
 
-
-
-<!-- ============ MAIN CONTENT ============ -->
 <div class="main-content">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -258,8 +251,7 @@
     </div>
 
     <div class="row">
-
-        <!-- COLONNE GAUCHE (profil) -->
+ 
         <div class="col-lg-4">
             <div class="profile-card text-center mb-4">
                 <div class="avatar"><i class="fas fa-user-shield"></i></div>
@@ -281,8 +273,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- FORMULAIRE -->
+ 
         <div class="col-lg-8">
             <div class="profile-card mb-4">
                 <h5><i class="fas fa-user-edit me-2 text-primary"></i> Modifier les informations</h5>
@@ -331,13 +322,12 @@
 
             </div>
         </div>
-
-        <!-- CHANGE PASSWORD -->
+ 
         <div class="col-lg-12">
             <div class="profile-card">
                 <h5><i class="fas fa-lock me-2 text-primary"></i>Changer le mot de passe</h5>
 
-                <form action="AdminServlet" method="post" class="mt-3">
+                <form action="${pageContext.request.contextPath}/AdminServlet" method="post" class="mt-3">
                     <input type="hidden" name="action" value="changerMdp">
                     <input type="hidden" name="idAdmin" value="${admin.idAdmin}">
 
@@ -359,8 +349,7 @@
 
 </div>
 </div>
-
-<!-- ======== MODAL AJOUT ADMIN ======== -->
+ 
 <div class="modal fade" id="modalAddAdmin" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -371,8 +360,8 @@
       </div>
 
       <form action="${pageContext.request.contextPath}/RegisterServlet" method="post" onsubmit="return validateForm()">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="modal-body">
+
                     
                     <input type="hidden" name="typeCompte" value="admin" class="form-control" >
                     
@@ -388,14 +377,12 @@
 
                         <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
                         <input type="text" id="lieu_naissance" name="lieu_naissance" class="form-control" required>
-                        </div>
-
-                        <div class="col-md-6">
+                        
                         <label for="telephone" class="form-label">Téléphone</label>
                         <input type="tel" id="telephone" name="telephone" class="form-control" required pattern="^0[5-7][0-9]{8}$" placeholder="ex: 0612345678">
 
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="ex: user@municipal.com" required>
+                        <input type="email" id="email" name="email" class="form-control" required>
 
                         <label for="date_naissance" class="form-label">Date de naissance</label>
                         <input type="date" id="date_naissance" name="date_naissance" class="form-control" required>
@@ -403,10 +390,12 @@
                         <label for="mot_de_passe" class="form-label">Mot de passe</label>
                         <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" placeholder="••••••••" required>
 
-					</div>
                 </div>
+                
+                <div class="modal-footer">
+						<button type="submit" class="btn-register mt-3">Créer un compte</button>
+				</div>
 
-                <button type="submit" class="btn-register mt-3">Créer un compte</button>
             </form>
     </div>
   </div>

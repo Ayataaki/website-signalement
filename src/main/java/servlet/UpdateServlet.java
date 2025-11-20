@@ -16,9 +16,6 @@ import dao.EmployeCRUDImpl;
 import dao.ICitoyenCRUD;
 import dao.IEmployeCRUD;
 
-/**
- * Servlet implementation class UpdateServlet
- */
 @WebServlet("/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,13 +24,9 @@ public class UpdateServlet extends HttpServlet {
 	private IEmployeCRUD employeDao = new EmployeCRUDImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String type = request.getParameter("type"); 
@@ -62,7 +55,7 @@ public class UpdateServlet extends HttpServlet {
 	                break;
 	        }
 	    } 
-	    // Logique de modification
+
 	    else if (type != null) {
 	        switch (type) {
 	            case "citoyen":
@@ -112,8 +105,6 @@ public class UpdateServlet extends HttpServlet {
         String idMunicipal = request.getParameter("idMunicipal");
 		Long idMunicipalM = Long.parseLong(idMunicipal.trim());
         
-		//on a chargé les anciens données, donc il faut comparer 
-		//les anciens avec les nouvelles et si elles changent, on change
 		Employe oldEmploye = employeDao.getById(idEmploye);
 		String password = oldEmploye.getMotDePasse();//ce mdp est hashé , donc ça ne va pas etre changé
 		
@@ -138,8 +129,6 @@ public class UpdateServlet extends HttpServlet {
         String idRegion = request.getParameter("idRegion");
 		Long idRegionM = Long.parseLong(idRegion.trim());
         
-		//on a chargé les anciens données, donc il faut comparer 
-		//les anciens avec les nouvelles et si elles changent, on change
 		Citoyen oldCitoyen = citoyenDao.getById(idCitoyen);
 		String password = oldCitoyen.getMotDePasse();//ce mdp est hashé , donc ça ne va pas etre changé
 		

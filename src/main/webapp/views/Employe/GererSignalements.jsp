@@ -224,8 +224,7 @@
             border-radius: 12px;
             margin-bottom: 1rem;
         }
-
-        /* Styles pour la modal de détails */
+ 
         .modal-backdrop.show {
             backdrop-filter: blur(8px);
             background-color: rgba(0, 0, 0, 0.5);
@@ -324,30 +323,30 @@
             }
         }
         .detail-section {
-    margin-bottom: 1.5rem;
-}
-
-.detail-label {
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 0.3rem;
-    color: #333;
-}
-
-.detail-value {
-    font-size: 1.05rem;
-    padding: 0.5rem 0.75rem;
-    background-color: #f8f9fa;
-    border-radius: 0.4rem;
-    border: 1px solid #dee2e6;
-}
-        
-.detail-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
-    margin-top: 0.5rem;
-}
+		    margin-bottom: 1.5rem;
+		}
+		
+		.detail-label {
+		    font-weight: 600;
+		    font-size: 1.1rem;
+		    margin-bottom: 0.3rem;
+		    color: #333;
+		}
+		
+		.detail-value {
+		    font-size: 1.05rem;
+		    padding: 0.5rem 0.75rem;
+		    background-color: #f8f9fa;
+		    border-radius: 0.4rem;
+		    border: 1px solid #dee2e6;
+		}
+		        
+		.detail-image {
+		    max-width: 100%;
+		    height: auto;
+		    border-radius: 0.5rem;
+		    margin-top: 0.5rem;
+		}
 
 
     </style>
@@ -368,28 +367,6 @@
         <p class="text-muted mb-0">Gérez tous les signalements</p>
     </div>
 
-    <!-- Barre de recherche -->
-<!-- 		<div class="search-section"> -->
-<%-- 			<form action="${pageContext.request.contextPath}/SignalementServlet" --%>
-<!-- 				method="post" class="row g-2 align-items-end"> -->
-<!-- 				<input type="hidden" name="action" value="recherche"> -->
-				
-<!-- 				<div class="col-md-8"> -->
-<!-- 					<label class="form-label fw-semibold mb-2">Rechercher un -->
-<!-- 						signalement</label>  -->
-<!-- 					<input type="text" class="form-control" -->
-<!-- 						placeholder="Entrez une désignation ou description..." -->
-<%-- 						name="search" value="${param.search}"> --%>
-<!-- 				</div> -->
-<!-- 				<div class="col-md-4 d-flex align-items-end"> -->
-<!-- 					<button type="submit" class="btn btn-primary w-100"> -->
-<!-- 						<i class="fas fa-search me-2"></i> Rechercher -->
-<!-- 					</button> -->
-<!-- 				</div> -->
-<!-- 			</form> -->
-<!-- 		</div> -->
-
-		<!-- Tableau des signalements -->
     <div class="table-card">
         <div class="table-responsive">
             <table class="table table-hover">
@@ -468,8 +445,7 @@
         </div>
     </div>
 </div>
-
-<!-- Modal de détails du signalement -->
+ 
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -490,8 +466,7 @@
                                 <i class="fas fa-hashtag"></i>
                                 ID du Signalement
                             </div>
-                            <div class="detail-value" id="detail-id">
-                                <!-- ID dynamique -->
+                            <div class="detail-value" id="detail-id"> 
                             </div>
                         </div>
 
@@ -500,8 +475,7 @@
                                 <i class="fas fa-tag"></i>
                                 Désignation
                             </div>
-                            <div class="detail-value" id="detail-designation">
-                                <!-- Désignation dynamique -->
+                            <div class="detail-value" id="detail-designation"> 
                             </div>
                         </div>
 
@@ -510,8 +484,7 @@
                                 <i class="fas fa-align-left"></i>
                                 Description
                             </div>
-                            <div class="detail-value" id="detail-description">
-                                <!-- Description dynamique -->
+                            <div class="detail-value" id="detail-description"> 
                             </div>
                         </div>
 
@@ -520,21 +493,16 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 Localisation
                             </div>
-                            <div class="detail-value" id="detail-localisation">
-                                <!-- Localisation dynamique -->
+                            <div class="detail-value" id="detail-localisation"> 
                             </div>
-                        </div>
-<!--                     </div> -->
-
-<!--                     <div class="col-md-6"> -->
+                        </div> 
                         <div class="detail-section">
                             <div class="detail-label">
                                 <i class="fas fa-flag"></i>
                                 Statut
                             </div>
                             <div class="detail-value">
-                                <span class="badge" id="detail-statut">
-                                    <!-- Statut dynamique -->
+                                <span class="badge" id="detail-statut"> 
                                 </span>
                             </div>
                         </div>
@@ -544,8 +512,7 @@
                                 <i class="fas fa-comment"></i>
                                 Commentaire
                             </div>
-                            <div class="detail-value" id="detail-commentaire">
-                                <!-- Commentaire dynamique -->
+                            <div class="detail-value" id="detail-commentaire"> 
                             </div>
                         </div>
 
@@ -554,8 +521,7 @@
                                 <i class="fas fa-calendar-alt"></i>
                                 Date de Création
                             </div>
-                            <div class="detail-value" id="detail-date">
-                                <!-- Date dynamique -->
+                            <div class="detail-value" id="detail-date"> 
                             </div>
                         </div>
 
@@ -580,8 +546,7 @@
         </div>
     </div>
 </div>
-
-<!-- Modal de modification du statut -->
+ 
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border-radius: 1rem; backdrop-filter: blur(5px);">
@@ -625,67 +590,61 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Gestion de la modal d'édition
-    var editModal = document.getElementById('editModal');
-    editModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var id = button.getAttribute('data-id');
-        var statut = button.getAttribute('data-statut');
-        
-        var inputId = editModal.querySelector('#idSignalementInput');
-        inputId.value = id;
-        
-        var selectStatut = editModal.querySelector('#statutSelect');
-        selectStatut.value = statut;
-    });
-
-    // Gestion de la modal de détails
-    var detailModal = document.getElementById('detailModal');
-    detailModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        
-        // Récupération des données
-        var id = button.getAttribute('data-id');
-        var designation = button.getAttribute('data-designation');
-        var description = button.getAttribute('data-description');
-        var localisation = button.getAttribute('data-localisation');
-        var statut = button.getAttribute('data-statut');
-        var commentaire = button.getAttribute('data-commentaire');
-        var imagePath = button.getAttribute('data-imagepath');
-        var dateCreation = button.getAttribute('data-datecreation');
-
-        // Mise à jour du contenu
-        document.getElementById('detail-id').textContent = '#' + id;
-        document.getElementById('detail-designation').textContent = designation || 'Non spécifié';
-        document.getElementById('detail-description').textContent = description || 'Aucune description';
-        document.getElementById('detail-localisation').textContent = localisation || 'Non spécifié';
-        document.getElementById('detail-commentaire').textContent = commentaire || 'Aucun commentaire';
-        document.getElementById('detail-date').textContent = dateCreation || 'Date non disponible';
-
-        // Gestion du statut avec badge coloré
-        var statutElement = document.getElementById('detail-statut');
-        statutElement.textContent = getStatutLabel(statut);
-        statutElement.className = 'badge badge-' + statut;
-
-        // Gestion de l'image
-        var imageContainer = document.getElementById('detail-image-container');
-        if (imagePath && imagePath !== 'null') {
-            imageContainer.innerHTML = '<img src="' + imagePath + '" alt="Image du signalement" class="detail-image">';
-        } else {
-            imageContainer.innerHTML = '<div class="image-placeholder"><i class="fas fa-image"></i><p>Aucune image disponible</p></div>';
-        }
-    });
-
-    function getStatutLabel(statut) {
-        switch(statut) {
-            case 'new': return 'Nouveau';
-            case 'processing': return 'En cours';
-            case 'final': return 'Résolu';
-            default: return statut;
-        }
-    }
-});
+	document.addEventListener('DOMContentLoaded', function () {
+	    var editModal = document.getElementById('editModal');
+	    editModal.addEventListener('show.bs.modal', function (event) {
+	        var button = event.relatedTarget;
+	        var id = button.getAttribute('data-id');
+	        var statut = button.getAttribute('data-statut');
+	        
+	        var inputId = editModal.querySelector('#idSignalementInput');
+	        inputId.value = id;
+	        
+	        var selectStatut = editModal.querySelector('#statutSelect');
+	        selectStatut.value = statut;
+	    });
+	 
+	    var detailModal = document.getElementById('detailModal');
+	    detailModal.addEventListener('show.bs.modal', function (event) {
+	        var button = event.relatedTarget;
+	         
+	        var id = button.getAttribute('data-id');
+	        var designation = button.getAttribute('data-designation');
+	        var description = button.getAttribute('data-description');
+	        var localisation = button.getAttribute('data-localisation');
+	        var statut = button.getAttribute('data-statut');
+	        var commentaire = button.getAttribute('data-commentaire');
+	        var imagePath = button.getAttribute('data-imagepath');
+	        var dateCreation = button.getAttribute('data-datecreation');
+	 
+	        document.getElementById('detail-id').textContent = '#' + id;
+	        document.getElementById('detail-designation').textContent = designation || 'Non spécifié';
+	        document.getElementById('detail-description').textContent = description || 'Aucune description';
+	        document.getElementById('detail-localisation').textContent = localisation || 'Non spécifié';
+	        document.getElementById('detail-commentaire').textContent = commentaire || 'Aucun commentaire';
+	        document.getElementById('detail-date').textContent = dateCreation || 'Date non disponible';
+	 
+	        var statutElement = document.getElementById('detail-statut');
+	        statutElement.textContent = getStatutLabel(statut);
+	        statutElement.className = 'badge badge-' + statut;
+	 
+	        var imageContainer = document.getElementById('detail-image-container');
+	        if (imagePath && imagePath !== 'null') {
+	            imageContainer.innerHTML = '<img src="' + imagePath + '" alt="Image du signalement" class="detail-image">';
+	        } else {
+	            imageContainer.innerHTML = '<div class="image-placeholder"><i class="fas fa-image"></i><p>Aucune image disponible</p></div>';
+	        }
+	    });
+	
+	    function getStatutLabel(statut) {
+	        switch(statut) {
+	            case 'new': return 'Nouveau';
+	            case 'processing': return 'En cours';
+	            case 'final': return 'Résolu';
+	            default: return statut;
+	        }
+	    }
+	});
 </script>
 
 </body>

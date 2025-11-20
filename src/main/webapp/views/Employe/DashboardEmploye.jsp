@@ -6,17 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord Municipal</title>
-    
-    <!-- Bootstrap CSS -->
+     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
+     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
-    <!-- Font Awesome -->
+ 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Chart.js pour les graphiques -->
+     
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
@@ -31,27 +27,13 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-        }
-        
-        /* Layout avec Sidebar */
+        } 
         .layout-container {
             display: flex;
             min-height: 100vh;
         }
         
-        .sidebar {
-/*             width: var(--sidebar-width); */
-/*             background: white; */
-/*             box-shadow: 2px 0 10px rgba(0,0,0,0.1); */
-/*             position: fixed; */
-/*             left: 0; */
-/*             top: 0; */
-/*             height: 100vh; */
-/*             overflow-y: auto; */
-/*             display: flex; */
-/*             flex-direction: column; */
-/*             z-index: 1000; */
-
+        .sidebar { 
 		    background: white;
 		    min-height: 100vh;
 		    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -59,8 +41,6 @@
 		    width: 280px;
 		    display: flex;
 		    flex-direction: column;
-
-
         }
         
         .main-content {
@@ -68,8 +48,7 @@
             margin-left: var(--sidebar-width);
             width: calc(100% - var(--sidebar-width));
         }
-        
-        /* Sidebar Styles */
+         
         .logo {
             padding: 1.5rem;
             border-bottom: 1px solid #e9ecef;
@@ -116,9 +95,6 @@
         }
         
         .user-info {
-/*             background: #f8f9fa; */
-/*             border-radius: 8px; */
-/*             padding: 0.75rem; */
 			background: white;
             padding: 1rem;
             border-radius: 12px;
@@ -136,8 +112,7 @@
             color: white;
             font-size: 1rem;
         }
-        
-        /* Content Styles */
+         
         .content-wrapper {
             padding: 2rem;
         }
@@ -168,31 +143,8 @@
             position: relative;
             height: 300px;
         }
-        
-        /* Responsive */
+         
         @media (max-width: 768px) {
-/*             .sidebar { */
-/*                 width: 70px; */
-/*             } */
-            
-/*             .sidebar .nav-link span { */
-/*                 display: none; */
-/*             } */
-            
-/*             .sidebar .logo h4, */
-/*             .sidebar .logo small, */
-/*             .user-info div:not(.avatar-sm) { */
-/*                 display: none; */
-/*             } */
-            
-/*             .main-content { */
-/*                 margin-left: 70px; */
-/*                 width: calc(100% - 70px); */
-/*             } */
-            
-/*             :root { */
-/*                 --sidebar-width: 70px; */
-/*             } */
 			.sidebar {
                 width: 100%;
                 position: relative;
@@ -210,27 +162,19 @@
 </head>
 <body>
 
-
-  
-
-
-    <div class="layout-container">
-        <!-- Sidebar -->
+    <div class="layout-container"> 
         <jsp:include page="sidebarMunicipal.jsp">
             <jsp:param name="activePage" value="dashboard"/>
         </jsp:include>
-        
-        <!-- Main Content -->
+         
         <div class="main-content">
             <div class="content-wrapper">
                 <h2 class="mb-4 text-dark">
                     <i class="bi bi-speedometer2 me-2"></i>
                     Vue d'ensemble
                 </h2>
-                
-               <!-- Cartes de statistiques -->
-                <div class="row g-4 mb-4">
-                    <!-- Total Reports -->
+                 
+                <div class="row g-4 mb-4"> 
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card">
                             <div class="card-body">
@@ -238,9 +182,6 @@
                                     <div>
                                         <p class="text-muted mb-1 small">Total Signalements</p>
                                         <h3 class="mb-0 fw-bold">${totalReports}</h3>
-<!--                                         <small class="text-success"> -->
-<!--                                             <i class="bi bi-arrow-up"></i> +5 aujourd'hui -->
-<!--                                         </small> -->
                                     </div>
                                     <div class="stat-icon bg-primary bg-opacity-10 text-primary">
                                         <i class="bi bi-file-text"></i>
@@ -249,8 +190,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                     <!-- Nouveaux -->
+                     
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card">
                             <div class="card-body">
@@ -270,8 +210,6 @@
                         </div>
                     </div>
                     
-                    
-                    <!-- En Cours -->
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card">
                             <div class="card-body">
@@ -290,8 +228,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Résolus -->
+                     
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card">
                             <div class="card-body">
@@ -313,11 +250,7 @@
                         </div>
                     </div>
                 </div>
-                
                
-               
-                    
-                    <!-- Graphique par Statut -->
                     <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">
@@ -332,8 +265,7 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Signalements récents -->
+                 
                 <div class="row px-4">
                     <div class="col-12">
                         <div class="card stat-card">
@@ -435,19 +367,10 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Scripts pour les graphiques -->
-   <script>
  
-    
-
-        
-        
-        // Graphique par Statut
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+   <script>
         const statutCtx = document.getElementById('statutChart').getContext('2d');
         new Chart(statutCtx, {
             type: 'bar',

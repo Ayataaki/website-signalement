@@ -17,9 +17,6 @@ import dao.IRegionCRUD;
 import dao.MunicipalCRUDImpl;
 import dao.RegionCRUDImpl;
 
-/**
- * Servlet implementation class MunicipalServlet
- */
 @WebServlet("/MunicipalServlet")
 public class MunicipalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

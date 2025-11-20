@@ -24,7 +24,6 @@
             margin: 0;
         }
 
-        /* Header */
         .header {
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -101,7 +100,6 @@
             background: var(--primary-hover);
         }
 
-        /* About Section */
         .about-section {
             padding: 4rem 2rem;
             background-color: #f8f9fa;
@@ -123,7 +121,6 @@
             line-height: 1.8;
         }
 
-        /* Mission Section */
         .about-mission {
             background: white;
             padding: 3rem 2rem;
@@ -134,7 +131,7 @@
         }
 
         .about-mission h2 {
-            color: var(--text-dark); /* 🔹 Couleur noire au lieu du vert */
+            color: var(--text-dark); 
             font-size: 2rem;
             margin-bottom: 1rem;
             font-weight: 700;
@@ -146,7 +143,6 @@
             line-height: 1.7;
         }
 
-        /* Footer */
         .footer {
             background-color: var(--text-dark);
             color: white;
@@ -165,8 +161,7 @@
     </style>
 </head>
 <body>
-
-    <!-- Header -->
+ 
     <header class="header">
         <div class="header-container">
             <a href="index.jsp" class="logo">
@@ -180,8 +175,7 @@
             </nav>
         </div>
     </header>
-
-    <!-- About Section -->
+ 
     <section class="about-section">
         <h1>À propos d'UrbAlert</h1>
         <p><br><br><br>
@@ -190,8 +184,7 @@
             et à l’engagement communautaire.
         </p>
     </section>
-
-    <!-- Mission Section -->
+ 
     <section class="about-mission">
         <h2>                 Notre Mission</h2>
         <p>
@@ -205,8 +198,7 @@
             Grâce à UrbAlert, chaque citoyen devient acteur du changement, contribuant à une ville plus propre, plus sûre et plus agréable à vivre.
         </p>
     </section>
-
-   <!-- Footer -->
+ 
     <footer class="footer">
         <div class="container">
             <div class="row">

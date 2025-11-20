@@ -25,14 +25,13 @@ public class AccueilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		List<Region> regions = regionDao.getAll();
-		//request.setAttribute("regions", regions);
 		request.getSession().setAttribute("regions", regions);
 		request.getRequestDispatcher("views/Auth/Accueil.jsp").forward(request, response);
 	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

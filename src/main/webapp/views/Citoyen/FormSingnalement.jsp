@@ -8,7 +8,6 @@
     <title>Signaler un problème - UrbAlert</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Leaflet CSS pour OpenStreetMap -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
@@ -24,8 +23,7 @@
             background-color: #f8f9fa;
             color: var(--text-dark);
         }
-
-        /* Header */
+ 
         .header {
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -45,9 +43,7 @@
 
         .logo i {
             font-size: 1.75rem;
-        }
-
-        /* Form Container */
+        } 
         .form-container {
             max-width: 800px;
             margin: 0 auto;
@@ -76,9 +72,7 @@
         .form-subtitle {
             color: var(--text-gray);
             margin-bottom: 2rem;
-        }
-
-        /* Form Styles */
+        } 
         .form-label {
             font-weight: 600;
             color: var(--text-dark);
@@ -96,9 +90,7 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.1);
             outline: none;
-        }
-
-        /* Image Upload */
+        } 
         .image-upload-area {
             border: 2px dashed #e0e0e0;
             border-radius: 12px;
@@ -131,9 +123,7 @@
             border-radius: 8px;
             margin-top: 1rem;
             object-fit: cover;
-        }
-
-        /* Location Input with Icon */
+        } 
         .input-with-icon {
             position: relative;
         }
@@ -149,9 +139,7 @@
 
         .input-with-icon .form-control {
             padding-left: 40px;
-        }
-
-        /* Map Styles */
+        } 
         #map {
             height: 400px;
             border-radius: 8px;
@@ -162,9 +150,7 @@
 
         .leaflet-container {
             border-radius: 8px;
-        }
-
-        /* Buttons */
+        } 
         .btn-submit {
             background-color: var(--secondary-color);
             color: white;
@@ -198,23 +184,17 @@
         .btn-cancel:hover {
             border-color: var(--text-gray);
             color: var(--text-dark);
-        }
-
-        /* Character Counter */
+        } 
         .char-counter {
             font-size: 0.875rem;
             color: var(--text-gray);
             text-align: right;
             margin-top: 0.25rem;
-        }
-
-        /* Loading indicator */
+        } 
         .loading-text {
             color: var(--primary-color);
             font-size: 0.875rem;
-        }
-
-        /* Success message after image upload */
+        } 
         .file-name {
             color: var(--secondary-color);
             font-size: 0.875rem;
@@ -245,8 +225,7 @@
     </style>
 </head>
 <body>
-
-    <!-- Header -->
+ 
     <header class="header">
         <div class="container">
             <a href="${pageContext.request.contextPath}/Accueil.jsp" class="logo">
@@ -255,8 +234,7 @@
             </a>
         </div>
     </header>
-
-    <!-- Form Container -->
+ 
     <div class="form-container">
         <div class="form-card">
             <h1 class="form-title">Signaler un problème</h1>
@@ -266,8 +244,7 @@
                 
                 <input type="hidden" name="idCitoyen" value="${sessionScope.user.idCitoyen}">
                 <input type="hidden" name="action" value="create">
-                
-                <!-- Désignation -->
+                 
                 <div class="mb-4">
                     <label for="designation" class="form-label">
                         Objet de la réclamation <span class="text-danger">*</span>
@@ -279,9 +256,7 @@
                         name="designation" 
                         placeholder="Mettez un titre à votre signalement"
                         required>
-                </div>
-                
-                <!-- Description -->
+                </div> 
                 <div class="mb-4">
                     <label for="description" class="form-label">
                         Description du problème <span class="text-danger">*</span>
@@ -298,8 +273,7 @@
                         <span id="charCount">0</span>/500 caractères
                     </div>
                 </div>
-                
-                <!-- Localisation/adresse -->
+                 
                 <div class="mb-4">
                     <label for="adresse" class="form-label">
                         Adresse où se trouve le problème <span class="text-danger">*</span>
@@ -314,9 +288,7 @@
                             placeholder="Entrez l'adresse où se trouve le problème"
                             required>
                     </div>
-                </div>
-
-                <!-- Image Upload -->
+                </div> 
                 <div class="mb-4">
                     <label class="form-label">
                         Photo du problème <span class="text-danger">*</span>
@@ -338,9 +310,7 @@
                         <span id="fileNameText"></span>
                     </div>
                     <img id="imagePreview" class="image-preview d-none" alt="Aperçu">
-                </div>
-
-                <!-- Commentaire additionnel -->
+                </div> 
                 <div class="mb-4">
                     <label for="commentaire" class="form-label">Commentaire additionnel</label>
                     <textarea 
@@ -349,9 +319,7 @@
                         name="commentaire" 
                         rows="3" 
                         placeholder="Ajoutez des informations supplémentaires (optionnel)..."></textarea>
-                </div>
-
-                <!-- Buttons -->
+                </div> 
                 <div class="d-flex gap-3 justify-content-end">
                     <button type="button" class="btn btn-cancel" onclick="window.history.back()">
                         <i class="fas fa-times me-2"></i>Annuler
@@ -363,13 +331,10 @@
             </form>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
+ 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JavaScript -->
-    <script>
-    // Character counter
+     
+    <script> 
     const descriptionTextarea = document.getElementById('description');
     const charCount = document.getElementById('charCount');
 
@@ -378,8 +343,7 @@
         charCount.textContent = length;
         charCount.style.color = (length > 450) ? '#d32f2f' : 'var(--text-gray)';
     });
-
-    // Image upload handling
+ 
     const uploadArea = document.getElementById('uploadArea');
     const imageInput = document.getElementById('imageInput');
     const imagePreview = document.getElementById('imagePreview');
@@ -434,8 +398,7 @@
         };
         reader.readAsDataURL(file);
     }
-
-    // 🔥 Anti-double-submit
+ 
     const form = document.getElementById('reportForm');
     const submitBtn = form.querySelector('.btn-submit');
 
@@ -449,13 +412,11 @@
             alert("Veuillez remplir tous les champs obligatoires.");
             return;
         }
-
-        // Désactiver le bouton immédiatement → empêche tout double envoi
+ 
         submitBtn.disabled = true;
         submitBtn.innerHTML =
             '<i class="fas fa-spinner fa-spin me-2"></i> Envoi en cours...';
 
-        // Aucun this.submit(), on laisse l’envoi NATIF du navigateur (1 seul)
     });
 </script>
 

@@ -50,25 +50,6 @@
             border-radius: 12px;
             margin-bottom: 1rem;
         }
-
-/*         .nav-link { */
-/*             color: var(--text-dark); */
-/*             padding: 0.75rem 1.5rem; */
-/*             margin: 0.25rem 0.5rem; */
-/*             border-radius: 8px; */
-/*             transition: all 0.3s ease; */
-/*         } */
-
-/*         .nav-link:hover, .nav-link.active { */
-/*             background-color: rgba(25, 118, 210, 0.1); */
-/*             color: var(--primary-color); */
-/*         } */
-
-/*         .nav-link i { */
-/*             width: 20px; */
-/*             margin-right: 0.75rem; */
-/*         } */
-
         .profile-card {
             background: white;
             border-radius: 12px;
@@ -198,10 +179,8 @@
             <span class="text-muted">Espace personnel</span>
         </div>
 
-        <div class="row">
-            <!-- Carte Profil et Statistiques -->
-            <div class="col-lg-4 mb-4">
-                <!-- Carte Profil -->
+        <div class="row"> 
+            <div class="col-lg-4 mb-4"> 
                 <div class="profile-card text-center mb-4">
                     <div class="avatar">
                         <i class="fas fa-user"></i>
@@ -210,8 +189,7 @@
                     <p class="text-muted mb-3">Citoyen</p>
                     <span class="badge bg-primary">Compte actif</span>
                 </div>
-
-                <!-- Carte Statistiques -->
+ 
                 <div class="profile-card">
                     <h6 class="fw-semibold mb-3">
                         <i class="fas fa-chart-bar me-2 text-primary"></i>
@@ -235,10 +213,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Informations et Formulaires -->
-            <div class="col-lg-8">
-                <!-- Informations Personnelles -->
+ 
+            <div class="col-lg-8"> 
                 <div class="profile-card mb-4">
                     <h5 class="fw-semibold mb-4">
                         <i class="fas fa-user-edit me-2 text-primary"></i>
@@ -273,8 +249,7 @@
 						<div class="mb-3">
 							<div class="input-icon">
 							  <label class="form-label">Région de résidence</label>
-							 <select class="form-control" id="idRegion" name="idRegion" required>
-<%-- 									<option value="${sessionScope.user.idRegion}">${sessionScope.user.idRegion}</option> --%>
+							 <select class="form-control" id="idRegion" name="idRegion" required> 
 									<option value="${sessionScope.user.idRegion}">
 										<c:forEach var="r" items="${sessionScope.regions}">
 											<c:if
@@ -317,8 +292,7 @@
                         </div>
                     </form>
                 </div>
-
-                <!-- Changer Mot de Passe -->
+ 
                 <div class="profile-card">
                     <h5 class="fw-semibold mb-4">
                         <i class="fas fa-lock me-2 text-primary"></i>

@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-//pour que les citoyens ne peuvent pas accéder à certaines pages sans authentification
 @WebServlet("/AuthServlet")
 public class AuthServlet extends HttpServlet {
 	

@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import metier.Administrateur;
 import metier.Citoyen;
 import metier.Employe;
 import metier.Municipal;
@@ -25,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import dao.AdminCRUDImpl;
 import dao.CitoyenCRUDImpl;
 import dao.EmployeCRUDImpl;
 import dao.IMunicipalCRUD;
@@ -33,7 +31,6 @@ import dao.ISignalementCRUD;
 import dao.MunicipalCRUDImpl;
 import dao.RegionCRUDImpl;
 import dao.SignalementCRUDImpl;
-import dao.TechnicienCRUDImpl;
 
 /**
  * Servlet implementation class SignalementServlet
@@ -44,15 +41,12 @@ public class SignalementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private CitoyenCRUDImpl citoyenDao = new CitoyenCRUDImpl();
-    private AdminCRUDImpl adminDao = new AdminCRUDImpl();
-    private EmployeCRUDImpl employeDAO = new EmployeCRUDImpl();	
-    private TechnicienCRUDImpl technicienDAO = new TechnicienCRUDImpl();	
+    private EmployeCRUDImpl employeDAO = new EmployeCRUDImpl();		
     private RegionCRUDImpl regionDao = new RegionCRUDImpl();
     private ISignalementCRUD signalementDao = new SignalementCRUDImpl();
     private IMunicipalCRUD municipalDao = new MunicipalCRUDImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request,response);
 	}
 
@@ -69,6 +63,7 @@ public class SignalementServlet extends HttpServlet {
 			Citoyen citoyen = (Citoyen) request.getSession().getAttribute("user");
 			Long idCitoyen = citoyen.getIdCitoyen();
 			getAllSignByCitoyen(idCitoyen,request, response);
+			updatedDataCitoyen(citoyen,request,response);
 
 			request.getRequestDispatcher("/views/Citoyen/MesSignalements.jsp").forward(request, response);
 
@@ -165,6 +160,35 @@ public class SignalementServlet extends HttpServlet {
 		
 	}
 	
+	private void updatedDataCitoyen(Citoyen citoyen,HttpServletRequest request, HttpServletResponse response) {
+    			
+		Long idCitoyen = citoyen.getIdCitoyen();
+
+		request.getSession().setAttribute("user", citoyen);
+		List<Region> regions = regionDao.getAll();
+    	
+		Region regionCitoyen = regionDao.getRegionByCitoyen(idCitoyen);
+    	List<Signalement> signalements = signalementDao.getByIdCitoyen(idCitoyen);
+    	
+    	int countNewSignalement = signalementDao.getCountNewSignalementByCitoyen(idCitoyen);
+    	int countProcessingSignalement = signalementDao.getCountProcessingSignalementByCitoyen(idCitoyen);
+    	int countFinishedSignalement = signalementDao.getCountFinishedSignalementByCitoyen(idCitoyen);
+    	int countTotalSignalement = countNewSignalement +countProcessingSignalement+countFinishedSignalement;
+    	
+    	
+		request.getSession().setAttribute("countNewSignalement", countNewSignalement);
+		request.getSession().setAttribute("countProcessingSignalement", countProcessingSignalement);		
+    	request.getSession().setAttribute("countFinishedSignalement", countFinishedSignalement);		
+    	request.getSession().setAttribute("countTotalSignalement", countTotalSignalement);		
+
+    	request.getSession().setAttribute("signalements", signalements);
+    	request.getSession().setAttribute("regions", regions);
+    	request.getSession().setAttribute("regionCitoyen", regionCitoyen);        	
+    	request.getSession().setAttribute("signalements", signalements);
+		request.getSession().setAttribute("userType", "citoyen");
+
+	}
+	
 	private void updatedDataSendAdmin(HttpServletRequest request, HttpServletResponse response) {
 			
 		//we don't need the object admin here, cause he has a wild visibility 
@@ -172,10 +196,9 @@ public class SignalementServlet extends HttpServlet {
         int totalReports = signalementDao.countSignalement();
         int municipalStaff = employeDAO.countEmploye();
         double resolutionRate = signalementDao.getResolutionRate(); 
-        List<Signalement> recentReports = signalementDao.getRecentReports(5); // les 5 derniers
+        List<Signalement> recentReports = signalementDao.getRecentReports(5); 
 
         Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();
-        //Map<String, Integer> typeData = signalementDao.getReportTypeStats(); -- not clear enough
         List<Region> regions = regionDao.getAll();
         List<Employe> employes = employeDAO.getAll();
         List<Citoyen> citoyens = citoyenDao.getAll();
@@ -196,8 +219,6 @@ public class SignalementServlet extends HttpServlet {
         request.getSession().setAttribute("employes", employes);    	
         request.getSession().setAttribute("regions", regions);
     	request.getSession().setAttribute("municipaux", municipaux);
-//		request.getSession().setAttribute("admin", admin);
-//		request.getSession().setAttribute("userType", "admin");
 		
 	}
 	
@@ -206,13 +227,10 @@ public class SignalementServlet extends HttpServlet {
 		Long idMunicipal = employe.getIdMunicipal();
         int totalReports = signalementDao.countSignalementByMunicipal(idMunicipal);
         
-        //uncorrect
         double resolutionRate = signalementDao.getResolutionRateByMunicipal(idMunicipal); 
         
-        //to correct
         List<Signalement> recentReports = signalementDao.getRecentReportsByMunicipal(idMunicipal,5); // les 5 derniers
 
-        //to correct
         Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStatsByMunicipal(idMunicipal);
         
         int nouveaux = signalementDao.getCountNewSignalementByMunicipal(idMunicipal);
@@ -271,22 +289,11 @@ public class SignalementServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 
-        // Récupérer les champs du formulaire
 		String id = request.getParameter("idSignalement");
     	Long idSig = Long.parseLong(id.trim());
-//		Long idCitoyen = Long.parseLong(request.getParameter("idCitoyen").trim());
-//        String designation = request.getParameter("designation");
-//        String description = request.getParameter("description");
-//        String localisation = request.getParameter("localisation");
-//        String commentaire = request.getParameter("commentaire");
         String statut = request.getParameter("statut");
 
         Signalement s = signalementDao.getById(idSig);
-//        s.setDesignation(designation);
-//        s.setDescription(description);
-//        s.setCommentaire(commentaire);
-//        s.setLocalisation(localisation);
-//        s.setIdCitoyen(idCitoyen);
         s.setStatut(Statut.fromLabel(statut));
 
         signalementDao.updateSignalement(s);
@@ -301,7 +308,6 @@ public class SignalementServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 
-        // Récupérer les champs du formulaire
 		String id = request.getParameter("id");
     	Long idSig = Long.parseLong(id.trim());
 		Long idCitoyen = Long.parseLong(request.getParameter("idCitoyen").trim());
@@ -365,19 +371,16 @@ public class SignalementServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 
-        // Récupérer les champs du formulaire
 		Long idCitoyen = Long.parseLong(request.getParameter("idCitoyen").trim());
         String designation = request.getParameter("designation");
         String description = request.getParameter("description");
         String localisation = request.getParameter("adresse");
         String commentaire = request.getParameter("commentaire");
 
-        // Récupérer le fichier image
         Part imagePart = request.getPart("image");
         String originalFileName = Path.of(imagePart.getSubmittedFileName()).getFileName().toString();
         String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
 
-        // Définir le chemin de sauvegarde dans webapp/uploads/signalements
         String uploadDirPath = getServletContext().getRealPath("/uploads/signalements");
         File uploadDir = new File(uploadDirPath);
         if (!uploadDir.exists()) {
@@ -385,10 +388,8 @@ public class SignalementServlet extends HttpServlet {
             System.out.println("Dossier créé ? " + created);
         }
 
-        // Créer le fichier destination
         File destinationFile = new File(uploadDir, uniqueFileName);
 
-        // Copier le contenu du fichier
         try (InputStream in = imagePart.getInputStream();
              FileOutputStream out = new FileOutputStream(destinationFile)) {
 
@@ -404,10 +405,8 @@ public class SignalementServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        // Chemin relatif pour la base de données
         String imagePath = "uploads/signalements/" + uniqueFileName;
 
-        // Créer l'objet Signalement
         String statutLabel = "new";
         Signalement signalement = new Signalement(
             idCitoyen,
@@ -419,10 +418,8 @@ public class SignalementServlet extends HttpServlet {
             imagePath
         );
 
-        // où trouver l'image ? 
-        // veuillez se réferer au path suivant : 
+        // l'image se trouve dans le chemin suivant : 
 //        avant uploads enlever le slash, ça m'a causé du pb: C:\Users\Admin\Desktop\J2EE-Workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\project-j2ee\\uploads\signalements\50c8f25d-3f17-41b2-b7b5-fc3cd71bd41a_WhatsApp Image 2025-11-04 at 15.14.48.jpeg
-//        // Enregistrer dans la base
         signalementDao.createSignalement(signalement);
 
 	}

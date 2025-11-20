@@ -131,8 +131,7 @@
         
 </head>
 <body>
-
-    <!-- Header -->
+ 
     <header class="header">
         <div class="container d-flex justify-content-between align-items-center">
             <a href="AccueilServlet" class="logo">
@@ -141,8 +140,7 @@
             </a>
         </div>
     </header>
-
-    <!-- Register Form -->
+ 
     <div class="register-container">
         <div class="register-card">
             <h2>Créer un compte</h2>
@@ -179,8 +177,7 @@
                         <label for="mot_de_passe" class="form-label">Mot de passe</label>
                         <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" placeholder="••••••••" required>
 
-
-						<!-- Région -->
+ 
 						
 							<label for="idRegion" class="form-label"> Région <span
 								style="color: red">*</span>

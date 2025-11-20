@@ -128,22 +128,21 @@
 		    padding: 1.5rem;
 		    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 		    transition: transform 0.3s ease;
-		    background-color: #ffffff; /* fallback */
+		    background-color: #ffffff; 
 		}
-		
-		/* Couleurs par statut */
+		 
 		.report-card.new {
-		    background-color: rgba(25, 118, 210, 0.1); /* bleu clair */
+		    background-color: rgba(25, 118, 210, 0.1);  
 		    border-left: 6px solid var(--primary-color);
 		}
 		
 		.report-card.processing {
-		    background-color: rgba(255, 152, 0, 0.1); /* orange clair */
+		    background-color: rgba(255, 152, 0, 0.1); 
 		    border-left: 6px solid var(--warning-color);
 		}
 		
 		.report-card.final {
-		    background-color: rgba(67, 160, 71, 0.1); /* vert clair */
+		    background-color: rgba(67, 160, 71, 0.1); 
 		    border-left: 6px solid var(--success-color);
 		}
         .report-card:hover {
@@ -151,45 +150,44 @@
 		    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 		}
         .badge-status {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.75rem;
-    border-radius: 20px;
-    font-weight: 500;
-    color: #212121; /* texte noir */
-    background-color: #e0e0e0; /* gris clair par défaut */
-}
-
-/* Couleurs spécifiques par statut */
-.badge-new {
-    background-color: #e3f2fd; /* bleu très clair */
-}
-
-.badge-processing {
-    background-color: #fff3e0; /* orange très clair */
-}
-
-.badge-final {
-    background-color: #e8f5e9; /* vert très clair */
-}
-.report-image {
-    width: 100%;
-    height: auto;
-    max-height: 250px;      /* empêche l'image de devenir trop grande */
-    object-fit: cover;      /* garde le cadre propre sans déformation */
-    border-radius: 10px;    /* plus esthétique */
-    display: block;
-}
-.report-card img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.modal-body .report-image {
-    max-height: 350px;
-    width: 100%;
-    object-fit: contain;
-}
+		    font-size: 0.85rem;
+		    padding: 0.4rem 0.75rem;
+		    border-radius: 20px;
+		    font-weight: 500;
+		    color: #212121;  
+		    background-color: #e0e0e0;  
+		}
+		 
+		.badge-new {
+		    background-color: #e3f2fd; 
+		}
+		
+		.badge-processing {
+		    background-color: #fff3e0;  
+		}
+		
+		.badge-final {
+		    background-color: #e8f5e9;  
+		}
+		.report-image {
+		    width: 100%;
+		    height: auto;
+		    max-height: 250px;      
+		    object-fit: cover;       
+		    border-radius: 10px;   
+		    display: block;
+		}
+		.report-card img {
+		    max-width: 100%;
+		    height: auto;
+		    object-fit: cover;
+		    border-radius: 10px;
+		}
+		.modal-body .report-image {
+		    max-height: 350px;
+		    width: 100%;
+		    object-fit: contain;
+		}
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
@@ -228,8 +226,7 @@
                             <c:when test="${s.statut.label eq 'new'}">badge-new</c:when>
                             <c:when test="${s.statut.label eq 'processing'}">badge-processing</c:when>
                             <c:when test="${s.statut.label eq 'final'}">badge-final</c:when>
-                        </c:choose>">
-<%--                         ${s.statut.label} --%>
+                        </c:choose>"> 
 						<c:choose>
 						    <c:when test="${s.statut.label eq 'new'}">Nouveau</c:when>
 						    <c:when test="${s.statut.label eq 'processing'}">En cours</c:when>
@@ -243,8 +240,7 @@
                 <p class="text-muted small mb-3">${s.description}</p>
                 <div class="d-flex justify-content-between align-items-center">
                 	<h7 class="fw-semibold mb-2">${s.localisation}</h7>
-<%--                     <span class="badge bg-light text-dark" style="border:1px solid #e0e0e0;">${s.localisation}</span> --%>
-                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reportModal${s.idSignalement}" style="border-radius:20px; padding:0.25rem 1rem;">
+                	<button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reportModal${s.idSignalement}" style="border-radius:20px; padding:0.25rem 1rem;">
                         Détails
                     </button>
                 </div>
@@ -253,8 +249,7 @@
                 </c:if>
             </div>
         </div>
-
-        <!-- Modal dynamique -->
+ 
         <div class="modal fade" id="reportModal${s.idSignalement}" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -299,8 +294,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Animation fade-in des cartes
+<script> 
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.report-card');
         cards.forEach((card, index) => {

@@ -7,16 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Administrateur</title>
     
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
@@ -210,7 +206,7 @@
 </head>
 <body>
     <div class="layout-container">
-        <!-- Sidebar -->
+
 		<jsp:include page="sidebarAdmin.jsp">
 			<jsp:param name="activePage" value="dashboard" />
 		</jsp:include>
@@ -236,7 +232,6 @@
             </div>
         </div>
         
-        <!-- Main Content -->
         <div class="main-content">
             <div class="content-wrapper">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -253,97 +248,96 @@
                     </button>
                 </div>
                 
-                <!-- Cartes de statistiques principales -->
+
                 <div class="row g-4 mb-4">
-                    <!-- Total Users -->
+
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card h-100">
                             <div class="card-body">
+                            
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="stat-icon bg-primary bg-opacity-10 text-primary">
                                         <i class="bi bi-people"></i>
                                     </div>
-<!--                                     <span class="trend-badge bg-success text-white"> -->
-<!--                                         <i class="bi bi-arrow-up"></i> +12% -->
-<!--                                     </span> -->
                                 </div>
+                                
                                 <div>
                                     <p class="stat-label text-muted mb-2">Total Utilisateurs</p>
                                     <h2 class="stat-value text-primary">${sessionScope.totalUsers}</h2>
                                     <small class="text-muted">Citoyens enregistrés</small>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Total Reports -->
+
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card h-100">
                             <div class="card-body">
+                            
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="stat-icon bg-success bg-opacity-10 text-success">
                                         <i class="bi bi-file-text"></i>
                                     </div>
-									<!-- A verifier, ça veut dire quoi déjà -->
-<!--                                     <span class="trend-badge bg-success text-white"> -->
-<!--                                         <i class="bi bi-arrow-up"></i> +8.2% -->
-<!--                                     </span> -->
                                 </div>
+                                
                                 <div>
                                     <p class="stat-label text-muted mb-2">Total Signalements</p>
                                     <h2 class="stat-value text-success">${sessionScope.totalReports}</h2>
                                     <small class="text-muted">Signalements créés</small>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Municipal Staff -->
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card h-100">
                             <div class="card-body">
+                            
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="stat-icon bg-warning bg-opacity-10 text-warning">
                                         <i class="bi bi-building"></i>
                                     </div>
                                 </div>
+                                
                                 <div>
                                     <p class="stat-label text-muted mb-2">Personnel Municipal</p>
                                     <h2 class="stat-value text-warning">${sessionScope.municipalStaff}</h2>
                                     <small class="text-muted">Agents actifs</small>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Resolution Rate -->
                     <div class="col-md-6 col-lg-3">
                         <div class="card stat-card h-100">
                             <div class="card-body">
+                            
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="stat-icon bg-danger bg-opacity-10 text-danger">
                                         <i class="bi bi-trophy"></i>
                                     </div>
-<!--                                     <span class="trend-badge bg-success text-white"> -->
-<!--                                         <i class="bi bi-arrow-up"></i> +2.1% -->
-<!--                                     </span> -->
                                 </div>
+                                
                                 <div>
                                     <p class="stat-label text-muted mb-2">Taux de Résolution</p>
                                     <h2 class="stat-value text-danger">${sessionScope.resolutionRate}%</h2>
                                     <small class="text-muted">Signalements résolus</small>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Graphiques -->
+
                 <div class="row g-4 mb-4">
-                    <!-- Monthly Trends -->
                     <div class="col-12">
                         <div class="card stat-card">
                             <div class="card-body">
+                            
                                 <h5 class="card-title mb-4">
                                     <i class="bi bi-graph-up text-primary me-2"></i>
                                     Tendances Mensuelles des Signalements
@@ -351,27 +345,13 @@
                                 <div class="chart-container">
                                     <canvas id="monthlyChart"></canvas>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Reports by Type -->
-<!--                     <div class="col-lg-4"> -->
-<!--                         <div class="card stat-card"> -->
-<!--                             <div class="card-body"> -->
-<!--                                 <h5 class="card-title mb-4"> -->
-<!--                                     <i class="bi bi-pie-chart text-success me-2"></i> -->
-<!--                                     Par Type - where are not going to use it -->
-<!--                                 </h5> -->
-<!--                                 <div class="chart-container"> -->
-<%--                                     <canvas id="typeChart"></canvas> --%>
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
                 </div>
                 
-                <!-- Recent Reports -->
+
                 <div class="card stat-card">
                     <div class="card-body">
                         <h5 class="card-title mb-4">
@@ -382,7 +362,6 @@
                             <table class="table table-hover align-middle">
                                 <thead class="table-light">
                                     <tr>
-<!--                                         <th>ID</th> -->
                                         <th>Objet</th>
                                         <th>Description</th>
                                         <th>Localisation</th>
@@ -404,8 +383,7 @@
                                         <c:otherwise>
                                             <c:forEach var="sig" items="${sessionScope.recentReports}">
                                                 <tr>
-<!--                                                     <td><strong>#${sig.idSignalement}</strong></td> -->
-                                                    <td>
+                                                	<td>
                                                         <span class="badge bg-info">
                                                             ${sig.designation != null ? sig.designation : 'N/A'}
                                                         </span>
@@ -439,8 +417,7 @@
                                                             <i class="bi bi-calendar3"></i>
                                                             ${sig.dateCreation}
                                                         </small>
-                                                    </td>
-                                                    
+                                                    </td>                                                    
                                                 </tr>
                                             </c:forEach>
                                         </c:otherwise>
@@ -448,6 +425,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        
                         <div class="text-center mt-3">
                             <a href="${pageContext.request.contextPath}/views/admin/GererSignalement.jsp"
                             class="btn btn-primary">							
@@ -461,147 +439,53 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Charts -->
-    <script>
-        // Monthly Trends Chart
-//         const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
-//         const monthlyData = {
-//             labels: [
-//                 <c:forEach var="entry" items="${monthlyData}" varStatus="status">
-//                     '${entry.key}'<c:if test="${!status.last}">,</c:if>
-//                 </c:forEach>
-//             ],
-//             datasets: [{
-//                 label: 'Signalements',
-//                 data: [
-//                     <c:forEach var="entry" items="${monthlyData}" varStatus="status">
-//                         ${entry.value}<c:if test="${!status.last}">,</c:if>
-//                     </c:forEach>
-//                 ],
-//                 borderColor: '#1976D2',
-//                 backgroundColor: 'rgba(25, 118, 210, 0.1)',
-//                 borderWidth: 3,
-//                 fill: true,
-//                 tension: 0.4,
-//                 pointRadius: 5,
-//                 pointHoverRadius: 7,
-//                 pointBackgroundColor: '#1976D2'
-//             }]
-//         };
-        
-//         new Chart(monthlyCtx, {
-//             type: 'line',
-//             data: monthlyData,
-//             options: {
-//                 responsive: true,
-//                 maintainAspectRatio: false,
-//                 plugins: {
-//                     legend: {
-//                         display: false
-//                     }
-//                 },
-//                 scales: {
-//                     y: {
-//                         beginAtZero: true,
-//                         ticks: {
-//                             stepSize: 10
-//                         }
-//                     }
-//                 }
-//             }
-//         });
 
-const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
-const monthlyData = {
-    labels: [
-        <c:forEach var="entry" items="${monthlyData}" varStatus="status">
-            '${entry.key}'<c:if test="${!status.last}">,</c:if>
-        </c:forEach>
-    ],
-    datasets: [{
-        label: 'Signalements',
-        data: [
-            <c:forEach var="entry" items="${monthlyData}" varStatus="status">
-                ${entry.value}<c:if test="${!status.last}">,</c:if>
-            </c:forEach>
-        ],
-        backgroundColor: 'rgba(25, 118, 210, 0.6)',
-        borderColor: '#1976D2',
-        borderWidth: 1
-    }]
-};
+	<script>
+		const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+		const monthlyData = {
+		    labels: [
+		        <c:forEach var="entry" items="${monthlyData}" varStatus="status">
+		            '${entry.key}'<c:if test="${!status.last}">,</c:if>
+		        </c:forEach>
+		    ],
+		    datasets: [{
+		        label: 'Signalements',
+		        data: [
+		            <c:forEach var="entry" items="${monthlyData}" varStatus="status">
+		                ${entry.value}<c:if test="${!status.last}">,</c:if>
+		            </c:forEach>
+		        ],
+		        backgroundColor: 'rgba(25, 118, 210, 0.6)',
+		        borderColor: '#1976D2',
+		        borderWidth: 1
+		    }]
+		};
+		
+		new Chart(monthlyCtx, {
+		    type: 'bar',
+		    data: monthlyData,
+		    options: {
+		        responsive: true,
+		        maintainAspectRatio: false,
+		        plugins: {
+		            legend: {
+		                display: false
+		            }
+		        },
+		        scales: {
+		            y: {
+		                beginAtZero: true,
+		                ticks: {
+		                    stepSize: 10
+		                }
+		            }
+		        }
+		    }
+		});
+		
+		const typeCtx = document.getElementById('typeChart').getContext('2d');
 
-new Chart(monthlyCtx, {
-    type: 'bar',
-    data: monthlyData,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    stepSize: 10
-                }
-            }
-        }
-    }
-});
-
-        
-        // Type Distribution Chart
-        const typeCtx = document.getElementById('typeChart').getContext('2d');
-//I commented the following lines of code, bcs the typeData is not defined in the servlet
-        //         const typeData = {
-//             <c:forEach var="entry" items="${typeData}" varStatus="status">
-//                 '${entry.key}': ${entry.value}<c:if test="${!status.last}">,</c:if>
-//             </c:forEach>
-//         };
-        
-        //this shouldn't be executed, due to the lack of typeData ...
-//         if (Object.keys(typeData).length > 0) {
-//             new Chart(typeCtx, {
-//                 type: 'doughnut',
-//                 data: {
-//                     labels: Object.keys(typeData),
-//                     datasets: [{
-//                         data: Object.values(typeData),
-//                         backgroundColor: [
-//                             '#1976D2',
-//                             '#43A047',
-//                             '#FF9800',
-//                             '#F44336',
-//                             '#9C27B0'
-//                         ],
-//                         borderWidth: 2,
-//                         borderColor: '#fff'
-//                     }]
-//                 },
-//                 options: {
-//                     responsive: true,
-//                     maintainAspectRatio: false,
-//                     plugins: {
-//                         legend: {
-//                             position: 'bottom',
-//                             labels: {
-//                                 padding: 15,
-//                                 font: {
-//                                     size: 11
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 }
-//             });
-//         }
     </script>
 </body>
 </html>

@@ -45,14 +45,11 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
 		try {
-			// Charger les régions
 			List<Region> regions = regionDao.getAll();
 			System.out.println("Nombre de régions: " + (regions != null ? regions.size() : 0));
 
-			// Stocker en session
 			request.getSession().setAttribute("regions", regions);
 
-			// Forward vers le JSP
 			request.getRequestDispatcher("/views/Auth/Connexion.jsp").forward(request, response);
 
 		} catch (Exception e) {
@@ -117,22 +114,17 @@ public class LoginServlet extends HttpServlet {
 		int totalUsers = citoyenDao.countCitoyenByMunicipal(idMunicipal);
         int totalReports = signalementDao.countSignalementByMunicipal(idMunicipal);
         
-        //uncorrect
         double resolutionRate = signalementDao.getResolutionRateByMunicipal(idMunicipal); 
         
-        //to correct
         List<Signalement> recentReports = signalementDao.getRecentReportsByMunicipal(idMunicipal,5); // les 5 derniers
 
-        //to correct
         Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStatsByMunicipal(idMunicipal);
         
         int nouveaux = signalementDao.getCountNewSignalementByMunicipal(idMunicipal);
         int enCours = signalementDao.getCountProcessingSignalementByMunicipal(idMunicipal);
         int resolus = signalementDao.getCountFinishedSignalementByMunicipal(idMunicipal);
         
-        //Map<String, Integer> typeData = signalementDao.getReportTypeStats(); -- not clear enough
         List<Region> regions = regionDao.getAll();
-        //List<Employe> employes = employeDAO.getAll();
         List<Citoyen> citoyens = citoyenDao.getAll();
         List<Municipal> municipaux = municipalDao.getAll();
         
@@ -151,8 +143,7 @@ public class LoginServlet extends HttpServlet {
         request.getSession().setAttribute("monthlyData", monthlyData);
 
         request.getSession().setAttribute("signalements", signalements); 
-        request.getSession().setAttribute("citoyens", citoyens); 
-        //request.getSession().setAttribute("employes", employes);    	
+        request.getSession().setAttribute("citoyens", citoyens);   	
         request.getSession().setAttribute("regions", regions);
     	request.getSession().setAttribute("municipaux", municipaux);
     	request.getSession().setAttribute("employe", employe);
@@ -165,10 +156,9 @@ public class LoginServlet extends HttpServlet {
         int totalReports = signalementDao.countSignalement();
         int municipalStaff = employeDAO.countEmploye();
         double resolutionRate = signalementDao.getResolutionRate(); 
-        List<Signalement> recentReports = signalementDao.getRecentReports(5); // les 5 derniers
+        List<Signalement> recentReports = signalementDao.getRecentReports(5); 
 
         Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();
-        //Map<String, Integer> typeData = signalementDao.getReportTypeStats(); -- not clear enough
         List<Region> regions = regionDao.getAll();
         List<Employe> employes = employeDAO.getAll();
         List<Citoyen> citoyens = citoyenDao.getAll();
@@ -200,11 +190,9 @@ public class LoginServlet extends HttpServlet {
 		Long idCitoyen = citoyen.getIdCitoyen();
 
 		request.getSession().setAttribute("user", citoyen);
-		
-    	//List<Signalement> signalementCitoyen = signalementDao.getByIdCitoyen(idCitoyen);        	        	
-    	List<Region> regions = regionDao.getAll();
-    	//I might not need the following line, but we'll see,leave it here for the moment 
-    	Region regionCitoyen = regionDao.getRegionByCitoyen(idCitoyen);
+		List<Region> regions = regionDao.getAll();
+    	
+		Region regionCitoyen = regionDao.getRegionByCitoyen(idCitoyen);
     	List<Signalement> signalements = signalementDao.getByIdCitoyen(idCitoyen);
     	
     	int countNewSignalement = signalementDao.getCountNewSignalementByCitoyen(idCitoyen);

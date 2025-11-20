@@ -9,7 +9,6 @@ import metier.Administrateur;
 import metier.Citoyen;
 import metier.Employe;
 import metier.Region;
-import metier.Signalement;
 import metier.Technicien;
 
 import java.io.IOException;
@@ -24,10 +23,8 @@ import dao.IAdminCRUD;
 import dao.ICitoyenCRUD;
 import dao.IEmployeCRUD;
 import dao.IRegionCRUD;
-import dao.ISignalementCRUD;
 import dao.ITechnicienCRUD;
 import dao.RegionCRUDImpl;
-import dao.SignalementCRUDImpl;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -43,14 +40,11 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
 
 		try {
-			// Charger les régions
 			List<Region> regions = regionDao.getAll();
 			System.out.println("Nombre de régions: " + (regions != null ? regions.size() : 0));
 
-			// Stocker en session
 			request.getSession().setAttribute("regions", regions);
 
-			// Forward vers le JSP
 			request.getRequestDispatcher("/views/Auth/Inscription.jsp").forward(request, response);
 
 		} catch (Exception e) {
@@ -62,8 +56,6 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {		
 		
-		//un input à passer en hidden dans les formulaires de création d'un compte
-		// citoyen/employe/adminGlobal
 		String type = request.getParameter("typeCompte"); 
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
@@ -100,7 +92,6 @@ public class RegisterServlet extends HttpServlet {
                 break;
                 
             case "technicien":
-            	// attention, le champ disponibilité à vérifier !!!
             	String specialite = request.getParameter("specialite");
             	String competence = request.getParameter("competence");
             	technicienDAO.createTechnicien(new Technicien(nom, prenom, cin, lieuNaissance,
@@ -110,12 +101,10 @@ public class RegisterServlet extends HttpServlet {
             case "admin":
             	adminDao.createAdmin(new Administrateur(nom,prenom,cin,lieuNaissance,
             			telephone, email, password, dateNaissance));
-                break;
+            	response.sendRedirect(request.getContextPath() + "/views/admin/ProfilAdmin.jsp");
+            	break;
         }
 
-        //on peut pas rediriger deux fois d'une manière successive 
-        //response.sendRedirect("success.jsp");
-	
 	}
 
 	private Long trouverIdMunicipal(HttpServletRequest request, HttpServletResponse response) {

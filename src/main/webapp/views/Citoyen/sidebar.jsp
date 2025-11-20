@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- Sidebar Menu -->
 <div class="sidebar">
 	<div class="logo">
 		<h4 class=" text-primary">
@@ -7,8 +6,7 @@
 		</h4>
 		<small class="text-muted">Espace Citoyen</small>
 	</div>
-
-	<!-- Informations utilisateur -->
+ 
     <div class="user-info">
         <div class="d-flex align-items-center">
             <div class="user-avatar">
@@ -20,12 +18,11 @@
             </div>
         </div>
     </div>
-
-    <!-- Navigation -->
+ 
     <nav class="nav flex-column">
         <a class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/views/Citoyen/DashboardCitoyen.jsp">
-            <i class="fas fa-tachometer-alt"></i><!-- ${param.activePage == 'dashboard' ? 'active' : ''} indiquer visuellement à l’utilisateur quelle page est actuellement active dans la barre de navigation. -->
+            <i class="fas fa-tachometer-alt"></i>
             Tableau de bord
         </a>
         <a class="nav-link ${param.activePage == 'reports' ? 'active' : ''}" 

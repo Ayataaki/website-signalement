@@ -9,177 +9,173 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #1976D2;
-            --primary-hover: #1565C0;
-            --danger-color: #F44336;
-            --warning-color: #FF9800;
-            --success-color: #43A047;
-            --text-dark: #212121;
-            --text-gray: #666;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            color: var(--text-dark);
-        }
-
-        .sidebar {
-            background: white;
-            min-height: 100vh;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 280px;
-        }
-
-        .main-content {
-            margin-left: 280px;
-            padding: 2rem;
-        }
-
-        .logo {
-            padding: 2rem 1.5rem 1rem;
-            border-bottom: 1px solid #e0e0e0;
-            margin-bottom: 1rem;
-        }
-
-        .nav-link {
-            color: var(--text-dark);
-            padding: 0.75rem 1.5rem;
-            margin: 0.25rem 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background-color: rgba(25, 118, 210, 0.1);
-            color: var(--primary-color);
-        }
-
-        .nav-link i {
-            width: 20px;
-            margin-right: 0.75rem;
-        }
-
-        .profile-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .profile-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-        }
-
-        .avatar i {
-            font-size: 3rem;
-            color: white;
-        }
-
-        .stat-item {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-control {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 0.75rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.1);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 8px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-        }
-
-        .btn-outline-secondary {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            color: var(--text-gray);
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline-secondary:hover {
-            background-color: #f5f5f5;
-            border-color: #d0d0d0;
-        }
-        .logout-block {
-    margin-top: auto;
-}
-        
-.user-info {
-            background: white;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-        .sidebar {
-    display: flex;
-    flex-direction: column;
-}
-        
-        @media (max-width: 768px) {
-/*             .sidebar { */
-/*                 width: 100%; */
-/*                 position: relative; */
-/*                 min-height: auto; */
-/*             } */
-            .sidebar {
-                width: 100%;
-                position: relative;
-                min-height: auto;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
+		:root {
+			--primary-color: #1976D2;
+			--primary-hover: #1565C0;
+			--danger-color: #F44336;
+			--warning-color: #FF9800;
+			--success-color: #43A047;
+			--text-dark: #212121;
+			--text-gray: #666;
+		}
 		
-        }
-    </style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+				sans-serif;
+			background-color: #f8f9fa;
+			color: var(--text-dark);
+		}
+		
+		.sidebar {
+			background: white;
+			min-height: 100vh;
+			box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+			position: fixed;
+			width: 280px;
+		}
+		
+		.main-content {
+			margin-left: 280px;
+			padding: 2rem;
+		}
+		
+		.logo {
+			padding: 2rem 1.5rem 1rem;
+			border-bottom: 1px solid #e0e0e0;
+			margin-bottom: 1rem;
+		}
+		
+		.nav-link {
+			color: var(--text-dark);
+			padding: 0.75rem 1.5rem;
+			margin: 0.25rem 0.5rem;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+		}
+		
+		.nav-link:hover, .nav-link.active {
+			background-color: rgba(25, 118, 210, 0.1);
+			color: var(--primary-color);
+		}
+		
+		.nav-link i {
+			width: 20px;
+			margin-right: 0.75rem;
+		}
+		
+		.profile-card {
+			background: white;
+			border-radius: 12px;
+			padding: 2rem;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s ease;
+		}
+		
+		.profile-card:hover {
+			transform: translateY(-2px);
+		}
+		
+		.avatar {
+			width: 120px;
+			height: 120px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, var(--primary-color),
+				var(--primary-hover));
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1rem;
+			box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+		}
+		
+		.avatar i {
+			font-size: 3rem;
+			color: white;
+		}
+		
+		.stat-item {
+			padding: 0.75rem 0;
+			border-bottom: 1px solid #f0f0f0;
+		}
+		
+		.stat-item:last-child {
+			border-bottom: none;
+		}
+		
+		.form-label {
+			font-weight: 500;
+			color: var(--text-dark);
+			margin-bottom: 0.5rem;
+		}
+		
+		.form-control {
+			border: 1px solid #e0e0e0;
+			border-radius: 8px;
+			padding: 0.75rem;
+			transition: all 0.3s ease;
+		}
+		
+		.form-control:focus {
+			border-color: var(--primary-color);
+			box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.1);
+		}
+		
+		.btn-primary {
+			background-color: var(--primary-color);
+			border: none;
+			border-radius: 8px;
+			padding: 0.75rem 1.5rem;
+			font-weight: 500;
+			transition: all 0.3s ease;
+		}
+		
+		.btn-primary:hover {
+			background-color: var(--primary-hover);
+			transform: translateY(-1px);
+			box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+		}
+		
+		.btn-outline-secondary {
+			border: 1px solid #e0e0e0;
+			border-radius: 8px;
+			padding: 0.75rem 1.5rem;
+			font-weight: 500;
+			color: var(--text-gray);
+			transition: all 0.3s ease;
+		}
+		
+		.btn-outline-secondary:hover {
+			background-color: #f5f5f5;
+			border-color: #d0d0d0;
+		}
+		
+		.logout-block {
+			margin-top: auto;
+		}
+		
+		.user-info {
+			background: white;
+			padding: 1rem;
+			border-radius: 12px;
+			margin-bottom: 1rem;
+		}
+		
+		.sidebar {
+			display: flex;
+			flex-direction: column;
+		}
+		
+		@media ( max-width : 768px) {
+			.sidebar {
+				width: 100%;
+				position: relative;
+				min-height: auto;
+			}
+			.main-content {
+				margin-left: 0;
+			}
+		}
+	</style>
 </head>
 <body>
     <jsp:include page="sidebarMunicipal.jsp">
@@ -192,10 +188,8 @@
             <span class="text-muted">Espace personnel</span>
         </div>
 
-        <div class="row">
-            <!-- Carte Profil et Statistiques -->
-            <div class="col-lg-4 mb-4">
-                <!-- Carte Profil -->
+        <div class="row"> 
+            <div class="col-lg-4 mb-4"> 
                 <div class="profile-card text-center mb-4">
                     <div class="avatar">
                         <i class="fas fa-user"></i>
@@ -204,8 +198,7 @@
                     <p class="text-muted mb-3">Employe</p>
                     <span class="badge bg-primary">Compte actif</span>
                 </div>
-
-                <!-- Carte Statistiques -->
+ 
                 <div class="profile-card">
                     <h6 class="fw-semibold mb-3">
                         <i class="fas fa-chart-bar me-2 text-primary"></i>
@@ -229,10 +222,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Informations et Formulaires -->
-            <div class="col-lg-8">
-                <!-- Informations Personnelles -->
+ 
+            <div class="col-lg-8"> 
                 <div class="profile-card mb-4">
                     <h5 class="fw-semibold mb-4">
                         <i class="fas fa-user-edit me-2 text-primary"></i>
@@ -313,8 +304,7 @@
                         </div>
                     </form>
                 </div>
-
-                <!-- Changer Mot de Passe -->
+ 
                 <div class="profile-card">
                     <h5 class="fw-semibold mb-4">
                         <i class="fas fa-lock me-2 text-primary"></i>
