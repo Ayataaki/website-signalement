@@ -564,7 +564,7 @@ body {
 	            
 	            // Afficher le message
 	            document.getElementById("delete-message").innerHTML =
-	                `Voulez-vous vraiment supprimer la région : <strong>${nom}</strong> ?`;
+	                `Voulez-vous vraiment supprimer cette région ?`;
 	            
 	        });
 	    }

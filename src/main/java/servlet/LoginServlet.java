@@ -160,9 +160,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void dataSendAdmin(Administrateur admin, HttpServletRequest request, HttpServletResponse response) {
-		
-		
-		
+						
 		int totalUsers = citoyenDao.countCitoyen();
         int totalReports = signalementDao.countSignalement();
         int municipalStaff = employeDAO.countEmploye();
@@ -203,7 +201,7 @@ public class LoginServlet extends HttpServlet {
 
 		request.getSession().setAttribute("user", citoyen);
 		
-    	List<Signalement> signalementCitoyen = signalementDao.getByIdCitoyen(idCitoyen);        	        	
+    	//List<Signalement> signalementCitoyen = signalementDao.getByIdCitoyen(idCitoyen);        	        	
     	List<Region> regions = regionDao.getAll();
     	//I might not need the following line, but we'll see,leave it here for the moment 
     	Region regionCitoyen = regionDao.getRegionByCitoyen(idCitoyen);
@@ -223,7 +221,7 @@ public class LoginServlet extends HttpServlet {
     	request.getSession().setAttribute("signalements", signalements);
     	request.getSession().setAttribute("regions", regions);
     	request.getSession().setAttribute("regionCitoyen", regionCitoyen);        	
-    	request.getSession().setAttribute("signalementCitoyen", signalementCitoyen);
+    	request.getSession().setAttribute("signalements", signalements);
 		request.getSession().setAttribute("userType", "citoyen");
 
 	}

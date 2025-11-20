@@ -238,9 +238,9 @@
                                     <div>
                                         <p class="text-muted mb-1 small">Total Signalements</p>
                                         <h3 class="mb-0 fw-bold">${totalReports}</h3>
-                                        <small class="text-success">
-                                            <i class="bi bi-arrow-up"></i> +5 aujourd'hui
-                                        </small>
+<!--                                         <small class="text-success"> -->
+<!--                                             <i class="bi bi-arrow-up"></i> +5 aujourd'hui -->
+<!--                                         </small> -->
                                     </div>
                                     <div class="stat-icon bg-primary bg-opacity-10 text-primary">
                                         <i class="bi bi-file-text"></i>

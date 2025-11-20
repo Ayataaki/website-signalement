@@ -171,7 +171,7 @@
                         <input type="tel" id="telephone" name="telephone" class="form-control" required pattern="^0[5-7][0-9]{8}$" placeholder="ex: 0612345678">
 
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="ex: user@municipal.com" required>
+                        <input type="email" id="email" name="email" class="form-control" required>
 
                         <label for="date_naissance" class="form-label">Date de naissance</label>
                         <input type="date" id="date_naissance" name="date_naissance" class="form-control" required>

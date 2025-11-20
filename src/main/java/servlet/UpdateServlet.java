@@ -39,56 +39,9 @@ public class UpdateServlet extends HttpServlet {
 		String type = request.getParameter("type"); 
 		String deleteType = request.getParameter("deleteType"); 
 		
-//		switch (type) {
-//        case "citoyen":
-//        	
-//        	updateCitoyen(request,response);  
-//        	
-//        	//on renvoie les citoyens modifiés
-//        	List<Citoyen> citoyens = citoyenDao.getAll();
-//            request.getSession().setAttribute("citoyens", citoyens); 
-//            
-//    		request.getRequestDispatcher("/views/admin/GererUtilisateur.jsp").forward(request, response);
-//        	
-//            break;
-//            
-//        case "employe":
-//        	updateEmploye(request,response);
-//        	List<Employe> employes = employeDao.getAll();
-//            request.getSession().setAttribute("employes", employes); 
-//            
-//    		request.getRequestDispatcher("/views/admin/GererUtilisateur.jsp").forward(request, response);
-//        	
-//        	break;
-//		}
-//		
-//		switch (deleteType) {
-//        case "citoyen":
-//        	
-//        	supprimerCitoyen(request,response);  
-//        	
-//        	//on renvoie les citoyens modifiés
-//        	List<Citoyen> citoyens = citoyenDao.getAll();
-//            request.getSession().setAttribute("citoyens", citoyens); 
-//            
-//    		request.getRequestDispatcher("/views/admin/GererUtilisateur.jsp").forward(request, response);
-//        	
-//            break;
-//            
-//        case "employe":
-//        	supprimerEmploye(request,response);
-//        	List<Employe> employes = employeDao.getAll();
-//            request.getSession().setAttribute("employes", employes); 
-//            
-//    		request.getRequestDispatcher("/views/admin/GererUtilisateur.jsp").forward(request, response);
-//        	
-//        	break;
-//		}
 		String action = request.getParameter("action");
 	    
-	    // CORRECTION : Vérifier l'action de suppression en PREMIER
 	    if ("delete".equals(action) && deleteType != null) {
-	        // Logique de suppression
 	        switch (deleteType) {
 	            case "citoyen":
 	                supprimerCitoyen(request, response);  
@@ -135,7 +88,6 @@ public class UpdateServlet extends HttpServlet {
 	    }
 	}
 	
-
 	private void supprimerEmploye(HttpServletRequest request, HttpServletResponse response) {
 		Long idEmploye = Long.parseLong(request.getParameter("id").trim());
 		employeDao.deleteEmploye(idEmploye);

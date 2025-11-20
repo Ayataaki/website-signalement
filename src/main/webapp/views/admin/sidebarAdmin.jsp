@@ -41,7 +41,7 @@
                <a href="${pageContext.request.contextPath}/AdminServlet" class="nav-link ${param.activePage == 'profil' ? 'active' : ''}">
                <i class="fas fa-user-cog"></i>
                <span>Profil</span>
-</a>
+				</a>
             </nav>
 </body>
 </html>

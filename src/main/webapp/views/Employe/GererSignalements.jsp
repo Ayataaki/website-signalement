@@ -323,6 +323,33 @@
                 padding: 1.5rem;
             }
         }
+        .detail-section {
+    margin-bottom: 1.5rem;
+}
+
+.detail-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+}
+
+.detail-value {
+    font-size: 1.05rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #f8f9fa;
+    border-radius: 0.4rem;
+    border: 1px solid #dee2e6;
+}
+        
+.detail-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+
     </style>
 </head>
 <body>
@@ -338,29 +365,29 @@
             <i class="fas fa-clipboard-list me-2" style="color: var(--primary-color);"></i>
             Gérer les Signalements
         </h1>
-        <p class="text-muted mb-0">Recherchez et gérez tous les signalements</p>
+        <p class="text-muted mb-0">Gérez tous les signalements</p>
     </div>
 
     <!-- Barre de recherche -->
-		<div class="search-section">
-			<form action="${pageContext.request.contextPath}/SignalementServlet"
-				method="post" class="row g-2 align-items-end">
-				<input type="hidden" name="action" value="recherche">
+<!-- 		<div class="search-section"> -->
+<%-- 			<form action="${pageContext.request.contextPath}/SignalementServlet" --%>
+<!-- 				method="post" class="row g-2 align-items-end"> -->
+<!-- 				<input type="hidden" name="action" value="recherche"> -->
 				
-				<div class="col-md-8">
-					<label class="form-label fw-semibold mb-2">Rechercher un
-						signalement</label> 
-					<input type="text" class="form-control"
-						placeholder="Entrez une désignation ou description..."
-						name="search" value="${param.search}">
-				</div>
-				<div class="col-md-4 d-flex align-items-end">
-					<button type="submit" class="btn btn-primary w-100">
-						<i class="fas fa-search me-2"></i> Rechercher
-					</button>
-				</div>
-			</form>
-		</div>
+<!-- 				<div class="col-md-8"> -->
+<!-- 					<label class="form-label fw-semibold mb-2">Rechercher un -->
+<!-- 						signalement</label>  -->
+<!-- 					<input type="text" class="form-control" -->
+<!-- 						placeholder="Entrez une désignation ou description..." -->
+<%-- 						name="search" value="${param.search}"> --%>
+<!-- 				</div> -->
+<!-- 				<div class="col-md-4 d-flex align-items-end"> -->
+<!-- 					<button type="submit" class="btn btn-primary w-100"> -->
+<!-- 						<i class="fas fa-search me-2"></i> Rechercher -->
+<!-- 					</button> -->
+<!-- 				</div> -->
+<!-- 			</form> -->
+<!-- 		</div> -->
 
 		<!-- Tableau des signalements -->
     <div class="table-card">
@@ -404,7 +431,7 @@
                                             data-localisation="${s.localisation}"
                                             data-statut="${s.statut.label}"
                                             data-commentaire="${s.commentaire}"
-                                            data-imagepath="${s.imagePath}"
+                                            data-imagepath="${pageContext.request.contextPath}/${s.imagePath}"
                                             data-datecreation="${s.dateCreation}"
                                             title="Voir les détails">
                                         <i class="fas fa-eye"></i>
@@ -418,7 +445,7 @@
                                        <i class="fas fa-edit"></i>
                                      </button>
 
-                                    <a href="${pageContext.request.contextPath}/SignalementServlet?action=delete&idSignalement=${s.idSignalement}" 
+                                    <a href="${pageContext.request.contextPath}/SignalementServlet?action=deleteEmp&idSignalement=${s.idSignalement}" 
                                        class="btn btn-sm btn-outline-danger" 
                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce signalement ?')"
                                        title="Supprimer">
@@ -454,8 +481,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
             </div>
             <div class="modal-body">
+                
                 <div class="row">
-                    <div class="col-md-6">
+                
+                    <div class="mb-3">
                         <div class="detail-section">
                             <div class="detail-label">
                                 <i class="fas fa-hashtag"></i>
@@ -495,9 +524,9 @@
                                 <!-- Localisation dynamique -->
                             </div>
                         </div>
-                    </div>
+<!--                     </div> -->
 
-                    <div class="col-md-6">
+<!--                     <div class="col-md-6"> -->
                         <div class="detail-section">
                             <div class="detail-label">
                                 <i class="fas fa-flag"></i>
@@ -535,9 +564,9 @@
                                 <i class="fas fa-image"></i>
                                 Image
                             </div>
-                            <div id="detail-image-container">
-                                <!-- Image dynamique -->
-                            </div>
+                            <div id="detail-image-container"> 
+								
+						    </div>
                         </div>
                     </div>
                 </div>
@@ -564,7 +593,7 @@
       </div>
 
       <form action="${pageContext.request.contextPath}/SignalementServlet" method="post">
-        <input type="hidden" name="action" value="update">
+        <input type="hidden" name="action" value="updateEmploye">
         <input type="hidden" id="idSignalementInput" name="idSignalement">
 
         <div class="modal-body">

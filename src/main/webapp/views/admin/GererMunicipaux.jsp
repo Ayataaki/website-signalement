@@ -594,10 +594,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Afficher le message
             document.getElementById("delete-message").innerHTML =
-                `Voulez-vous vraiment supprimer la municipalité : <strong>${nom}</strong> ?`;
-            
-            console.log("🗑️ Suppression:", { id: id, nom: nom });
-        });
+                `Voulez-vous vraiment supprimer cette municipalité ?`;
+            });
     }
 
     // ========== ANIMATION DES LIGNES ==========

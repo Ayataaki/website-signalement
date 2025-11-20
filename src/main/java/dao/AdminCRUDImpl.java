@@ -83,7 +83,7 @@ public class AdminCRUDImpl implements IAdminCRUD {
 
 		String sql = "UPDATE ADMINISTRATEUR SET NOM = ?, PRENOM = ?, CIN = ?, LIEU_NAISSANCE = ?, "
         		+ "TELEPHONE = ?, EMAIL = ?, EMAIL_AUTH = ?, NOM_UTILISATEUR= ?, DATE_NAISSANCE = ?,"
-        		+ " MOT_DE_PASSE = ?, DATE_CREATION = ? WHERE ID_ADMIN = ?";
+        		+ " DATE_CREATION = ? WHERE ID_ADMIN = ?";
         
      try (PreparedStatement ps = connection.prepareStatement(sql)) {
     	 	ps.setString(1, admin.getNom());
@@ -95,11 +95,9 @@ public class AdminCRUDImpl implements IAdminCRUD {
 			ps.setString(7, admin.getEmailAuth());
 			ps.setString(8, admin.getNomUtilisateur());
 			ps.setDate(9, new java.sql.Date(admin.getDateNaissance().getTime()));
-			String hashedPassword = PasswordHashUtil.hashPassword(admin.getMotDePasse());
-            ps.setString(10, hashedPassword);
-			ps.setDate(11, new java.sql.Date(admin.getDateCreation().getTime()));
+			ps.setDate(10, new java.sql.Date(admin.getDateCreation().getTime()));
          
-         ps.setLong(12, admin.getIdAdmin());
+         ps.setLong(11, admin.getIdAdmin());
 
          ps.executeUpdate();
          return admin;

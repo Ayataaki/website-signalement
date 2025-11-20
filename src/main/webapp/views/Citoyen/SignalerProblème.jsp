@@ -239,25 +239,6 @@
     margin-bottom: 1rem;
 }
 
-/* .nav-link { */
-/*     color: var(--text-dark); */
-/*     padding: 0.75rem 1.5rem; */
-/*     margin: 0.25rem 0.5rem; */
-/*     border-radius: 8px; */
-/*     transition: all 0.3s ease; */
-/* } */
-
-/* .nav-link:hover, */
-/* .nav-link.active { */
-/*     background-color: rgba(25,118,210,0.1); */
-/*     color: var(--primary-color); */
-/* } */
-
-/* .nav-link i { */
-/*     width: 20px; */
-/*     margin-right: 0.75rem; */
-/* } */
-
 		.nav-link {
             color: var(--text-dark);
             padding: 0.75rem 1.5rem;
@@ -276,7 +257,6 @@
             margin-right: 0.75rem;
         }
 
-/* Informations utilisateur dans la sidebar */
 .user-info {
     background: white;
     padding: 1rem;
@@ -284,7 +264,6 @@
     margin-bottom: 1rem;
 }
 
-/* Responsive pour mobile */
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;

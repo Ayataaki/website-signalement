@@ -286,7 +286,7 @@ a</style>
 
 					<div class="card-body">
 						<c:choose>
-							<c:when test="${empty sessionScope.signalementCitoyen}">
+							<c:when test="${empty sessionScope.signalements}">
 								<div class="empty-state">
 									<i class="fas fa-inbox"></i>
 									<p>Aucun signalement pour le moment</p>
@@ -298,7 +298,7 @@ a</style>
 
 								<div class="d-flex flex-column gap-3">
 
-									<c:forEach var="s" items="${sessionScope.signalementCitoyen}">
+									<c:forEach var="s" items="${sessionScope.signalements}">
 
 										<c:out value="${s.designation}" />
 

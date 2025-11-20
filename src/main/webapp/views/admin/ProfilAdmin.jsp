@@ -79,6 +79,7 @@
         .main-content {
             margin-left: var(--sidebar-width);
             padding: 2rem;
+            width: 100%;
         }
 
         .profile-card {

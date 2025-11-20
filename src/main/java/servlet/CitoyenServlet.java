@@ -118,7 +118,9 @@ public class CitoyenServlet extends HttpServlet {
     			telephone, email, password, dateNaissance,idRegionM);
 		
 		citoyenDao.updateCitoyen(updatedCitoyen);
-		
+		request.getSession().setAttribute("user", updatedCitoyen);
+		request.getRequestDispatcher("/views/Citoyen/ProfilCitoyen.jsp").forward(request, response);
+
 	}
 
 }

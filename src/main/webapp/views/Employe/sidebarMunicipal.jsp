@@ -34,17 +34,17 @@
     
     <nav class="nav flex-column">
 
-        <a href="${pageContext.request.contextPath}/DashboardEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/views/Employe/DashboardEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
             <i class="fas fa-chart-line"></i>
             Tableau de bord
         </a>
-        <a href="${pageContext.request.contextPath}/GererSignalements.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/views/Employe/GererSignalements.jsp" class="nav-link ${param.activePage == 'reports' ? 'active' : ''}">
             <i class="fas fa-clipboard-list"></i>
             Gérer Signalements
         </a>
 
 
-        <a href="${pageContext.request.contextPath}/ProfilEmploye.jsp" class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/views/Employe/ProfilEmploye.jsp" class="nav-link ${param.activePage == 'profile' ? 'active' : ''}">
            <i class="fas fa-user-circle"></i>
             Mon Profil
         </a>
@@ -57,7 +57,7 @@
                     <i class="fas fa-user-shield"></i>
                 </div>
                 <div>
-                    <small class="d-block fw-semibold">${sessionScope.user.nom}</small>
+                    <small class="d-block fw-semibold">${sessionScope.employe.nom} ${sessionScope.employe.prenom}</small>
                     <small class="text-muted">Agent Municipal</small>
                 </div>
             </div>

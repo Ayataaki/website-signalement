@@ -24,7 +24,7 @@
     <!-- Navigation -->
     <nav class="nav flex-column">
         <a class="nav-link ${param.activePage == 'dashboard' ? 'active' : ''}" 
-           href="DashboardCitoyen.jsp">
+           href="${pageContext.request.contextPath}/views/Citoyen/DashboardCitoyen.jsp">
             <i class="fas fa-tachometer-alt"></i><!-- ${param.activePage == 'dashboard' ? 'active' : ''} indiquer visuellement à l’utilisateur quelle page est actuellement active dans la barre de navigation. -->
             Tableau de bord
         </a>
@@ -34,12 +34,12 @@
             Mes signalements
         </a>
         <a class="nav-link ${param.activePage == 'report' ? 'active' : ''}" 
-           href="SignalerProblème.jsp">
+           href="${pageContext.request.contextPath}/views/Citoyen/SignalerProblème.jsp">
             <i class="fas fa-plus-circle"></i>
             Signaler un problème
         </a>
         <a class="nav-link ${param.activePage == 'profile' ? 'active' : ''}" 
-           href="ProfilCitoyen.jsp">
+           href="${pageContext.request.contextPath}/views/Citoyen/ProfilCitoyen.jsp">
             <i class="fas fa-user-cog"></i>
             Mon profil
         </a>

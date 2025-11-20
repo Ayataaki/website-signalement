@@ -50,7 +50,7 @@ public class EmployeServlet extends HttpServlet {
 		case "update":
 			// insertion des données après leurs modifications
 			updateEmploye(request, response);
-			request.getRequestDispatcher("/views/employe/ProfilEmploye.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/Employe/ProfilEmploye.jsp").forward(request, response);
 			break;
 		case "changerMdp":
 			updatePassword(request, response);
@@ -75,14 +75,14 @@ public class EmployeServlet extends HttpServlet {
 		// Vérification du mot de passe actuel
 		if (!PasswordHashUtil.verifyPassword(currentPassword, employe.getMotDePasse())) {
 			request.setAttribute("error", "Mot de passe actuel incorrect !");
-			request.getRequestDispatcher("/views/employe/ProfilEmploye.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/Employe/ProfilEmploye.jsp").forward(request, response);
 			return;
 		}
 
 		// Vérification de la correspondance des nouveaux mots de passe
 		if (!newPassword.equals(confirmPassword)) {
 			request.setAttribute("error", "Les mots de passe ne correspondent pas !");
-			request.getRequestDispatcher("/views/employe/ProfilEmploye.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/Employe/ProfilEmploye.jsp").forward(request, response);
 			return;
 		}
 
@@ -98,7 +98,7 @@ public class EmployeServlet extends HttpServlet {
 
 		// Message de succès
 		request.setAttribute("success", "Votre mot de passe a été mis à jour avec succès !");
-		request.getRequestDispatcher("/views/employe/ProfilEmploye.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/Employe/ProfilEmploye.jsp").forward(request, response);
 	}
 
 	protected void updateEmploye(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

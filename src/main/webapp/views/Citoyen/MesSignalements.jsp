@@ -171,8 +171,25 @@
 .badge-final {
     background-color: #e8f5e9; /* vert très clair */
 }
-        
-
+.report-image {
+    width: 100%;
+    height: auto;
+    max-height: 250px;      /* empêche l'image de devenir trop grande */
+    object-fit: cover;      /* garde le cadre propre sans déformation */
+    border-radius: 10px;    /* plus esthétique */
+    display: block;
+}
+.report-card img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.modal-body .report-image {
+    max-height: 350px;
+    width: 100%;
+    object-fit: contain;
+}
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;

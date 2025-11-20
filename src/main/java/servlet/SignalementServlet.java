@@ -7,6 +7,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import metier.Administrateur;
+import metier.Citoyen;
+import metier.Employe;
+import metier.Municipal;
+import metier.Region;
 import metier.Signalement;
 import metier.Statut;
 
@@ -17,10 +22,18 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import dao.AdminCRUDImpl;
+import dao.CitoyenCRUDImpl;
+import dao.EmployeCRUDImpl;
+import dao.IMunicipalCRUD;
 import dao.ISignalementCRUD;
+import dao.MunicipalCRUDImpl;
+import dao.RegionCRUDImpl;
 import dao.SignalementCRUDImpl;
+import dao.TechnicienCRUDImpl;
 
 /**
  * Servlet implementation class SignalementServlet
@@ -30,7 +43,13 @@ import dao.SignalementCRUDImpl;
 public class SignalementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	ISignalementCRUD signalementDao = new SignalementCRUDImpl();
+	private CitoyenCRUDImpl citoyenDao = new CitoyenCRUDImpl();
+    private AdminCRUDImpl adminDao = new AdminCRUDImpl();
+    private EmployeCRUDImpl employeDAO = new EmployeCRUDImpl();	
+    private TechnicienCRUDImpl technicienDAO = new TechnicienCRUDImpl();	
+    private RegionCRUDImpl regionDao = new RegionCRUDImpl();
+    private ISignalementCRUD signalementDao = new SignalementCRUDImpl();
+    private IMunicipalCRUD municipalDao = new MunicipalCRUDImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -40,40 +59,46 @@ public class SignalementServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-
+		
 		switch (action) {
 
 		case "create":
-
+			
 			storeSignalement(request, response);
 
-			getAllSign(request, response);
+			Citoyen citoyen = (Citoyen) request.getSession().getAttribute("user");
+			Long idCitoyen = citoyen.getIdCitoyen();
+			getAllSignByCitoyen(idCitoyen,request, response);
 
-			request.getRequestDispatcher("/views/Citoyen/DashboardCitoyen.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/Citoyen/MesSignalements.jsp").forward(request, response);
 
 			break;
-
-		case "update":
 			
-			System.out.println("ACTION = " + request.getParameter("action"));
-			System.out.println("ID = " + request.getParameter("idSignalement"));
-
-
+		case "update":
+			Employe employe1 = (Employe) request.getSession().getAttribute("employe");
+			Long idMunicipal1 = employe1.getIdMunicipal();
+			
 			updateStatut(request, response);
 
-			getAllSign(request, response);
+			getAllSign(idMunicipal1,request, response);
+			
+			updatedDataEmploye(employe1,request,response);
 
-			response.sendRedirect(request.getContextPath() + "/views/employe/GererSignalements.jsp");
+			response.sendRedirect(request.getContextPath() + "/views/Employe/GererSignalements.jsp");
 
 			break;
 			
 		case "delete":
+			Employe employe2 = (Employe) request.getSession().getAttribute("employe");
+			Long idMunicipal2 = employe2.getIdMunicipal();
 
 			deleteSign(request, response);
 
-			getAllSign(request, response);
+			getAllSign(idMunicipal2,request, response);
+			
+			updatedDataEmploye(employe2,request,response);
 
-			response.sendRedirect(request.getContextPath() + "/views/employe/GererSignalements.jsp");
+			response.sendRedirect(request.getContextPath() + "/views/Employe/GererSignalements.jsp");
 
 			break;
 			
@@ -81,21 +106,56 @@ public class SignalementServlet extends HttpServlet {
 
 			rechercheSign(request, response);
 
-			response.sendRedirect(request.getContextPath() + "/views/employe/GererSignalements.jsp");
+			response.sendRedirect(request.getContextPath() + "/views/Employe/GererSignalements.jsp");
+
+			break;
+			
+		case "updateEmploye":
+
+			Employe employe3 = (Employe) request.getSession().getAttribute("employe");
+			Long idMunicipal3 = employe3.getIdMunicipal();
+
+			
+			updateSignEmp(request, response);
+			
+			getAllSign(idMunicipal3,request, response);
+			
+			updatedDataEmploye(employe3,request,response);
+
+			response.sendRedirect(request.getContextPath() + "/views/Employe/GererSignalements.jsp");
 
 			break;
 			
 		case "updateAdmin":
 
-			updateSign(request, response);
+			updateSignAdmin(request, response);
+			
+			updatedDataSendAdmin(request,response);
 
 			response.sendRedirect(request.getContextPath() + "/views/admin/GererSignalement.jsp");
+
+			break;
+			
+		case "deleteEmp":
+
+			Employe employe4 = (Employe) request.getSession().getAttribute("employe");
+			Long idMunicipal4 = employe4.getIdMunicipal();
+
+			deleteSignEmp(request, response);
+			
+			getAllSign(idMunicipal4,request, response);
+			
+			updatedDataEmploye(employe4,request,response);
+					
+			response.sendRedirect(request.getContextPath() + "/views/Employe/GererSignalements.jsp");
 
 			break;
 			
 		case "deleteAdmin":
 
 			deleteSignAdmin(request, response);
+			
+			updatedDataSendAdmin(request,response);
 
 			response.sendRedirect(request.getContextPath() + "/views/admin/GererSignalement.jsp");
 
@@ -105,6 +165,93 @@ public class SignalementServlet extends HttpServlet {
 		
 	}
 	
+	private void updatedDataSendAdmin(HttpServletRequest request, HttpServletResponse response) {
+			
+		//we don't need the object admin here, cause he has a wild visibility 
+		int totalUsers = citoyenDao.countCitoyen();
+        int totalReports = signalementDao.countSignalement();
+        int municipalStaff = employeDAO.countEmploye();
+        double resolutionRate = signalementDao.getResolutionRate(); 
+        List<Signalement> recentReports = signalementDao.getRecentReports(5); // les 5 derniers
+
+        Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStats();
+        //Map<String, Integer> typeData = signalementDao.getReportTypeStats(); -- not clear enough
+        List<Region> regions = regionDao.getAll();
+        List<Employe> employes = employeDAO.getAll();
+        List<Citoyen> citoyens = citoyenDao.getAll();
+        List<Municipal> municipaux = municipalDao.getAll();
+        System.out.println("Municipaux récupérés : " + municipaux.size());
+        List<Signalement> signalements = signalementDao.getAll();
+        
+        request.getSession().setAttribute("totalUsers", totalUsers);
+        request.getSession().setAttribute("totalReports", totalReports);
+        request.getSession().setAttribute("municipalStaff", municipalStaff);
+
+        request.getSession().setAttribute("recentReports", recentReports);
+        request.getSession().setAttribute("resolutionRate", resolutionRate);
+        request.getSession().setAttribute("monthlyData", monthlyData);
+
+        request.getSession().setAttribute("signalements", signalements); 
+        request.getSession().setAttribute("citoyens", citoyens); 
+        request.getSession().setAttribute("employes", employes);    	
+        request.getSession().setAttribute("regions", regions);
+    	request.getSession().setAttribute("municipaux", municipaux);
+//		request.getSession().setAttribute("admin", admin);
+//		request.getSession().setAttribute("userType", "admin");
+		
+	}
+	
+	private void updatedDataEmploye(Employe employe, HttpServletRequest request, HttpServletResponse response) {
+		
+		Long idMunicipal = employe.getIdMunicipal();
+        int totalReports = signalementDao.countSignalementByMunicipal(idMunicipal);
+        
+        //uncorrect
+        double resolutionRate = signalementDao.getResolutionRateByMunicipal(idMunicipal); 
+        
+        //to correct
+        List<Signalement> recentReports = signalementDao.getRecentReportsByMunicipal(idMunicipal,5); // les 5 derniers
+
+        //to correct
+        Map<String, Integer> monthlyData = signalementDao.getMonthlyReportStatsByMunicipal(idMunicipal);
+        
+        int nouveaux = signalementDao.getCountNewSignalementByMunicipal(idMunicipal);
+        int enCours = signalementDao.getCountProcessingSignalementByMunicipal(idMunicipal);
+        int resolus = signalementDao.getCountFinishedSignalementByMunicipal(idMunicipal);
+        
+        
+        
+        List<Signalement> signalements = signalementDao.getSignalementByMunicipal(idMunicipal);
+        
+        request.getSession().setAttribute("totalReports", totalReports);
+
+        request.getSession().setAttribute("nouveaux", nouveaux);
+        request.getSession().setAttribute("enCours", enCours);
+        request.getSession().setAttribute("resolus", resolus);
+        
+        request.getSession().setAttribute("recentReports", recentReports);
+        request.getSession().setAttribute("resolutionRate", resolutionRate);
+        request.getSession().setAttribute("monthlyData", monthlyData);
+
+        request.getSession().setAttribute("signalements", signalements); 
+    	request.getSession().setAttribute("employe", employe);
+		request.getSession().setAttribute("userType", "employe");
+	}
+	
+	
+	private void deleteSignEmp(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("idSignalement");
+    	Long idSig = Long.parseLong(id.trim());
+		
+    	signalementDao.deleteSignalement(idSig);
+	}
+
+	private void getAllSignByCitoyen(Long idCitoyen, HttpServletRequest request, HttpServletResponse response) {
+		List<Signalement> signalements = signalementDao.getByIdCitoyen(idCitoyen);
+		
+		request.getSession().setAttribute("signalements", signalements);
+	}
+
 	private void deleteSignAdmin(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
     	Long idSig = Long.parseLong(id.trim());
@@ -113,7 +260,43 @@ public class SignalementServlet extends HttpServlet {
     	getAllSign(request,response);
 	}
 
-	private void updateSign(HttpServletRequest request, HttpServletResponse response) 
+	private void getAllSign(HttpServletRequest request, HttpServletResponse response) {
+		List<Signalement> signalements = signalementDao.getAll();
+		
+		request.getSession().setAttribute("signalements", signalements);
+	}
+	
+	private void updateSignEmp(HttpServletRequest request, HttpServletResponse response) 
+			throws UnsupportedEncodingException {
+		
+		request.setCharacterEncoding("UTF-8");
+
+        // Récupérer les champs du formulaire
+		String id = request.getParameter("idSignalement");
+    	Long idSig = Long.parseLong(id.trim());
+//		Long idCitoyen = Long.parseLong(request.getParameter("idCitoyen").trim());
+//        String designation = request.getParameter("designation");
+//        String description = request.getParameter("description");
+//        String localisation = request.getParameter("localisation");
+//        String commentaire = request.getParameter("commentaire");
+        String statut = request.getParameter("statut");
+
+        Signalement s = signalementDao.getById(idSig);
+//        s.setDesignation(designation);
+//        s.setDescription(description);
+//        s.setCommentaire(commentaire);
+//        s.setLocalisation(localisation);
+//        s.setIdCitoyen(idCitoyen);
+        s.setStatut(Statut.fromLabel(statut));
+
+        signalementDao.updateSignalement(s);
+        
+        getAllSign(request,response);
+
+	}
+
+
+	private void updateSignAdmin(HttpServletRequest request, HttpServletResponse response) 
 			throws UnsupportedEncodingException {
 		
 		request.setCharacterEncoding("UTF-8");
@@ -170,9 +353,9 @@ public class SignalementServlet extends HttpServlet {
     	signalementDao.updateStatut(idSig, statut);
 	}
 
-	private void getAllSign(HttpServletRequest request, HttpServletResponse response) {
+	private void getAllSign(Long idMunicipal, HttpServletRequest request, HttpServletResponse response) {
 		
-		List<Signalement> signalements = signalementDao.getAll();
+		List<Signalement> signalements = signalementDao.getSignalementByMunicipal(idMunicipal);
 		
 		request.getSession().setAttribute("signalements", signalements);
 		
